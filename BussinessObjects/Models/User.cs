@@ -22,6 +22,7 @@ namespace BussinessObjects.Models
         public string Gmail { get; set; }
         public string Avatar { get; set; }
         public string Password { get; set; }
+        public int RId { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
         public virtual ICollection<History> Histories { get; set; }
         public virtual ICollection<Notification> Notifications { get; set; }

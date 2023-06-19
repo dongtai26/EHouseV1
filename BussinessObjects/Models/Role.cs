@@ -10,9 +10,9 @@ namespace BussinessObjects.Models
 {
     public class Role
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int RId { get; set; }
+        [ForeignKey("RId")]
+        public virtual User User { get; set; }
         public string RoleName { get; set; }
     }
 }

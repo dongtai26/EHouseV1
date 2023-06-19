@@ -22,6 +22,24 @@ namespace BussinessObjects.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
 
+            modelBuilder.Entity("BussinessObjects.Models.Admin", b =>
+                {
+                    b.Property<int>("AdId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("AdId"), 1L, 1);
+
+                    b.Property<int>("UId")
+                        .HasColumnType("int");
+
+                    b.HasKey("AdId");
+
+                    b.HasIndex("UId");
+
+                    b.ToTable("Admins");
+                });
+
             modelBuilder.Entity("BussinessObjects.Models.Comment", b =>
                 {
                     b.Property<int>("CId")
@@ -198,7 +216,6 @@ namespace BussinessObjects.Migrations
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("ImageName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("PId")
@@ -209,6 +226,42 @@ namespace BussinessObjects.Migrations
                     b.HasIndex("PId");
 
                     b.ToTable("Images");
+                });
+
+            modelBuilder.Entity("BussinessObjects.Models.Lessee", b =>
+                {
+                    b.Property<int>("LesId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LesId"), 1L, 1);
+
+                    b.Property<int>("UId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LesId");
+
+                    b.HasIndex("UId");
+
+                    b.ToTable("Lessees");
+                });
+
+            modelBuilder.Entity("BussinessObjects.Models.Lessor", b =>
+                {
+                    b.Property<int>("LeId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LeId"), 1L, 1);
+
+                    b.Property<int>("UId")
+                        .HasColumnType("int");
+
+                    b.HasKey("LeId");
+
+                    b.HasIndex("UId");
+
+                    b.ToTable("Lessors");
                 });
 
             modelBuilder.Entity("BussinessObjects.Models.Notification", b =>
@@ -278,16 +331,13 @@ namespace BussinessObjects.Migrations
             modelBuilder.Entity("BussinessObjects.Models.Role", b =>
                 {
                     b.Property<int>("RId")
-                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("RId"), 1L, 1);
 
                     b.Property<string>("RoleName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.HasKey("RId");
+                    b.HasIndex("RId");
 
                     b.ToTable("Roles");
                 });
@@ -335,24 +385,44 @@ namespace BussinessObjects.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<int>("RId")
+                        .HasColumnType("int");
+
                     b.HasKey("UId");
 
                     b.ToTable("Users");
                 });
 
-            modelBuilder.Entity("BussinessObjects.Models.UserRole", b =>
+            modelBuilder.Entity("BussinessObjects.Models.UserToken", b =>
                 {
-                    b.Property<int>("RId")
+                    b.Property<int>("TId")
+                        .ValueGeneratedOnAdd()
                         .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("TId"), 1L, 1);
+
+                    b.Property<string>("Jwt")
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<int>("UId")
                         .HasColumnType("int");
 
-                    b.HasIndex("RId");
+                    b.HasKey("TId");
 
                     b.HasIndex("UId");
 
-                    b.ToTable("UserRoles");
+                    b.ToTable("UserTokens");
+                });
+
+            modelBuilder.Entity("BussinessObjects.Models.Admin", b =>
+                {
+                    b.HasOne("BussinessObjects.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
                 });
 
             modelBuilder.Entity("BussinessObjects.Models.Comment", b =>
@@ -423,6 +493,28 @@ namespace BussinessObjects.Migrations
                     b.Navigation("Post");
                 });
 
+            modelBuilder.Entity("BussinessObjects.Models.Lessee", b =>
+                {
+                    b.HasOne("BussinessObjects.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BussinessObjects.Models.Lessor", b =>
+                {
+                    b.HasOne("BussinessObjects.Models.User", "User")
+                        .WithMany()
+                        .HasForeignKey("UId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("User");
+                });
+
             modelBuilder.Entity("BussinessObjects.Models.Notification", b =>
                 {
                     b.HasOne("BussinessObjects.Models.Post", "Post")
@@ -453,21 +545,24 @@ namespace BussinessObjects.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("BussinessObjects.Models.UserRole", b =>
+            modelBuilder.Entity("BussinessObjects.Models.Role", b =>
                 {
-                    b.HasOne("BussinessObjects.Models.Role", "Role")
+                    b.HasOne("BussinessObjects.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("RId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BussinessObjects.Models.UserToken", b =>
+                {
                     b.HasOne("BussinessObjects.Models.User", "User")
                         .WithMany()
                         .HasForeignKey("UId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.Navigation("Role");
 
                     b.Navigation("User");
                 });

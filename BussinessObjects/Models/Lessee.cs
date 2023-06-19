@@ -8,16 +8,13 @@ using System.Threading.Tasks;
 
 namespace BussinessObjects.Models
 {
-    public class Image
+    public class Lessee
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IId { get; set; }
-        public string ImageCode { get; set; }
-        public string? ImageName { get; set; }
-        public string ImageContent { get; set; }
-        public int PId { get; set; }
-        [ForeignKey("PId")]
-        public virtual Post Post { get; set; }
+        public int LesId { get; set; }
+        public int UId { get; set; }
+        [ForeignKey("UId")]
+        public virtual User User { get; set; }
     }
 }

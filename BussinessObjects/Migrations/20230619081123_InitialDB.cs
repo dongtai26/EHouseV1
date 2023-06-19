@@ -28,19 +28,6 @@ namespace BussinessObjects.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Roles",
-                columns: table => new
-                {
-                    RId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Roles", x => x.RId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -54,11 +41,69 @@ namespace BussinessObjects.Migrations
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Gmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Avatar = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    RId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.UId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Admins",
+                columns: table => new
+                {
+                    AdId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Admins", x => x.AdId);
+                    table.ForeignKey(
+                        name: "FK_Admins_Users_UId",
+                        column: x => x.UId,
+                        principalTable: "Users",
+                        principalColumn: "UId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Lessees",
+                columns: table => new
+                {
+                    LesId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Lessees", x => x.LesId);
+                    table.ForeignKey(
+                        name: "FK_Lessees_Users_UId",
+                        column: x => x.UId,
+                        principalTable: "Users",
+                        principalColumn: "UId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Lessors",
+                columns: table => new
+                {
+                    LeId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    UId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Lessors", x => x.LeId);
+                    table.ForeignKey(
+                        name: "FK_Lessors_Users_UId",
+                        column: x => x.UId,
+                        principalTable: "Users",
+                        principalColumn: "UId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -85,22 +130,36 @@ namespace BussinessObjects.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "UserRoles",
+                name: "Roles",
                 columns: table => new
                 {
-                    UId = table.Column<int>(type: "int", nullable: false),
-                    RId = table.Column<int>(type: "int", nullable: false)
+                    RId = table.Column<int>(type: "int", nullable: false),
+                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.ForeignKey(
-                        name: "FK_UserRoles_Roles_RId",
+                        name: "FK_Roles_Users_RId",
                         column: x => x.RId,
-                        principalTable: "Roles",
-                        principalColumn: "RId",
+                        principalTable: "Users",
+                        principalColumn: "UId",
                         onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "UserTokens",
+                columns: table => new
+                {
+                    TId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Jwt = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    UId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_UserTokens", x => x.TId);
                     table.ForeignKey(
-                        name: "FK_UserRoles_Users_UId",
+                        name: "FK_UserTokens_Users_UId",
                         column: x => x.UId,
                         principalTable: "Users",
                         principalColumn: "UId",
@@ -210,7 +269,7 @@ namespace BussinessObjects.Migrations
                     IId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     ImageCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
                     ImageContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -254,6 +313,11 @@ namespace BussinessObjects.Migrations
                 });
 
             migrationBuilder.CreateIndex(
+                name: "IX_Admins_UId",
+                table: "Admins",
+                column: "UId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Comments_PId",
                 table: "Comments",
                 column: "PId");
@@ -289,6 +353,16 @@ namespace BussinessObjects.Migrations
                 column: "PId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Lessees_UId",
+                table: "Lessees",
+                column: "UId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Lessors_UId",
+                table: "Lessors",
+                column: "UId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Notifications_PId",
                 table: "Notifications",
                 column: "PId");
@@ -304,18 +378,21 @@ namespace BussinessObjects.Migrations
                 column: "UId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserRoles_RId",
-                table: "UserRoles",
+                name: "IX_Roles_RId",
+                table: "Roles",
                 column: "RId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_UserRoles_UId",
-                table: "UserRoles",
+                name: "IX_UserTokens_UId",
+                table: "UserTokens",
                 column: "UId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "Admins");
+
             migrationBuilder.DropTable(
                 name: "Comments");
 
@@ -329,19 +406,25 @@ namespace BussinessObjects.Migrations
                 name: "Images");
 
             migrationBuilder.DropTable(
+                name: "Lessees");
+
+            migrationBuilder.DropTable(
+                name: "Lessors");
+
+            migrationBuilder.DropTable(
                 name: "Notifications");
 
             migrationBuilder.DropTable(
-                name: "UserRoles");
+                name: "Roles");
+
+            migrationBuilder.DropTable(
+                name: "UserTokens");
 
             migrationBuilder.DropTable(
                 name: "Contracts");
 
             migrationBuilder.DropTable(
                 name: "Posts");
-
-            migrationBuilder.DropTable(
-                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "Users");

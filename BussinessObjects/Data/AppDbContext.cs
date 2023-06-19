@@ -32,11 +32,16 @@ namespace BussinessObjects.Data
         public virtual DbSet<Post>? Posts { get; set; }
         public virtual DbSet<Role>? Roles { get; set; }
         public virtual DbSet<User>? Users { get; set; }
-        public virtual DbSet<UserRole>? UserRoles { get; set; }
+        public virtual DbSet<Admin>? Admins { get; set; }
+        public virtual DbSet<Lessee>? Lessees { get; set; }
+        public virtual DbSet<Lessor>? Lessors { get; set; }
+        public virtual DbSet<UserToken>? UserTokens { get; set; }
+
+
 
         override protected void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<UserRole>().HasNoKey();
+            modelBuilder.Entity<Role>().HasNoKey();
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;
