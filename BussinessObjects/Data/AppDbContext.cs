@@ -1,5 +1,5 @@
 ﻿
-using BussinessObjects.Models;
+using BusinessObjects.Models;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -8,7 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BussinessObjects.Data
+namespace BusinessObjects.Data
 {
     public class AppDbContext : DbContext
     {
@@ -41,7 +41,6 @@ namespace BussinessObjects.Data
 
         override protected void OnModelCreating(ModelBuilder modelBuilder)
         {
-            modelBuilder.Entity<Role>().HasNoKey();
             foreach (var relationship in modelBuilder.Model.GetEntityTypes().SelectMany(e => e.GetForeignKeys()))
             {
                 relationship.DeleteBehavior = DeleteBehavior.Restrict;

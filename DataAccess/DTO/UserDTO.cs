@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessObjects.Models
+namespace DataAccess.DTO
 {
-    public class User
+    public class UserDTO
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UId { get; set; }
         public string FullName { get; set; }
         public int Age { get; set; }
@@ -24,11 +20,6 @@ namespace BusinessObjects.Models
         public string UserName { get; set; }
         public string Password { get; set; }
         public int RId { get; set; }
-        [ForeignKey("RId")]
-        public virtual Role Role { get; set; }
-        public virtual ICollection<Comment> Comments { get; set; }
-        public virtual ICollection<History> Histories { get; set; }
-        public virtual ICollection<Notification> Notifications { get; set; }
-        public virtual ICollection<Post> Posts { get; set; }
+        public string RoleName { get; set; }
     }
 }

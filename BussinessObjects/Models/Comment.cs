@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BussinessObjects.Models
+namespace BusinessObjects.Models
 {
     public class Comment
     {
