@@ -25,7 +25,7 @@ namespace EHouseAPI.Controllers
             try
             {
                 userRepository.AddUser(user);
-                return Ok("Success");
+                return Ok("SUCCESS");
             }
             catch (Exception e)
             {
@@ -38,7 +38,7 @@ namespace EHouseAPI.Controllers
             try
             {
                 userRepository.UpdateUser(user);
-                return Ok("Success");
+                return Ok("SUCCESS");
             }
             catch (Exception e)
             {
