@@ -27,6 +27,40 @@ namespace DataAccess
             }
             return ListUser;
         }
+        public User GetUser(User user)
+        {
+            return user;
+        }
+        public User GetUserById(int id)
+        {
+            User user = new User();
+            try
+            {
+                var db = new AppDbContext();
+                user = db.Users.Include(m => m.Role).SingleOrDefault(x => x.UId == id);
+            
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return user;
+        }
+        public User GetLastUser()
+        {
+            User user = new User();
+            var ListUser = new List<User>();
+            try
+            {
+                var db = new AppDbContext();
+                user = db.Users.OrderBy(m => m.UId).Include(m => m.Role).Last();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return user;
+        }
         public void AddUser(User user)
         {
             try

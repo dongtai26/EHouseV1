@@ -13,7 +13,7 @@ namespace DataAccess.DTO
         public int Age { get; set; }
         public string Address { get; set; }
         public string CitizenIdentification { get; set; }
-        public string PhoneNumber { get; set; }
+        public int PhoneNumber { get; set; }
         public string Gender { get; set; }
         public string Gmail { get; set; }
         public string Avatar { get; set; }

@@ -28,6 +28,21 @@ namespace BusinessObjects.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Location",
+                columns: table => new
+                {
+                    LId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Longitude = table.Column<float>(type: "real", nullable: false),
+                    Latitude = table.Column<float>(type: "real", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Location", x => x.LId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Roles",
                 columns: table => new
                 {
@@ -50,7 +65,7 @@ namespace BusinessObjects.Migrations
                     Age = table.Column<int>(type: "int", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CitizenIdentification = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneNumber = table.Column<int>(type: "int", nullable: false),
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Gmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Avatar = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -249,10 +264,10 @@ namespace BusinessObjects.Migrations
                     Restroom = table.Column<bool>(type: "bit", nullable: false),
                     ElectricityPrice = table.Column<float>(type: "real", nullable: false),
                     WaterPrice = table.Column<float>(type: "real", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RentPrice = table.Column<float>(type: "real", nullable: false),
                     HouseStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PId = table.Column<int>(type: "int", nullable: false),
+                    LId = table.Column<int>(type: "int", nullable: false),
                     LeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
@@ -263,6 +278,12 @@ namespace BusinessObjects.Migrations
                         column: x => x.LeId,
                         principalTable: "Lessors",
                         principalColumn: "LeId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_HouseRents_Location_LId",
+                        column: x => x.LId,
+                        principalTable: "Location",
+                        principalColumn: "LId",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_HouseRents_Posts_PId",
@@ -358,6 +379,11 @@ namespace BusinessObjects.Migrations
                 column: "LeId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_HouseRents_LId",
+                table: "HouseRents",
+                column: "LId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_HouseRents_PId",
                 table: "HouseRents",
                 column: "PId");
@@ -434,6 +460,9 @@ namespace BusinessObjects.Migrations
 
             migrationBuilder.DropTable(
                 name: "Lessors");
+
+            migrationBuilder.DropTable(
+                name: "Location");
 
             migrationBuilder.DropTable(
                 name: "Posts");

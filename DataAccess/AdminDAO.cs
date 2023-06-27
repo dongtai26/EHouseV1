@@ -10,6 +10,22 @@ namespace DataAccess
 {
     public class AdminDAO
     {
+        public List<Admin> GetAdmins()
+        {
+            var ListAdmin = new List<Admin>();
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    ListAdmin = context.Admins.ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return ListAdmin;
+        }
         public void AddAdmin(Admin admin)
         {
             try

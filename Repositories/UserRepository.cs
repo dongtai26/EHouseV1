@@ -12,6 +12,18 @@ namespace Repositories
     public class UserRepository : IUserRepository
     {
         UserDAO userDAO = new UserDAO();
+        public UserDTO GetUser(UserDTO userDTO)
+        {
+            return userDTO;
+        }
+        public UserDTO GetUserById(int id)
+        {
+            return Mapper.mapToDTO(userDAO.GetUserById(id));
+        }
+        public UserDTO GetLastUser()
+        {
+            return Mapper.mapToDTO(userDAO.GetLastUser());
+        }
         public void AddUser(UserDTO userDTO)
         {
             userDAO.AddUser(Mapper.mapToEntity(userDTO));

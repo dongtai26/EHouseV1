@@ -9,6 +9,9 @@ namespace Repositories
 {
     public interface IUserRepository
     {
+        UserDTO GetUser(UserDTO userDTO);
+        UserDTO GetUserById(int id);
+        UserDTO GetLastUser();
         List<UserDTO> GetUsers();
         void AddUser(UserDTO userDTO);
         void UpdateUser(UserDTO userDTO);

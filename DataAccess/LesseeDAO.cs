@@ -10,6 +10,22 @@ namespace DataAccess
 {
     public class LesseeDAO
     {
+        public List<Lessee> GetLessees()
+        {
+            var ListLessee = new List<Lessee>();
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    ListLessee = context.Lessees.ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return ListLessee;
+        }
         public void AddLessee(Lessee lessee)
         {
             try

@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObjects.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230621145807_InitialDB")]
+    [Migration("20230626110939_InitialDB")]
     partial class InitialDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -147,10 +147,6 @@ namespace BusinessObjects.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Hoid"), 1L, 1);
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("AirConditioning")
                         .HasColumnType("bit");
 
@@ -166,6 +162,9 @@ namespace BusinessObjects.Migrations
                     b.Property<string>("HouseStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("LId")
+                        .HasColumnType("int");
 
                     b.Property<int>("LeId")
                         .HasColumnType("int");
@@ -198,6 +197,8 @@ namespace BusinessObjects.Migrations
                         .HasColumnType("bit");
 
                     b.HasKey("Hoid");
+
+                    b.HasIndex("LId");
 
                     b.HasIndex("LeId");
 
@@ -269,6 +270,29 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("UId");
 
                     b.ToTable("Lessors");
+                });
+
+            modelBuilder.Entity("BusinessObjects.Models.Location", b =>
+                {
+                    b.Property<int>("LId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LId"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("Latitude")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Longitude")
+                        .HasColumnType("real");
+
+                    b.HasKey("LId");
+
+                    b.ToTable("Location");
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Notification", b =>
@@ -391,9 +415,8 @@ namespace BusinessObjects.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<string>("PhoneNumber")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                    b.Property<int>("PhoneNumber")
+                        .HasColumnType("int");
 
                     b.Property<int>("RId")
                         .HasColumnType("int");
@@ -489,6 +512,12 @@ namespace BusinessObjects.Migrations
 
             modelBuilder.Entity("BusinessObjects.Models.HouseRent", b =>
                 {
+                    b.HasOne("BusinessObjects.Models.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("LId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
                     b.HasOne("BusinessObjects.Models.Lessor", "Lessor")
                         .WithMany("HouseRents")
                         .HasForeignKey("LeId")
@@ -502,6 +531,8 @@ namespace BusinessObjects.Migrations
                         .IsRequired();
 
                     b.Navigation("Lessor");
+
+                    b.Navigation("Location");
 
                     b.Navigation("Post");
                 });

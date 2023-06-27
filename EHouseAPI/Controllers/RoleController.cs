@@ -25,7 +25,7 @@ namespace EHouseAPI.Controllers
             try
             {
                 roleRepository.AddRole(role);
-                return Ok("Success");
+                return Ok("SUCCESS");
             }
             catch (Exception e)
             {
@@ -38,7 +38,7 @@ namespace EHouseAPI.Controllers
             try
             {
                 roleRepository.UpdateRole(role);
-                return Ok("Success");
+                return Ok("SUCCESS");
             }
             catch (Exception e)
             {
