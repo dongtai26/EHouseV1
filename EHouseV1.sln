@@ -7,9 +7,11 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BusinessObjects", "Bussines
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "EHouseAPI", "EHouseAPI\EHouseAPI.csproj", "{9F76C4B9-D0E2-485F-9D4D-8ACBA60A3120}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DataAccess", "DataAccess\DataAccess.csproj", "{DB6C323C-EFEA-46EA-B9BE-DADE4A2578B7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "DataAccess", "DataAccess\DataAccess.csproj", "{DB6C323C-EFEA-46EA-B9BE-DADE4A2578B7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Repositories", "Repositories\Repositories.csproj", "{9E8A8BA9-28DD-4F7F-9D4B-99F9D4E827CB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Repositories", "Repositories\Repositories.csproj", "{9E8A8BA9-28DD-4F7F-9D4B-99F9D4E827CB}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Security", "Security\Security.csproj", "{C8191166-BE85-41F1-BBDC-95536D9F7D95}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{9E8A8BA9-28DD-4F7F-9D4B-99F9D4E827CB}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{9E8A8BA9-28DD-4F7F-9D4B-99F9D4E827CB}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{9E8A8BA9-28DD-4F7F-9D4B-99F9D4E827CB}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8191166-BE85-41F1-BBDC-95536D9F7D95}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8191166-BE85-41F1-BBDC-95536D9F7D95}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8191166-BE85-41F1-BBDC-95536D9F7D95}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8191166-BE85-41F1-BBDC-95536D9F7D95}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

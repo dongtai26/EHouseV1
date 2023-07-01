@@ -25,7 +25,7 @@ namespace DataAccess.Util
                     Gender = user.Gender,
                     Gmail = user.Gmail,
                     Avatar = user.Avatar,
-                    UserName = user.UserName,
+                    Username = user.Username,
                     Password = user.Password,
                     RId = user.RId,
                     RoleName = user.Role.RoleName
@@ -50,7 +50,7 @@ namespace DataAccess.Util
                 Gender = userDTO.Gender,
                 Gmail = userDTO.Gmail,
                 Avatar = userDTO.Avatar,
-                UserName = userDTO.UserName,
+                Username = userDTO.Username,
                 Password = userDTO.Password,
                 RId = userDTO.RId
             };

@@ -105,5 +105,45 @@ namespace DataAccess
                 throw new Exception(e.Message);
             }
         }
+        public User FindUserByUsernameAndPassword(string username, string password)
+        {
+            var p = new User();
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    p = context.Users.Include(m => m.Role).SingleOrDefault(x => x.Username == username && x.Password == password);
+                    if (p == null)
+                    {
+                        throw new Exception("Wrong password or username");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return p;
+        }
+        public User FindUserByUsernameAndGmail(string gmail, string username)
+        {
+            var p = new User();
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    p = context.Users.Include(m => m.Role).SingleOrDefault(x => x.Username == username && x.Gmail == gmail);
+                    if (p == null)
+                    {
+                        throw new Exception("Username not match with Gmail");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return p;
+        }
     }
 }

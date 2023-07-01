@@ -11,7 +11,7 @@ namespace BusinessObjects.Models
     public class Role
     {
         [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int RId { get; set; }
         public string RoleName { get; set; }
     }

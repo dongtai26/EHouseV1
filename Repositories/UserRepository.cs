@@ -43,5 +43,13 @@ namespace Repositories
         {
             userDAO.UpdateUser(Mapper.mapToEntity(userDTO));
         }
+        public UserDTO Login(string username, string password)
+        {
+            return Mapper.mapToDTO(userDAO.FindUserByUsernameAndPassword(username, password));
+        }
+        public UserDTO ForgotPassword(string gmail, string username)
+        {
+            return Mapper.mapToDTO(userDAO.FindUserByUsernameAndGmail(gmail, username));
+        }
     }
 }

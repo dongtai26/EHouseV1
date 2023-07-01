@@ -16,5 +16,7 @@ namespace Repositories
         void AddUser(UserDTO userDTO);
         void UpdateUser(UserDTO userDTO);
         void DeleteUser(int id);
+        UserDTO Login(string username, string password);
+        UserDTO ForgotPassword(string gmail, string username);
     }
 }

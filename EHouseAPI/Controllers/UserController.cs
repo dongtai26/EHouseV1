@@ -1,7 +1,11 @@
 ﻿using DataAccess.DTO;
+using EHouseAPI.Filter;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Repositories;
+using Security;
+using System.Security.Claims;
 
 namespace EHouseAPI.Controllers
 {
@@ -13,20 +17,27 @@ namespace EHouseAPI.Controllers
         private readonly IAdminRepository adminRepository;
         private readonly ILesseeRepository lesseeRepository;
         private readonly ILessorRepository lessorRepository;
-        public UserController(IUserRepository userRepository, IAdminRepository adminRepository, ILesseeRepository lesseeRepository, ILessorRepository lessorRepository)
+        private readonly ITokenManager tokenManager;
+        private readonly IHttpContextAccessor httpContextAccessor;
+        public UserController(IUserRepository userRepository, IAdminRepository adminRepository, ILesseeRepository lesseeRepository, ILessorRepository lessorRepository,
+            ITokenManager tokenManager, IHttpContextAccessor httpContextAccessor)
         {
             this.userRepository = userRepository;
             this.adminRepository = adminRepository;
             this.lesseeRepository = lesseeRepository;
             this.lessorRepository = lessorRepository;
+            this.tokenManager = tokenManager;
+            this.httpContextAccessor = httpContextAccessor;
         }
+        [AuthorizationFilter]
+        [Authorize(Roles = "Lessor, Admin, Lessee")]
         [HttpGet("GetUsers")]
         public IActionResult GetUsers()
         {
             return Ok(userRepository.GetUsers());
         }
-        [HttpPost("AddUser")]
-        public IActionResult AddUser(UserDTO user)
+        [HttpPost("Register")]
+        public IActionResult Register(UserDTO user)
         {
             try
             {
@@ -176,6 +187,85 @@ namespace EHouseAPI.Controllers
             catch (Exception e)
             {
 
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpPost("Login")]
+        public IActionResult Login(UserDTO user)
+        {
+            try
+            {
+                UserDTO userDTO = userRepository.Login(user.Username, user.Password);
+                string token = tokenManager.GenerateNewToken(userDTO);
+                if (tokenManager.GetUserValidTokenStorage(userDTO.UId) == null)
+                {
+                    tokenManager.AddUserValidTokenStorage(userDTO.UId);
+                }
+                tokenManager.SaveToken(userDTO.UId, token);
+                return Ok(new
+                {
+                    token = "bearer " + token
+                });
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpGet("Logout")]
+        public IActionResult Logout()
+        {
+            try
+            {
+                int UId = int.Parse(httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
+                tokenManager.DeleteToken(UId);
+                return Ok();
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpGet("LoggedUser")]
+        public IActionResult LoggedUser()
+        {
+            try
+            {
+                int UId = int.Parse(httpContextAccessor.HttpContext.User.FindFirstValue(ClaimTypes.NameIdentifier));
+                UserDTO user = userRepository.GetUsers().FirstOrDefault(m => m.UId == UId);
+                return Ok(user);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpPost("ChangePassword")]
+        public IActionResult ChangePassword(string username, string password, string newPassword, string confirmNewPassword)
+        {
+            try
+            {
+                UserDTO user = userRepository.Login(username, password);
+                if (!confirmNewPassword.Equals(newPassword)) throw new Exception("Confirm password not match with new password");
+                user.Password = newPassword;
+                userRepository.UpdateUser(user);
+                return Ok(user);
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpPost("ForgotPassowrd")]
+        public IActionResult ForgotPassowrd(string gmail, string username)
+        {
+            try
+            {
+                UserDTO user = userRepository.ForgotPassword(gmail, username);
+                return Ok("Your Password is: " +user.Password);
+            }
+            catch (Exception e)
+            {
                 return BadRequest(e.Message);
             }
         }
