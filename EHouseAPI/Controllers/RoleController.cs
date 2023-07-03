@@ -2,6 +2,8 @@
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Repositories;
+using Microsoft.AspNetCore.Authorization;
+using EHouseAPI.Filter;
 
 namespace EHouseAPI.Controllers
 {
@@ -14,11 +16,15 @@ namespace EHouseAPI.Controllers
         {
             this.roleRepository = roleRepository;
         }
+        [AuthorizationFilter]
+        [Authorize(Roles = "Lessor, Admin, Lessee")]
         [HttpGet("GetRoles")]
         public IActionResult GetRoles()
         {
             return Ok(roleRepository.GetRoles());
         }
+        [AuthorizationFilter]
+        [Authorize(Roles = "Admin")]
         [HttpPost("AddRole")]
         public IActionResult AddRole(RoleDTO role)
         {
@@ -32,6 +38,8 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [AuthorizationFilter]
+        [Authorize(Roles = "Admin")]
         [HttpPut("UpdateRole")]
         public IActionResult UpdateRole(RoleDTO role)
         {
@@ -45,7 +53,8 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
-
+        [AuthorizationFilter]
+        [Authorize(Roles = "Admin")]
         [HttpDelete("Delete/{id}")]
         public IActionResult DeleteRole(int id)
         {

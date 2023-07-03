@@ -81,6 +81,7 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [AuthorizationFilter]
         [HttpPut("UpdateUser")]
         public IActionResult UpdateUser(UserDTO user)
         {
@@ -151,7 +152,7 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
-
+        [AuthorizationFilter]
         [HttpDelete("Delete/{id}")]
         public IActionResult DeleteUser(int id)
         {
@@ -210,7 +211,7 @@ namespace EHouseAPI.Controllers
             catch (Exception e)
             {
                 return BadRequest(e.Message);
-            }
+            }   
         }
         [HttpGet("Logout")]
         public IActionResult Logout()
