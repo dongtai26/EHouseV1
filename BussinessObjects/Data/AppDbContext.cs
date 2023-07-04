@@ -36,7 +36,7 @@ namespace BusinessObjects.Data
         public virtual DbSet<Lessee>? Lessees { get; set; }
         public virtual DbSet<Lessor>? Lessors { get; set; }
         public virtual DbSet<UserToken>? UserTokens { get; set; }
-
+        public virtual DbSet<Location>? Locations { get; set; }
 
 
         override protected void OnModelCreating(ModelBuilder modelBuilder)

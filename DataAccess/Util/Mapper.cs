@@ -156,5 +156,34 @@ namespace DataAccess.Util
             };
             return lessee;
         }
+        public static LocationDTO mapToDTO(Location location)
+        {
+            if (location != null)
+            {
+                LocationDTO locationDTO = new LocationDTO
+                {
+                    LId = location.LId,
+                    Longitude = location.Longitude,
+                    Latitude = location.Latitude,
+                    Address = location.Address
+                };
+                return locationDTO;
+            }
+            else
+            {
+                return null;
+            } 
+        }
+        public static Location mapToEntity(LocationDTO locationDTO)
+        {
+            Location location = new Location
+            {
+                LId = locationDTO.LId,
+                Latitude = locationDTO.Latitude,
+                Longitude = locationDTO.Longitude,
+                Address = locationDTO.Address
+            };
+            return location;
+        }
     }
 }

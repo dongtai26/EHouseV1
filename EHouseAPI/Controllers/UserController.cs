@@ -32,12 +32,12 @@ namespace EHouseAPI.Controllers
         [AuthorizationFilter]
         [Authorize(Roles = "Lessor, Admin, Lessee")]
         [HttpGet("GetUsers")]
-        public IActionResult GetUsers()
+        public async Task<IActionResult> GetUsers()
         {
             return Ok(userRepository.GetUsers());
         }
         [HttpPost("Register")]
-        public IActionResult Register(UserDTO user)
+        public async Task<IActionResult> Register(UserDTO user)
         {
             try
             {
@@ -83,7 +83,7 @@ namespace EHouseAPI.Controllers
         }
         [AuthorizationFilter]
         [HttpPut("UpdateUser")]
-        public IActionResult UpdateUser(UserDTO user)
+        public async Task<IActionResult> UpdateUser(UserDTO user)
         {
             try
             {
@@ -154,7 +154,7 @@ namespace EHouseAPI.Controllers
         }
         [AuthorizationFilter]
         [HttpDelete("Delete/{id}")]
-        public IActionResult DeleteUser(int id)
+        public async Task<IActionResult> DeleteUser(int id)
         {
             try
             {
@@ -192,7 +192,7 @@ namespace EHouseAPI.Controllers
             }
         }
         [HttpPost("Login")]
-        public IActionResult Login(UserDTO user)
+        public async Task<IActionResult> Login(UserDTO user)
         {
             try
             {
@@ -214,7 +214,7 @@ namespace EHouseAPI.Controllers
             }   
         }
         [HttpGet("Logout")]
-        public IActionResult Logout()
+        public async Task<IActionResult> Logout()
         {
             try
             {
@@ -228,7 +228,7 @@ namespace EHouseAPI.Controllers
             }
         }
         [HttpGet("LoggedUser")]
-        public IActionResult LoggedUser()
+        public async Task<IActionResult> LoggedUser()
         {
             try
             {
@@ -242,7 +242,7 @@ namespace EHouseAPI.Controllers
             }
         }
         [HttpPost("ChangePassword")]
-        public IActionResult ChangePassword(string username, string password, string newPassword, string confirmNewPassword)
+        public async Task<IActionResult> ChangePassword(string username, string password, string newPassword, string confirmNewPassword)
         {
             try
             {
@@ -258,7 +258,7 @@ namespace EHouseAPI.Controllers
             }
         }
         [HttpPost("ForgotPassowrd")]
-        public IActionResult ForgotPassowrd(string gmail, string username)
+        public async Task<IActionResult> ForgotPassowrd(string gmail, string username)
         {
             try
             {

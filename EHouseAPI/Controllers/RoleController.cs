@@ -19,14 +19,14 @@ namespace EHouseAPI.Controllers
         [AuthorizationFilter]
         [Authorize(Roles = "Lessor, Admin, Lessee")]
         [HttpGet("GetRoles")]
-        public IActionResult GetRoles()
+        public async Task<IActionResult> GetRoles()
         {
             return Ok(roleRepository.GetRoles());
         }
         [AuthorizationFilter]
         [Authorize(Roles = "Admin")]
         [HttpPost("AddRole")]
-        public IActionResult AddRole(RoleDTO role)
+        public async Task<IActionResult> AddRole(RoleDTO role)
         {
             try
             {
@@ -41,7 +41,7 @@ namespace EHouseAPI.Controllers
         [AuthorizationFilter]
         [Authorize(Roles = "Admin")]
         [HttpPut("UpdateRole")]
-        public IActionResult UpdateRole(RoleDTO role)
+        public async Task<IActionResult> UpdateRole(RoleDTO role)
         {
             try
             {
@@ -56,7 +56,7 @@ namespace EHouseAPI.Controllers
         [AuthorizationFilter]
         [Authorize(Roles = "Admin")]
         [HttpDelete("Delete/{id}")]
-        public IActionResult DeleteRole(int id)
+        public async Task<IActionResult> DeleteRole(int id)
         {
             try
             {

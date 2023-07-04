@@ -13,6 +13,7 @@ builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<ILesseeRepository, LesseeRepository>();
 builder.Services.AddScoped<ILessorRepository, LessorRepository>();
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
+builder.Services.AddScoped<ILocationRepository, LocationReponsitory>();
 builder.Services.AddTransient<ITokenManager, TokenManager>();
 
 builder.Services.AddAuthentication(o =>
