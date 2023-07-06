@@ -30,7 +30,7 @@ namespace EHouseAPI.Controllers
             this.httpContextAccessor = httpContextAccessor;
         }
         [AuthorizationFilter]
-        [Authorize(Roles = "Lessor, Admin, Lessee")]
+        [Authorize(Roles = "Admin")]
         [HttpGet("GetUsers")]
         public async Task<IActionResult> GetUsers()
         {
@@ -227,6 +227,7 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [AuthorizationFilter]
         [HttpGet("LoggedUser")]
         public async Task<IActionResult> LoggedUser()
         {
@@ -241,6 +242,7 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [AuthorizationFilter]
         [HttpPost("ChangePassword")]
         public async Task<IActionResult> ChangePassword(string username, string password, string newPassword, string confirmNewPassword)
         {
@@ -257,6 +259,7 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [AuthorizationFilter]
         [HttpPost("ForgotPassowrd")]
         public async Task<IActionResult> ForgotPassowrd(string gmail, string username)
         {

@@ -1,4 +1,5 @@
 ﻿using DataAccess.DTO;
+using EHouseAPI.Filter;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Repositories;
@@ -14,11 +15,13 @@ namespace EHouseAPI.Controllers
         {
             this.locationRepository = locationRepository;
         }
+        [AuthorizationFilter]
         [HttpGet("GetLocations")]
         public async Task<IActionResult> GetLocations()
         {
             return Ok(locationRepository.GetLocations());
         }
+        [AuthorizationFilter]
         [HttpPost("AddLocation")]
         public async Task<IActionResult> AddLocation(LocationDTO location)
         {
@@ -32,8 +35,9 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [HttpPut("UpdateRole")]
-        public async Task<IActionResult> UpdateRole(LocationDTO location)
+        [AuthorizationFilter]
+        [HttpPut("UpdateLocation")]
+        public async Task<IActionResult> UpdateLocation(LocationDTO location)
         {
             try
             {
