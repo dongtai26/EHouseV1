@@ -15,6 +15,7 @@ builder.Services.AddScoped<ILessorRepository, LessorRepository>();
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 builder.Services.AddScoped<ILocationRepository, LocationReponsitory>();
 builder.Services.AddTransient<ITokenManager, TokenManager>();
+builder.Services.AddTransient<IContractRepository, ContractRepository>();
 
 builder.Services.AddAuthentication(o =>
 {

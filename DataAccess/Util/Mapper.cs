@@ -185,5 +185,40 @@ namespace DataAccess.Util
             };
             return location;
         }
+        public static ContractDTO mapToDTO(Contract contract)
+        {
+            if(contract != null)
+            {
+                ContractDTO contractDTO = new ContractDTO
+                {
+                    ConId = contract.ConId,
+                    ContractApproveDay = contract.ContractApproveDay,
+                    ContractContent = contract.ContractContent,
+                    ContractCreatedDay = contract.ContractCreatedDay,
+                    AdminId = contract.AdminId,
+                    LesseId = contract.LesseId,
+                    LessorId = contract.LessorId
+                };
+                return contractDTO;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public static Contract mapToEntity(ContractDTO contractDTO)
+        {
+            Contract contract = new Contract
+            {
+                ConId = contractDTO.ConId,
+                ContractApproveDay = contractDTO.ContractApproveDay,
+                ContractContent = contractDTO.ContractContent,
+                ContractCreatedDay = contractDTO.ContractCreatedDay,
+                AdminId = contractDTO.AdminId,
+                LesseId = contractDTO.LesseId,
+                LessorId = contractDTO.LessorId
+            };
+            return contract;
+        }
     }
 }
