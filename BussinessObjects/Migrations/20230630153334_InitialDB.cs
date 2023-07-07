@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
-namespace BussinessObjects.Migrations
+namespace BusinessObjects.Migrations
 {
     public partial class InitialDB : Migration
     {
@@ -28,6 +28,33 @@ namespace BussinessObjects.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Location",
+                columns: table => new
+                {
+                    LId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Longitude = table.Column<float>(type: "real", nullable: false),
+                    Latitude = table.Column<float>(type: "real", nullable: false),
+                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Location", x => x.LId);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "Roles",
+                columns: table => new
+                {
+                    RId = table.Column<int>(type: "int", nullable: false),
+                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Roles", x => x.RId);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Users",
                 columns: table => new
                 {
@@ -41,12 +68,19 @@ namespace BussinessObjects.Migrations
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Gmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Avatar = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_Users", x => x.UId);
+                    table.ForeignKey(
+                        name: "FK_Users_Roles_RId",
+                        column: x => x.RId,
+                        principalTable: "Roles",
+                        principalColumn: "RId",
+                        onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
@@ -124,23 +158,6 @@ namespace BussinessObjects.Migrations
                     table.ForeignKey(
                         name: "FK_Posts_Users_UId",
                         column: x => x.UId,
-                        principalTable: "Users",
-                        principalColumn: "UId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Roles",
-                columns: table => new
-                {
-                    RId = table.Column<int>(type: "int", nullable: false),
-                    RoleName = table.Column<string>(type: "nvarchar(max)", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.ForeignKey(
-                        name: "FK_Roles_Users_RId",
-                        column: x => x.RId,
                         principalTable: "Users",
                         principalColumn: "UId",
                         onDelete: ReferentialAction.Restrict);
@@ -246,14 +263,27 @@ namespace BussinessObjects.Migrations
                     Restroom = table.Column<bool>(type: "bit", nullable: false),
                     ElectricityPrice = table.Column<float>(type: "real", nullable: false),
                     WaterPrice = table.Column<float>(type: "real", nullable: false),
-                    Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RentPrice = table.Column<float>(type: "real", nullable: false),
                     HouseStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PId = table.Column<int>(type: "int", nullable: false)
+                    PId = table.Column<int>(type: "int", nullable: false),
+                    LId = table.Column<int>(type: "int", nullable: false),
+                    LeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_HouseRents", x => x.Hoid);
+                    table.ForeignKey(
+                        name: "FK_HouseRents_Lessors_LeId",
+                        column: x => x.LeId,
+                        principalTable: "Lessors",
+                        principalColumn: "LeId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_HouseRents_Location_LId",
+                        column: x => x.LId,
+                        principalTable: "Location",
+                        principalColumn: "LId",
+                        onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_HouseRents_Posts_PId",
                         column: x => x.PId,
@@ -343,6 +373,16 @@ namespace BussinessObjects.Migrations
                 column: "UId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_HouseRents_LeId",
+                table: "HouseRents",
+                column: "LeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HouseRents_LId",
+                table: "HouseRents",
+                column: "LId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_HouseRents_PId",
                 table: "HouseRents",
                 column: "PId");
@@ -378,8 +418,8 @@ namespace BussinessObjects.Migrations
                 column: "UId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Roles_RId",
-                table: "Roles",
+                name: "IX_Users_RId",
+                table: "Users",
                 column: "RId");
 
             migrationBuilder.CreateIndex(
@@ -409,13 +449,7 @@ namespace BussinessObjects.Migrations
                 name: "Lessees");
 
             migrationBuilder.DropTable(
-                name: "Lessors");
-
-            migrationBuilder.DropTable(
                 name: "Notifications");
-
-            migrationBuilder.DropTable(
-                name: "Roles");
 
             migrationBuilder.DropTable(
                 name: "UserTokens");
@@ -424,10 +458,19 @@ namespace BussinessObjects.Migrations
                 name: "Contracts");
 
             migrationBuilder.DropTable(
+                name: "Lessors");
+
+            migrationBuilder.DropTable(
+                name: "Location");
+
+            migrationBuilder.DropTable(
                 name: "Posts");
 
             migrationBuilder.DropTable(
                 name: "Users");
+
+            migrationBuilder.DropTable(
+                name: "Roles");
         }
     }
 }

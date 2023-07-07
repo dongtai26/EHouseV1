@@ -8,13 +8,13 @@ using System.Threading.Tasks;
 
 namespace BusinessObjects.Models
 {
-    public class Admin
+    public class Location
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int AdId { get; set; }
-        public int UId { get; set; }
-        [ForeignKey("UId")]
-        public virtual User User { get; set; }
+        public int LId { get; set; }
+        public float Longitude { get; set; }
+        public float Latitude { get; set; }
+        public string Address { get; set; }
     }
 }
