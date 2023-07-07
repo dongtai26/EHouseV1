@@ -6,13 +6,13 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BussinessObjects.Models
+namespace BusinessObjects.Models
 {
     public class Role
     {
+        [Key]
+        [DatabaseGenerated(DatabaseGeneratedOption.None)]
         public int RId { get; set; }
-        [ForeignKey("RId")]
-        public virtual User User { get; set; }
         public string RoleName { get; set; }
     }
 }
