@@ -16,6 +16,10 @@ namespace Repositories
         {
             locationDAO.AddLocation(Mapper.mapToEntity(locationDTO));
         }
+        public LocationDTO GetLastLocation()
+        {
+            return Mapper.mapToDTO(locationDAO.GetLastLocation());
+        }
         public void DeleteLocation(int id)
         {
             locationDAO.DeleteLocation(id);
@@ -23,6 +27,10 @@ namespace Repositories
         public List<LocationDTO> GetLocations()
         {
             return locationDAO.GetLocations().Select(m => Mapper.mapToDTO(m)).ToList();
+        }
+        public LocationDTO GetLocationByLocationId(int id)
+        {
+            return Mapper.mapToDTO(locationDAO.GetLocationsByLocationId(id));
         }
         public void UpdateLocation(LocationDTO locationDTO)
         {

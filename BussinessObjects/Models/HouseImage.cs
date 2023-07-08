@@ -8,16 +8,14 @@ using System.Threading.Tasks;
 
 namespace BusinessObjects.Models
 {
-    public class Image
+    public class HouseImage
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IId { get; set; }
-        public string ImageCode { get; set; }
-        public string? ImageName { get; set; }
-        public string ImageContent { get; set; }
-        public int PId { get; set; }
-        [ForeignKey("PId")]
-        public virtual Post Post { get; set; }
+        public int PIId { get; set; }
+        public string HouseImageCode { get; set; }
+        public int HoId { get; set; }
+        [ForeignKey("HoId")]
+        public virtual HouseRent HouseRent { get; set; }
     }
 }

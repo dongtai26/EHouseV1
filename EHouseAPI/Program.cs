@@ -14,6 +14,8 @@ builder.Services.AddScoped<ILesseeRepository, LesseeRepository>();
 builder.Services.AddScoped<ILessorRepository, LessorRepository>();
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 builder.Services.AddScoped<ILocationRepository, LocationReponsitory>();
+builder.Services.AddScoped<IHouseRentRepository, HouseRentRepository>();
+builder.Services.AddScoped<IHouseAddressRepository, HouseAddressRepository>();
 builder.Services.AddTransient<ITokenManager, TokenManager>();
 
 builder.Services.AddAuthentication(o =>
@@ -46,6 +48,13 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors(options =>
+{
+    options.AllowAnyHeader();
+    options.AllowAnyMethod();
+    options.AllowAnyOrigin();
+});
 
 app.UseHttpsRedirection();
 

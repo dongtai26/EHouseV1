@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObjects.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230630153334_InitialDB")]
+    [Migration("20230708121223_InitialDB")]
     partial class InitialDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -139,13 +139,58 @@ namespace BusinessObjects.Migrations
                     b.ToTable("Histories");
                 });
 
-            modelBuilder.Entity("BusinessObjects.Models.HouseRent", b =>
+            modelBuilder.Entity("BusinessObjects.Models.HouseAddress", b =>
                 {
-                    b.Property<int>("Hoid")
+                    b.Property<int>("HouseAddressId")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("int");
 
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Hoid"), 1L, 1);
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HouseAddressId"), 1L, 1);
+
+                    b.Property<int>("House_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Location_Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("HouseAddressId");
+
+                    b.HasIndex("House_Id");
+
+                    b.HasIndex("Location_Id");
+
+                    b.ToTable("HouseAddresses");
+                });
+
+            modelBuilder.Entity("BusinessObjects.Models.HouseImage", b =>
+                {
+                    b.Property<int>("PIId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PIId"), 1L, 1);
+
+                    b.Property<int>("HoId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("HouseImageCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PIId");
+
+                    b.HasIndex("HoId");
+
+                    b.ToTable("HouseImages");
+                });
+
+            modelBuilder.Entity("BusinessObjects.Models.HouseRent", b =>
+                {
+                    b.Property<int>("HoId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HoId"), 1L, 1);
 
                     b.Property<bool>("AirConditioning")
                         .HasColumnType("bit");
@@ -159,17 +204,15 @@ namespace BusinessObjects.Migrations
                     b.Property<float>("ElectricityPrice")
                         .HasColumnType("real");
 
+                    b.Property<string>("HouseRentName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.Property<string>("HouseStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int>("LId")
-                        .HasColumnType("int");
-
                     b.Property<int>("LeId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("PId")
                         .HasColumnType("int");
 
                     b.Property<bool>("Parking")
@@ -196,44 +239,11 @@ namespace BusinessObjects.Migrations
                     b.Property<bool>("Wifi")
                         .HasColumnType("bit");
 
-                    b.HasKey("Hoid");
-
-                    b.HasIndex("LId");
+                    b.HasKey("HoId");
 
                     b.HasIndex("LeId");
 
-                    b.HasIndex("PId");
-
                     b.ToTable("HouseRents");
-                });
-
-            modelBuilder.Entity("BusinessObjects.Models.Image", b =>
-                {
-                    b.Property<int>("IId")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("IId"), 1L, 1);
-
-                    b.Property<string>("ImageCode")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageContent")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("ImageName")
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<int>("PId")
-                        .HasColumnType("int");
-
-                    b.HasKey("IId");
-
-                    b.HasIndex("PId");
-
-                    b.ToTable("Images");
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Lessee", b =>
@@ -292,7 +302,7 @@ namespace BusinessObjects.Migrations
 
                     b.HasKey("LId");
 
-                    b.ToTable("Location");
+                    b.ToTable("Locations");
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Notification", b =>
@@ -359,6 +369,35 @@ namespace BusinessObjects.Migrations
                     b.ToTable("Posts");
                 });
 
+            modelBuilder.Entity("BusinessObjects.Models.PostImage", b =>
+                {
+                    b.Property<int>("PIId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("PIId"), 1L, 1);
+
+                    b.Property<int>("PId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("PostImageCode")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostImageContent")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PostImageName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("PIId");
+
+                    b.HasIndex("PId");
+
+                    b.ToTable("PostImages");
+                });
+
             modelBuilder.Entity("BusinessObjects.Models.Role", b =>
                 {
                     b.Property<int>("RId")
@@ -419,7 +458,7 @@ namespace BusinessObjects.Migrations
                     b.Property<int>("RId")
                         .HasColumnType("int");
 
-                    b.Property<string>("UserName")
+                    b.Property<string>("Username")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -508,42 +547,45 @@ namespace BusinessObjects.Migrations
                     b.Navigation("User");
                 });
 
-            modelBuilder.Entity("BusinessObjects.Models.HouseRent", b =>
+            modelBuilder.Entity("BusinessObjects.Models.HouseAddress", b =>
                 {
-                    b.HasOne("BusinessObjects.Models.Location", "Location")
+                    b.HasOne("BusinessObjects.Models.HouseRent", "HouseRent")
                         .WithMany()
-                        .HasForeignKey("LId")
+                        .HasForeignKey("House_Id")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
+                    b.HasOne("BusinessObjects.Models.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("Location_Id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("HouseRent");
+
+                    b.Navigation("Location");
+                });
+
+            modelBuilder.Entity("BusinessObjects.Models.HouseImage", b =>
+                {
+                    b.HasOne("BusinessObjects.Models.HouseRent", "HouseRent")
+                        .WithMany()
+                        .HasForeignKey("HoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("HouseRent");
+                });
+
+            modelBuilder.Entity("BusinessObjects.Models.HouseRent", b =>
+                {
                     b.HasOne("BusinessObjects.Models.Lessor", "Lessor")
                         .WithMany("HouseRents")
                         .HasForeignKey("LeId")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("BusinessObjects.Models.Post", "Post")
-                        .WithMany("HouseRents")
-                        .HasForeignKey("PId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.Navigation("Lessor");
-
-                    b.Navigation("Location");
-
-                    b.Navigation("Post");
-                });
-
-            modelBuilder.Entity("BusinessObjects.Models.Image", b =>
-                {
-                    b.HasOne("BusinessObjects.Models.Post", "Post")
-                        .WithMany("Images")
-                        .HasForeignKey("PId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Post");
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Lessee", b =>
@@ -598,6 +640,17 @@ namespace BusinessObjects.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("BusinessObjects.Models.PostImage", b =>
+                {
+                    b.HasOne("BusinessObjects.Models.Post", "Post")
+                        .WithMany("PostImages")
+                        .HasForeignKey("PId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Post");
+                });
+
             modelBuilder.Entity("BusinessObjects.Models.User", b =>
                 {
                     b.HasOne("BusinessObjects.Models.Role", "Role")
@@ -636,11 +689,9 @@ namespace BusinessObjects.Migrations
 
                     b.Navigation("Histories");
 
-                    b.Navigation("HouseRents");
-
-                    b.Navigation("Images");
-
                     b.Navigation("Notifications");
+
+                    b.Navigation("PostImages");
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.User", b =>

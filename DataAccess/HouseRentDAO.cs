@@ -8,60 +8,46 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    public class LocationDAO
+    public class HouseRentDAO
     {
-        public List<Location> GetLocations()
+        public List<HouseRent> GetHouseRents()
         {
-            var ListLocation = new List<Location>();
+            var ListHouse = new List<HouseRent>();
             try
             {
                 using (var context = new AppDbContext())
                 {
-                    ListLocation = context.Locations.ToList();
+                    ListHouse = context.HouseRents.ToList();
                 }
             }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
-            return ListLocation;
+            return ListHouse;
         }
-        public Location GetLastLocation()
+        public List<HouseRent> GetHouseRentsByLessorId(int id)
         {
-            Location location = new Location();
-            try
-            {
-                var db = new AppDbContext();
-                location = db.Locations.OrderBy(m => m.LId).Last();
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-            return location;
-        }
-        public Location GetLocationsByLocationId(int id)
-        {
-            Location location = new Location();
+            var ListHouse = new List<HouseRent>();
             try
             {
                 using (var context = new AppDbContext())
                 {
-                    location = context.Locations.SingleOrDefault(x => x.LId == id);
+                    ListHouse = context.HouseRents.Where(x => x.LeId == id).ToList();
                 }
             }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
-            return location;
+            return ListHouse;
         }
-        public void AddLocation(Location location)
+        public void AddHouseRent(HouseRent houseRent)
         {
             try
             {
                 var db = new AppDbContext();
-                db.Locations.Add(location);
+                db.HouseRents.Add(houseRent);
                 db.SaveChanges();
             }
             catch (Exception e)
@@ -69,13 +55,13 @@ namespace DataAccess
                 throw new Exception(e.Message);
             }
         }
-        public void UpdateLocation(Location location)
+        public void UpdateHouseRent(HouseRent houseRent)
         {
             try
             {
                 using (var context = new AppDbContext())
                 {
-                    context.Entry<Location>(location).State =  Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    context.Entry<HouseRent>(houseRent).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                     context.SaveChanges();
                 }
             }
@@ -84,14 +70,14 @@ namespace DataAccess
                 throw new Exception(e.Message);
             }
         }
-        public void DeleteLocation(int id)
+        public void DeleteHouseRent(int id)
         {
             try
             {
                 using (var context = new AppDbContext())
                 {
-                    var rDelete = context.Locations.SingleOrDefault(x => x.LId == id);
-                    context.Locations.Remove(rDelete);
+                    var rDelete = context.HouseRents.SingleOrDefault(x => x.HoId == id);
+                    context.HouseRents.Remove(rDelete);
                     context.SaveChanges();
                 }
             }

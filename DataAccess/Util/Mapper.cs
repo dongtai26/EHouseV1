@@ -156,6 +156,59 @@ namespace DataAccess.Util
             };
             return lessee;
         }
+        public static HouseRentDTO mapToDTO(HouseRent houseRent)
+        {
+            if (houseRent != null)
+            {
+                HouseRentDTO houseRentDTO = new HouseRentDTO
+                {
+                    HoId = houseRent.HoId,
+                    HouseRentName = houseRent.HouseRentName,
+                    Area = houseRent.Area,
+                    AirConditioning = houseRent.AirConditioning,
+                    WaterHeater = houseRent.WaterHeater,
+                    Wifi = houseRent.Wifi,
+                    WashingMachine = houseRent.WashingMachine,
+                    Bed = houseRent.Bed,
+                    Parking = houseRent.Parking,
+                    Refrigerator = houseRent.Refrigerator,
+                    Restroom = houseRent.Restroom,
+                    ElectricityPrice = houseRent.ElectricityPrice,
+                    WaterPrice = houseRent.WaterPrice,
+                    RentPrice = houseRent.RentPrice,
+                    HouseStatus = houseRent.HouseStatus,
+                    LeId = houseRent.LeId
+                };
+                return houseRentDTO;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public static HouseRent mapToEntity(HouseRentDTO houseRentDTO)
+        {
+            HouseRent houseRent = new HouseRent
+            {
+                HoId = houseRentDTO.HoId,
+                HouseRentName = houseRentDTO.HouseRentName,
+                Area = houseRentDTO.Area,
+                AirConditioning = houseRentDTO.AirConditioning,
+                WaterHeater = houseRentDTO.WaterHeater,
+                Wifi = houseRentDTO.Wifi,
+                WashingMachine = houseRentDTO.WashingMachine,
+                Bed = houseRentDTO.Bed,
+                Parking = houseRentDTO.Parking,
+                Refrigerator = houseRentDTO.Refrigerator,
+                Restroom = houseRentDTO.Restroom,
+                ElectricityPrice = houseRentDTO.ElectricityPrice,
+                WaterPrice = houseRentDTO.WaterPrice,
+                RentPrice = houseRentDTO.RentPrice,
+                HouseStatus = houseRentDTO.HouseStatus,
+                LeId = houseRentDTO.LeId
+            };
+            return houseRent;
+        }
         public static LocationDTO mapToDTO(Location location)
         {
             if (location != null)
@@ -184,6 +237,33 @@ namespace DataAccess.Util
                 Address = locationDTO.Address
             };
             return location;
+        }
+        public static HouseAddressDTO mapToDTO(HouseAddress houseAddress)
+        {
+            if (houseAddress != null)
+            {
+                HouseAddressDTO houseAddressDTO = new HouseAddressDTO
+                {
+                    HouseAddressId = houseAddress.HouseAddressId,
+                    House_Id = houseAddress.House_Id,
+                    Location_Id = houseAddress.Location_Id,
+                };
+                return houseAddressDTO;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public static HouseAddress mapToEntity(HouseAddressDTO houseAddressDTO)
+        {
+            HouseAddress houseAddress = new HouseAddress
+            {
+                HouseAddressId = houseAddressDTO.HouseAddressId,
+                House_Id = houseAddressDTO.House_Id,
+                Location_Id = houseAddressDTO.Location_Id,
+            };
+            return houseAddress;
         }
     }
 }

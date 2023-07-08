@@ -10,8 +10,10 @@ namespace Repositories
     public interface ILocationRepository
     {
         List<LocationDTO> GetLocations();
+        LocationDTO GetLocationByLocationId(int id);
         void AddLocation(LocationDTO LocationDTO);
         void UpdateLocation(LocationDTO LocationDTO);
         void DeleteLocation(int id);
+        LocationDTO GetLastLocation();
     }
 }

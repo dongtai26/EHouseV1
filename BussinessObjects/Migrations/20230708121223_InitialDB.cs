@@ -28,7 +28,7 @@ namespace BusinessObjects.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Location",
+                name: "Locations",
                 columns: table => new
                 {
                     LId = table.Column<int>(type: "int", nullable: false)
@@ -39,7 +39,7 @@ namespace BusinessObjects.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Location", x => x.LId);
+                    table.PrimaryKey("PK_Locations", x => x.LId);
                 });
 
             migrationBuilder.CreateTable(
@@ -68,7 +68,7 @@ namespace BusinessObjects.Migrations
                     Gender = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Gmail = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Avatar = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    UserName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Username = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Password = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     RId = table.Column<int>(type: "int", nullable: false)
                 },
@@ -184,6 +184,39 @@ namespace BusinessObjects.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "HouseRents",
+                columns: table => new
+                {
+                    HoId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HouseRentName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    Area = table.Column<float>(type: "real", nullable: false),
+                    AirConditioning = table.Column<bool>(type: "bit", nullable: false),
+                    WaterHeater = table.Column<bool>(type: "bit", nullable: false),
+                    Wifi = table.Column<bool>(type: "bit", nullable: false),
+                    WashingMachine = table.Column<bool>(type: "bit", nullable: false),
+                    Bed = table.Column<bool>(type: "bit", nullable: false),
+                    Parking = table.Column<bool>(type: "bit", nullable: false),
+                    Refrigerator = table.Column<bool>(type: "bit", nullable: false),
+                    Restroom = table.Column<bool>(type: "bit", nullable: false),
+                    ElectricityPrice = table.Column<float>(type: "real", nullable: false),
+                    WaterPrice = table.Column<float>(type: "real", nullable: false),
+                    RentPrice = table.Column<float>(type: "real", nullable: false),
+                    HouseStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LeId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HouseRents", x => x.HoId);
+                    table.ForeignKey(
+                        name: "FK_HouseRents_Lessors_LeId",
+                        column: x => x.LeId,
+                        principalTable: "Lessors",
+                        principalColumn: "LeId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "Comments",
                 columns: table => new
                 {
@@ -247,74 +280,6 @@ namespace BusinessObjects.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "HouseRents",
-                columns: table => new
-                {
-                    Hoid = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    Area = table.Column<float>(type: "real", nullable: false),
-                    AirConditioning = table.Column<bool>(type: "bit", nullable: false),
-                    WaterHeater = table.Column<bool>(type: "bit", nullable: false),
-                    Wifi = table.Column<bool>(type: "bit", nullable: false),
-                    WashingMachine = table.Column<bool>(type: "bit", nullable: false),
-                    Bed = table.Column<bool>(type: "bit", nullable: false),
-                    Parking = table.Column<bool>(type: "bit", nullable: false),
-                    Refrigerator = table.Column<bool>(type: "bit", nullable: false),
-                    Restroom = table.Column<bool>(type: "bit", nullable: false),
-                    ElectricityPrice = table.Column<float>(type: "real", nullable: false),
-                    WaterPrice = table.Column<float>(type: "real", nullable: false),
-                    RentPrice = table.Column<float>(type: "real", nullable: false),
-                    HouseStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PId = table.Column<int>(type: "int", nullable: false),
-                    LId = table.Column<int>(type: "int", nullable: false),
-                    LeId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_HouseRents", x => x.Hoid);
-                    table.ForeignKey(
-                        name: "FK_HouseRents_Lessors_LeId",
-                        column: x => x.LeId,
-                        principalTable: "Lessors",
-                        principalColumn: "LeId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_HouseRents_Location_LId",
-                        column: x => x.LId,
-                        principalTable: "Location",
-                        principalColumn: "LId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_HouseRents_Posts_PId",
-                        column: x => x.PId,
-                        principalTable: "Posts",
-                        principalColumn: "PId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Images",
-                columns: table => new
-                {
-                    IId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ImageCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
-                    ImageContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    PId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Images", x => x.IId);
-                    table.ForeignKey(
-                        name: "FK_Images_Posts_PId",
-                        column: x => x.PId,
-                        principalTable: "Posts",
-                        principalColumn: "PId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Notifications",
                 columns: table => new
                 {
@@ -339,6 +304,74 @@ namespace BusinessObjects.Migrations
                         column: x => x.UId,
                         principalTable: "Users",
                         principalColumn: "UId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "PostImages",
+                columns: table => new
+                {
+                    PIId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    PostImageCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PostImageName = table.Column<string>(type: "nvarchar(max)", nullable: true),
+                    PostImageContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PostImages", x => x.PIId);
+                    table.ForeignKey(
+                        name: "FK_PostImages_Posts_PId",
+                        column: x => x.PId,
+                        principalTable: "Posts",
+                        principalColumn: "PId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HouseAddresses",
+                columns: table => new
+                {
+                    HouseAddressId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    House_Id = table.Column<int>(type: "int", nullable: false),
+                    Location_Id = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HouseAddresses", x => x.HouseAddressId);
+                    table.ForeignKey(
+                        name: "FK_HouseAddresses_HouseRents_House_Id",
+                        column: x => x.House_Id,
+                        principalTable: "HouseRents",
+                        principalColumn: "HoId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_HouseAddresses_Locations_Location_Id",
+                        column: x => x.Location_Id,
+                        principalTable: "Locations",
+                        principalColumn: "LId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "HouseImages",
+                columns: table => new
+                {
+                    PIId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    HouseImageCode = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HoId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_HouseImages", x => x.PIId);
+                    table.ForeignKey(
+                        name: "FK_HouseImages_HouseRents_HoId",
+                        column: x => x.HoId,
+                        principalTable: "HouseRents",
+                        principalColumn: "HoId",
                         onDelete: ReferentialAction.Restrict);
                 });
 
@@ -373,24 +406,24 @@ namespace BusinessObjects.Migrations
                 column: "UId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_HouseAddresses_House_Id",
+                table: "HouseAddresses",
+                column: "House_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HouseAddresses_Location_Id",
+                table: "HouseAddresses",
+                column: "Location_Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_HouseImages_HoId",
+                table: "HouseImages",
+                column: "HoId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_HouseRents_LeId",
                 table: "HouseRents",
                 column: "LeId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_HouseRents_LId",
-                table: "HouseRents",
-                column: "LId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_HouseRents_PId",
-                table: "HouseRents",
-                column: "PId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Images_PId",
-                table: "Images",
-                column: "PId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Lessees_UId",
@@ -411,6 +444,11 @@ namespace BusinessObjects.Migrations
                 name: "IX_Notifications_UId",
                 table: "Notifications",
                 column: "UId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PostImages_PId",
+                table: "PostImages",
+                column: "PId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Posts_UId",
@@ -440,10 +478,10 @@ namespace BusinessObjects.Migrations
                 name: "Histories");
 
             migrationBuilder.DropTable(
-                name: "HouseRents");
+                name: "HouseAddresses");
 
             migrationBuilder.DropTable(
-                name: "Images");
+                name: "HouseImages");
 
             migrationBuilder.DropTable(
                 name: "Lessees");
@@ -452,19 +490,25 @@ namespace BusinessObjects.Migrations
                 name: "Notifications");
 
             migrationBuilder.DropTable(
+                name: "PostImages");
+
+            migrationBuilder.DropTable(
                 name: "UserTokens");
 
             migrationBuilder.DropTable(
                 name: "Contracts");
 
             migrationBuilder.DropTable(
-                name: "Lessors");
+                name: "Locations");
 
             migrationBuilder.DropTable(
-                name: "Location");
+                name: "HouseRents");
 
             migrationBuilder.DropTable(
                 name: "Posts");
+
+            migrationBuilder.DropTable(
+                name: "Lessors");
 
             migrationBuilder.DropTable(
                 name: "Users");

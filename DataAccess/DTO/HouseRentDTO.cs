@@ -1,17 +1,13 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BusinessObjects.Models
+namespace DataAccess.DTO
 {
-    public class HouseRent
+    public class HouseRentDTO
     {
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int HoId { get; set; }
         public string HouseRentName { get; set; }
         public float Area { get; set; }
@@ -28,7 +24,5 @@ namespace BusinessObjects.Models
         public float RentPrice { get; set; }
         public string HouseStatus { get; set; }
         public int LeId { get; set; }
-        [ForeignKey("LeId")]
-        public virtual Lessor Lessor { get; set; }
     }
 }
