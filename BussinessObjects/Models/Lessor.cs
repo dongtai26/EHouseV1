@@ -17,5 +17,6 @@ namespace BusinessObjects.Models
         [ForeignKey("UId")]
         public virtual User User { get; set; }
         public ICollection<HouseRent> HouseRents { get; set; }
+        public virtual ICollection<Contract> Contracts { get; set; }
     }
 }

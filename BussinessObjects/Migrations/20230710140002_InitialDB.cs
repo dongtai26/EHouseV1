@@ -10,24 +10,6 @@ namespace BusinessObjects.Migrations
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.CreateTable(
-                name: "Contracts",
-                columns: table => new
-                {
-                    ConId = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ContractCreatedDay = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ContractContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    ContractApproveDay = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    AdminId = table.Column<int>(type: "int", nullable: false),
-                    LessorId = table.Column<int>(type: "int", nullable: false),
-                    LesseId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Contracts", x => x.ConId);
-                });
-
-            migrationBuilder.CreateTable(
                 name: "Locations",
                 columns: table => new
                 {
@@ -195,10 +177,11 @@ namespace BusinessObjects.Migrations
                     WaterHeater = table.Column<bool>(type: "bit", nullable: false),
                     Wifi = table.Column<bool>(type: "bit", nullable: false),
                     WashingMachine = table.Column<bool>(type: "bit", nullable: false),
-                    Bed = table.Column<bool>(type: "bit", nullable: false),
+                    Bed = table.Column<int>(type: "int", nullable: false),
                     Parking = table.Column<bool>(type: "bit", nullable: false),
                     Refrigerator = table.Column<bool>(type: "bit", nullable: false),
-                    Restroom = table.Column<bool>(type: "bit", nullable: false),
+                    Restroom = table.Column<int>(type: "int", nullable: false),
+                    Kitchen = table.Column<bool>(type: "bit", nullable: false),
                     ElectricityPrice = table.Column<float>(type: "real", nullable: false),
                     WaterPrice = table.Column<float>(type: "real", nullable: false),
                     RentPrice = table.Column<float>(type: "real", nullable: false),
@@ -239,40 +222,6 @@ namespace BusinessObjects.Migrations
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
                         name: "FK_Comments_Users_UId",
-                        column: x => x.UId,
-                        principalTable: "Users",
-                        principalColumn: "UId",
-                        onDelete: ReferentialAction.Restrict);
-                });
-
-            migrationBuilder.CreateTable(
-                name: "Histories",
-                columns: table => new
-                {
-                    Hid = table.Column<int>(type: "int", nullable: false)
-                        .Annotation("SqlServer:Identity", "1, 1"),
-                    ModifiedDay = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    ConId = table.Column<int>(type: "int", nullable: false),
-                    PId = table.Column<int>(type: "int", nullable: false),
-                    UId = table.Column<int>(type: "int", nullable: false)
-                },
-                constraints: table =>
-                {
-                    table.PrimaryKey("PK_Histories", x => x.Hid);
-                    table.ForeignKey(
-                        name: "FK_Histories_Contracts_ConId",
-                        column: x => x.ConId,
-                        principalTable: "Contracts",
-                        principalColumn: "ConId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Histories_Posts_PId",
-                        column: x => x.PId,
-                        principalTable: "Posts",
-                        principalColumn: "PId",
-                        onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Histories_Users_UId",
                         column: x => x.UId,
                         principalTable: "Users",
                         principalColumn: "UId",
@@ -330,6 +279,49 @@ namespace BusinessObjects.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Contracts",
+                columns: table => new
+                {
+                    ConId = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ContractCreatedDay = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ContractContent = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ContractApproveDay = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    HoId = table.Column<int>(type: "int", nullable: false),
+                    AdId = table.Column<int>(type: "int", nullable: true),
+                    LeId = table.Column<int>(type: "int", nullable: true),
+                    LesId = table.Column<int>(type: "int", nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Contracts", x => x.ConId);
+                    table.ForeignKey(
+                        name: "FK_Contracts_Admins_AdId",
+                        column: x => x.AdId,
+                        principalTable: "Admins",
+                        principalColumn: "AdId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Contracts_HouseRents_HoId",
+                        column: x => x.HoId,
+                        principalTable: "HouseRents",
+                        principalColumn: "HoId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Contracts_Lessees_LesId",
+                        column: x => x.LesId,
+                        principalTable: "Lessees",
+                        principalColumn: "LesId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Contracts_Lessors_LeId",
+                        column: x => x.LeId,
+                        principalTable: "Lessors",
+                        principalColumn: "LeId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "HouseAddresses",
                 columns: table => new
                 {
@@ -375,6 +367,40 @@ namespace BusinessObjects.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "Histories",
+                columns: table => new
+                {
+                    Hid = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    ModifiedDay = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    ConId = table.Column<int>(type: "int", nullable: false),
+                    PId = table.Column<int>(type: "int", nullable: false),
+                    UId = table.Column<int>(type: "int", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Histories", x => x.Hid);
+                    table.ForeignKey(
+                        name: "FK_Histories_Contracts_ConId",
+                        column: x => x.ConId,
+                        principalTable: "Contracts",
+                        principalColumn: "ConId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Histories_Posts_PId",
+                        column: x => x.PId,
+                        principalTable: "Posts",
+                        principalColumn: "PId",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Histories_Users_UId",
+                        column: x => x.UId,
+                        principalTable: "Users",
+                        principalColumn: "UId",
+                        onDelete: ReferentialAction.Restrict);
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Admins_UId",
                 table: "Admins",
@@ -389,6 +415,26 @@ namespace BusinessObjects.Migrations
                 name: "IX_Comments_UId",
                 table: "Comments",
                 column: "UId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Contracts_AdId",
+                table: "Contracts",
+                column: "AdId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Contracts_HoId",
+                table: "Contracts",
+                column: "HoId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Contracts_LeId",
+                table: "Contracts",
+                column: "LeId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Contracts_LesId",
+                table: "Contracts",
+                column: "LesId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Histories_ConId",
@@ -469,9 +515,6 @@ namespace BusinessObjects.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Admins");
-
-            migrationBuilder.DropTable(
                 name: "Comments");
 
             migrationBuilder.DropTable(
@@ -482,9 +525,6 @@ namespace BusinessObjects.Migrations
 
             migrationBuilder.DropTable(
                 name: "HouseImages");
-
-            migrationBuilder.DropTable(
-                name: "Lessees");
 
             migrationBuilder.DropTable(
                 name: "Notifications");
@@ -502,10 +542,16 @@ namespace BusinessObjects.Migrations
                 name: "Locations");
 
             migrationBuilder.DropTable(
+                name: "Posts");
+
+            migrationBuilder.DropTable(
+                name: "Admins");
+
+            migrationBuilder.DropTable(
                 name: "HouseRents");
 
             migrationBuilder.DropTable(
-                name: "Posts");
+                name: "Lessees");
 
             migrationBuilder.DropTable(
                 name: "Lessors");

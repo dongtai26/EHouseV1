@@ -16,9 +16,18 @@ namespace BusinessObjects.Models
         public DateTime ContractCreatedDay { get; set; }
         public string ContractContent { get; set; }
         public DateTime ContractApproveDay { get; set; }
-        public int AdminId { get; set; }
-        public int LessorId { get; set; }
-        public int LesseId { get; set; }
+        public int HoId { get; set; }
+        [ForeignKey("HoId")]
+        public virtual HouseRent HouseRent { get; set; }
+        public int? AdId { get; set; }
+        [ForeignKey("AdId")]
+        public virtual Admin Admin { get; set; }
+        public int? LeId { get; set; }
+        [ForeignKey("LeId")]
+        public virtual Lessor Lessor { get; set; }
+        public int? LesId { get; set; }
+        [ForeignKey("LesId")]
+        public virtual Lessee Lessee { get; set; }
         public virtual ICollection<History> Histories { get; set; }
     }
 }

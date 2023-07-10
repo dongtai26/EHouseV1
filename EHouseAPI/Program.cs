@@ -16,6 +16,7 @@ builder.Services.AddScoped<IAdminRepository, AdminRepository>();
 builder.Services.AddScoped<ILocationRepository, LocationReponsitory>();
 builder.Services.AddScoped<IHouseRentRepository, HouseRentRepository>();
 builder.Services.AddScoped<IHouseAddressRepository, HouseAddressRepository>();
+builder.Services.AddScoped<IContractRepository, ContractRepository>();
 builder.Services.AddTransient<ITokenManager, TokenManager>();
 
 builder.Services.AddAuthentication(o =>

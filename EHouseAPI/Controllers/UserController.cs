@@ -29,8 +29,8 @@ namespace EHouseAPI.Controllers
             this.tokenManager = tokenManager;
             this.httpContextAccessor = httpContextAccessor;
         }
-        [AuthorizationFilter]
-        [Authorize(Roles = "Lessor, Admin, Lessee")]
+        /*[AuthorizationFilter]
+        [Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("GetUsers")]
         public async Task<IActionResult> GetUsers()
         {
@@ -81,7 +81,7 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         [HttpPut("UpdateUser")]
         public async Task<IActionResult> UpdateUser(UserDTO user)
         {

@@ -12,14 +12,14 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObjects.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230708121223_InitialDB")]
+    [Migration("20230710140002_InitialDB")]
     partial class InitialDB
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
-                .HasAnnotation("ProductVersion", "6.0.10")
+                .HasAnnotation("ProductVersion", "6.0.18")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128);
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder, 1L, 1);
@@ -84,7 +84,7 @@ namespace BusinessObjects.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ConId"), 1L, 1);
 
-                    b.Property<int>("AdminId")
+                    b.Property<int?>("AdId")
                         .HasColumnType("int");
 
                     b.Property<DateTime>("ContractApproveDay")
@@ -97,13 +97,24 @@ namespace BusinessObjects.Migrations
                     b.Property<DateTime>("ContractCreatedDay")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("LesseId")
+                    b.Property<int>("HoId")
                         .HasColumnType("int");
 
-                    b.Property<int>("LessorId")
+                    b.Property<int?>("LeId")
+                        .HasColumnType("int");
+
+                    b.Property<int?>("LesId")
                         .HasColumnType("int");
 
                     b.HasKey("ConId");
+
+                    b.HasIndex("AdId");
+
+                    b.HasIndex("HoId");
+
+                    b.HasIndex("LeId");
+
+                    b.HasIndex("LesId");
 
                     b.ToTable("Contracts");
                 });
@@ -198,8 +209,8 @@ namespace BusinessObjects.Migrations
                     b.Property<float>("Area")
                         .HasColumnType("real");
 
-                    b.Property<bool>("Bed")
-                        .HasColumnType("bit");
+                    b.Property<int>("Bed")
+                        .HasColumnType("int");
 
                     b.Property<float>("ElectricityPrice")
                         .HasColumnType("real");
@@ -211,6 +222,9 @@ namespace BusinessObjects.Migrations
                     b.Property<string>("HouseStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("Kitchen")
+                        .HasColumnType("bit");
 
                     b.Property<int>("LeId")
                         .HasColumnType("int");
@@ -224,8 +238,8 @@ namespace BusinessObjects.Migrations
                     b.Property<float>("RentPrice")
                         .HasColumnType("real");
 
-                    b.Property<bool>("Restroom")
-                        .HasColumnType("bit");
+                    b.Property<int>("Restroom")
+                        .HasColumnType("int");
 
                     b.Property<bool>("WashingMachine")
                         .HasColumnType("bit");
@@ -520,6 +534,38 @@ namespace BusinessObjects.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("BusinessObjects.Models.Contract", b =>
+                {
+                    b.HasOne("BusinessObjects.Models.Admin", "Admin")
+                        .WithMany("Contracts")
+                        .HasForeignKey("AdId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("BusinessObjects.Models.HouseRent", "HouseRent")
+                        .WithMany()
+                        .HasForeignKey("HoId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BusinessObjects.Models.Lessor", "Lessor")
+                        .WithMany("Contracts")
+                        .HasForeignKey("LeId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.HasOne("BusinessObjects.Models.Lessee", "Lessee")
+                        .WithMany("Contracts")
+                        .HasForeignKey("LesId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Admin");
+
+                    b.Navigation("HouseRent");
+
+                    b.Navigation("Lessee");
+
+                    b.Navigation("Lessor");
+                });
+
             modelBuilder.Entity("BusinessObjects.Models.History", b =>
                 {
                     b.HasOne("BusinessObjects.Models.Contract", "Contract")
@@ -673,13 +719,25 @@ namespace BusinessObjects.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("BusinessObjects.Models.Admin", b =>
+                {
+                    b.Navigation("Contracts");
+                });
+
             modelBuilder.Entity("BusinessObjects.Models.Contract", b =>
                 {
                     b.Navigation("Histories");
                 });
 
+            modelBuilder.Entity("BusinessObjects.Models.Lessee", b =>
+                {
+                    b.Navigation("Contracts");
+                });
+
             modelBuilder.Entity("BusinessObjects.Models.Lessor", b =>
                 {
+                    b.Navigation("Contracts");
+
                     b.Navigation("HouseRents");
                 });
 

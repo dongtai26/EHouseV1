@@ -173,6 +173,7 @@ namespace DataAccess.Util
                     Parking = houseRent.Parking,
                     Refrigerator = houseRent.Refrigerator,
                     Restroom = houseRent.Restroom,
+                    Kitchen = houseRent.Kitchen,
                     ElectricityPrice = houseRent.ElectricityPrice,
                     WaterPrice = houseRent.WaterPrice,
                     RentPrice = houseRent.RentPrice,
@@ -201,6 +202,7 @@ namespace DataAccess.Util
                 Parking = houseRentDTO.Parking,
                 Refrigerator = houseRentDTO.Refrigerator,
                 Restroom = houseRentDTO.Restroom,
+                Kitchen = houseRentDTO.Kitchen,
                 ElectricityPrice = houseRentDTO.ElectricityPrice,
                 WaterPrice = houseRentDTO.WaterPrice,
                 RentPrice = houseRentDTO.RentPrice,
@@ -264,6 +266,43 @@ namespace DataAccess.Util
                 Location_Id = houseAddressDTO.Location_Id,
             };
             return houseAddress;
+        }
+        public static ContractDTO mapToDTO(Contract contract)
+        {
+            if (contract != null)
+            {
+                ContractDTO contractDTO = new ContractDTO
+                {
+                    ConId = contract.ConId,
+                    ContractApproveDay = contract.ContractApproveDay,
+                    ContractContent = contract.ContractContent,
+                    ContractCreatedDay = contract.ContractCreatedDay,
+                    HoId = contract.HoId,
+                    AdId = contract.AdId,
+                    LeId = contract.LeId,
+                    LesId = contract.LesId
+                };
+                return contractDTO;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public static Contract mapToEntity(ContractDTO contractDTO)
+        {
+            Contract contract = new Contract
+            {
+                ConId = contractDTO.ConId,
+                ContractApproveDay = contractDTO.ContractApproveDay,
+                ContractContent = contractDTO.ContractContent,
+                ContractCreatedDay = contractDTO.ContractCreatedDay,
+                HoId = contractDTO.HoId,
+                AdId = contractDTO.AdId,
+                LeId = contractDTO.LeId,
+                LesId = contractDTO.LesId
+            };
+            return contract;
         }
     }
 }
