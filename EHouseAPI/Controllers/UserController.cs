@@ -81,7 +81,7 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
-        /*[AuthorizationFilter]*/
+        [AuthorizationFilter]
         [HttpPut("UpdateUser")]
         public async Task<IActionResult> UpdateUser(UserDTO user)
         {
