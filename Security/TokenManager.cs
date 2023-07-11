@@ -46,6 +46,7 @@ namespace Security
         }
         public string GenerateNewToken(UserDTO user)
         {
+            var tokenHandler = new JwtSecurityTokenHandler();
             SecurityTokenDescriptor tokenDescriptor = new SecurityTokenDescriptor
             {
                 Subject = new ClaimsIdentity(new Claim[]
@@ -59,9 +60,7 @@ namespace Security
             };
 
             var token = tokenHandler.CreateToken(tokenDescriptor);
-
             var jwtTokenString = tokenHandler.WriteToken(token);
-
             return jwtTokenString;
         }
         public UserToken GetUserValidTokenStorage(int Uid)

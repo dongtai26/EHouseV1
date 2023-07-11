@@ -23,6 +23,9 @@ builder.Services.AddAuthentication(o =>
 {
     o.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
     o.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}).AddCookie(o =>
+{
+    o.Cookie.Name = "token";
 }).AddJwtBearer(o =>
 {
     o.TokenValidationParameters = new TokenValidationParameters
@@ -34,7 +37,16 @@ builder.Services.AddAuthentication(o =>
         ValidateIssuer = false,
         ClockSkew = TimeSpan.Zero
     };
+    o.Events = new JwtBearerEvents
+    {
+        OnMessageReceived = context =>
+        {
+            context.Token = context.Request.Cookies["Token"];
+            return Task.CompletedTask;
+        }
+    };
 });
+
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddHttpContextAccessor();

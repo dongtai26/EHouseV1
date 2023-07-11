@@ -203,6 +203,15 @@ namespace EHouseAPI.Controllers
                     tokenManager.AddUserValidTokenStorage(userDTO.UId);
                 }
                 tokenManager.SaveToken(userDTO.UId, token);
+                HttpContext.Response.Cookies.Append("token", token,
+                    new CookieOptions
+                    {
+                        Expires = DateTime.Now.AddDays(1),
+                        Secure = true,
+                        HttpOnly = true,
+                        IsEssential = true,
+                        SameSite = SameSiteMode.None
+                    });
                 return Ok(new
                 {
                     token = "bearer " + token
