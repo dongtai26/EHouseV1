@@ -18,7 +18,7 @@ namespace DataAccess.Util
                 {
                     UId = user.UId,
                     FullName = user.FullName,
-                    Age = user.Age,
+                    Dateofbirth = user.Dateofbirth,
                     Address = user.Address,
                     CitizenIdentification = user.CitizenIdentification,
                     PhoneNumber = user.PhoneNumber,
@@ -43,7 +43,7 @@ namespace DataAccess.Util
             {
                 UId = userDTO.UId,
                 FullName = userDTO.FullName,
-                Age = userDTO.Age,
+                Dateofbirth = userDTO.Dateofbirth,
                 Address = userDTO.Address,
                 CitizenIdentification = userDTO.CitizenIdentification,
                 PhoneNumber = userDTO.PhoneNumber,
