@@ -23,7 +23,8 @@ namespace DataAccess.DTO
         public float ElectricityPrice { get; set; }
         public float WaterPrice { get; set; }
         public float RentPrice { get; set; }
-        public string HouseStatus { get; set; }
+        public bool HouseStatus { get; set; }
+        public string Detail { get; set; }
         public int LeId { get; set; }
     }
 }

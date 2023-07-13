@@ -160,5 +160,19 @@ namespace DataAccess
             }
             return p;
         }
+        public User GetUserByRoleId(int id)
+        {
+            User user = new User();
+            try
+            {
+                var db = new AppDbContext();
+                user = db.Users.Include(m => m.Role).SingleOrDefault(x => x.RId == id);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return user;
+        }
     }
 }

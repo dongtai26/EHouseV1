@@ -70,5 +70,61 @@ namespace DataAccess
                 throw new Exception(e.Message);
             }
         }
+        public Contract GetContactById(int id)
+        {
+            Contract contract = new Contract();
+            try
+            {
+                var db = new AppDbContext();
+                contract = db.Contracts.SingleOrDefault(x => x.ConId == id);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return contract;
+        }
+        public Contract GetContractByLesseeId(int id)
+        {
+            Contract contract = new Contract();
+            try
+            {
+                var db = new AppDbContext();
+                contract = db.Contracts.SingleOrDefault(x => x.LesId == id);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return contract;
+        }
+        public Contract GetContractByLessorId(int id)
+        {
+            Contract contract = new Contract();
+            try
+            {
+                var db = new AppDbContext();
+                contract = db.Contracts.SingleOrDefault(x => x.LeId == id);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return contract;
+        }
+        public Contract GetContractByAdminId(int id)
+        {
+            Contract contract = new Contract();
+            try
+            {
+                var db = new AppDbContext();
+                contract = db.Contracts.SingleOrDefault(x => x.AdId == id);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return contract;
+        }
     }
 }

@@ -28,5 +28,21 @@ namespace Repositories
         {
             contractDAO.UpdateContract(Mapper.mapToEntity(contractDTO));
         }
+        public ContractDTO GetContractById(int id)
+        {
+            return Mapper.mapToDTO(contractDAO.GetContactById(id));
+        }
+        public ContractDTO GetContractByLesseeId(int id)
+        {
+            return Mapper.mapToDTO(contractDAO.GetContractByLesseeId(id));
+        }
+        public ContractDTO GetContractByLessorId(int id)
+        {
+            return Mapper.mapToDTO(contractDAO.GetContractByLessorId(id));
+        }
+        public ContractDTO GetContractByAdminId(int id)
+        {
+            return Mapper.mapToDTO(contractDAO.GetContractByAdminId(id));
+        }
     }
 }

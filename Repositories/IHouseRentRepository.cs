@@ -12,6 +12,7 @@ namespace Repositories
         List<HouseRentDTO> GetHouseRentsByName(string houseRentName);
         List<HouseRentDTO> GetHouseRents();
         List<HouseRentDTO>  GetHouseRentsByLessorId(int id);
+        HouseRentDTO GetHouseRentById(int id);
         void AddHouseRent(HouseRentDTO houseRentDTO);
         void UpdateHouseRent(HouseRentDTO houseRentDTO);
         void DeleteHouseRent(int id);

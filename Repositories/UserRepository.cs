@@ -55,5 +55,9 @@ namespace Repositories
         {
             return Mapper.mapToDTO(userDAO.FindUserByUsernameAndGmail(gmail, username));
         }
+        public UserDTO GetUserDTOByRoleID(int roleId)
+        {
+            return Mapper.mapToDTO(userDAO.GetUserByRoleId(roleId));
+        }
     }
 }

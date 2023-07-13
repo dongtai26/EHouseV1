@@ -31,6 +31,11 @@ namespace EHouseAPI.Controllers
         {
             return Ok(houseRentRepository.GetHouseRentsByLessorId(id));
         }
+        [HttpGet("GetHouseRentsById")]
+        public async Task<IActionResult> GetHouseRentsById(int id)
+        {
+            return Ok(houseRentRepository.GetHouseRentById(id));
+        }
         [HttpPost("AddHouseRent")]
         public async Task<IActionResult> AddHouseRent(HouseRentDTO houseRent)
         {

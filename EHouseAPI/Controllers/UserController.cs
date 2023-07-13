@@ -39,17 +39,22 @@ namespace EHouseAPI.Controllers
         [HttpGet("GetAdmins")]
         public async Task<IActionResult> GetAdmins()
         {
-            return Ok(userRepository.GetUsersByRoleId(0));
+            return Ok(userRepository.GetUsersByRoleId(1));
         }
         [HttpGet("GetLessors")]
         public async Task<IActionResult> GetLessors()
         {
-            return Ok(userRepository.GetUsersByRoleId(1));
+            return Ok(userRepository.GetUsersByRoleId(2));
         }
         [HttpGet("GetLesseees")]
         public async Task<IActionResult> GetLesseees()
         {
-            return Ok(userRepository.GetUsersByRoleId(2));
+            return Ok(userRepository.GetUsersByRoleId(3));
+        }
+        [HttpGet("GetUserByRoleId")]
+        public async Task<IActionResult> GetUserByRoleId(int id)
+        {
+            return Ok(userRepository.GetUsersByRoleId(id));
         }
         [HttpPost("Register")]
         public async Task<IActionResult> Register(UserDTO user)

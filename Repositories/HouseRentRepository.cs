@@ -36,5 +36,9 @@ namespace Repositories
         {
             HouseRentDAO.UpdateHouseRent(Mapper.mapToEntity(houseRentDTO));
         }
+        public HouseRentDTO GetHouseRentById(int id)
+        {
+            return Mapper.mapToDTO(HouseRentDAO.GetHouseRentById(id));
+        }
     }
 }

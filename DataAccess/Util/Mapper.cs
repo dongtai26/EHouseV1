@@ -178,6 +178,7 @@ namespace DataAccess.Util
                     WaterPrice = houseRent.WaterPrice,
                     RentPrice = houseRent.RentPrice,
                     HouseStatus = houseRent.HouseStatus,
+                    Detail = houseRent.Detail,
                     LeId = houseRent.LeId
                 };
                 return houseRentDTO;
@@ -207,6 +208,7 @@ namespace DataAccess.Util
                 WaterPrice = houseRentDTO.WaterPrice,
                 RentPrice = houseRentDTO.RentPrice,
                 HouseStatus = houseRentDTO.HouseStatus,
+                Detail = houseRentDTO.Detail,
                 LeId = houseRentDTO.LeId
             };
             return houseRent;

@@ -102,5 +102,19 @@ namespace DataAccess
                 throw new Exception(e.Message);
             }
         }
+        public HouseRent GetHouseRentById(int id)
+        {
+            HouseRent houseRent = new HouseRent();
+            try
+            {
+                var db = new AppDbContext();
+                houseRent = db.HouseRents.SingleOrDefault(x => x.HoId == id);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return houseRent;
+        }
     }
 }
