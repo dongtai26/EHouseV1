@@ -27,6 +27,22 @@ namespace DataAccess
             }
             return ListUser;
         }
+        public List<User> GetUsersByRoleId(int id)
+        {
+            var ListUser = new List<User>();
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    ListUser = context.Users.Include(m => m.Role).Where(m => m.RId == id).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return ListUser;
+        }
         public User GetUser(User user)
         {
             return user;
@@ -38,7 +54,6 @@ namespace DataAccess
             {
                 var db = new AppDbContext();
                 user = db.Users.Include(m => m.Role).SingleOrDefault(x => x.UId == id);
-            
             }
             catch (Exception e)
             {

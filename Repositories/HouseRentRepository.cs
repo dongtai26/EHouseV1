@@ -20,6 +20,10 @@ namespace Repositories
         {
             HouseRentDAO.DeleteHouseRent(id);
         }
+        public List<HouseRentDTO> GetHouseRentsByName(string houseRentName)
+        {
+            return HouseRentDAO.GetHouseRentsByName(houseRentName).Select(m => Mapper.mapToDTO(m)).ToList();
+        }
         public List<HouseRentDTO> GetHouseRents()
         {
             return HouseRentDAO.GetHouseRents().Select(m => Mapper.mapToDTO(m)).ToList();

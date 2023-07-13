@@ -21,6 +21,11 @@ namespace EHouseAPI.Controllers
         {
             return Ok(houseRentRepository.GetHouseRents());
         }
+        [HttpGet("SearchHouseRents")]
+        public async Task<IActionResult> SearchHouseRents(string houseRentName)
+        {
+            return Ok(houseRentRepository.GetHouseRentsByName(houseRentName));
+        }
         [HttpGet("GetHouseRentsByLessorId")]
         public async Task<IActionResult> GetHouseRentsByLessorId(int id)
         {

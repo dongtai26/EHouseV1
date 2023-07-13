@@ -20,6 +20,10 @@ namespace Repositories
         {
             return Mapper.mapToDTO(userDAO.GetUserById(id));
         }
+        public List<UserDTO> GetUsersByRoleId(int id)
+        {
+            return userDAO.GetUsersByRoleId(id).Select(m => Mapper.mapToDTO(m)).ToList();
+        }
         public UserDTO GetLastUser()
         {
             return Mapper.mapToDTO(userDAO.GetLastUser());

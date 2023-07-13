@@ -42,6 +42,22 @@ namespace DataAccess
             }
             return ListHouse;
         }
+        public List<HouseRent> GetHouseRentsByName(string houseRentName)
+        {
+            var ListHouse = new List<HouseRent>();
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    ListHouse = context.HouseRents.Where(x => x.HouseRentName.Contains(houseRentName)).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return ListHouse;
+        }
         public void AddHouseRent(HouseRent houseRent)
         {
             try

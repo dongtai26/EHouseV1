@@ -9,6 +9,7 @@ namespace Repositories
 {
     public interface IUserRepository
     {
+        List<UserDTO> GetUsersByRoleId(int id);
         UserDTO GetUser(UserDTO userDTO);
         UserDTO GetUserById(int id);
         UserDTO GetLastUser();

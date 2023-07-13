@@ -9,6 +9,7 @@ namespace Repositories
 {
     public interface IHouseRentRepository
     {
+        List<HouseRentDTO> GetHouseRentsByName(string houseRentName);
         List<HouseRentDTO> GetHouseRents();
         List<HouseRentDTO>  GetHouseRentsByLessorId(int id);
         void AddHouseRent(HouseRentDTO houseRentDTO);
