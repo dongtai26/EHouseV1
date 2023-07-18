@@ -26,6 +26,11 @@ namespace EHouseAPI.Controllers
         {
             return Ok(houseRentRepository.GetHouseRentsByName(houseRentName));
         }
+        [HttpGet("SearchHouseRentsDetail")]
+        public async Task<IActionResult> SearchHouseRentsDetail(string detail)
+        {
+            return Ok(houseRentRepository.GetHouseRentsByDetail(detail));
+        }
         [HttpGet("GetHouseRentsByLessorId")]
         public async Task<IActionResult> GetHouseRentsByLessorId(int id)
         {
@@ -35,6 +40,66 @@ namespace EHouseAPI.Controllers
         public async Task<IActionResult> GetHouseRentsById(int id)
         {
             return Ok(houseRentRepository.GetHouseRentById(id));
+        }
+        [HttpGet("GetHouseRentsByAreaRange")]
+        public async Task<IActionResult> GetHouseRentsByAreaRange(float minArea, float maxArea)
+        {
+            return Ok(houseRentRepository.GetHouseRentsByAreaRange(minArea, maxArea));
+        }
+        [HttpGet("GetHouseRentsByRentPriceRange")]
+        public async Task<IActionResult> GetHouseRentsByRentPriceRange(float minRentPrice, float maxRentPrice)
+        {
+            return Ok(houseRentRepository.GetHouseRentsByRentPriceRange(minRentPrice, maxRentPrice));
+        }
+        [HttpGet("GetHouseRentsByAirConditioning")]
+        public async Task<IActionResult> GetHouseRentsByAirConditioning(bool airConditioning)
+        {
+            return Ok(houseRentRepository.GetHouseRentsByAirConditioning(airConditioning));
+        }
+        [HttpGet("GetHouseRentsByWaterHeater")]
+        public async Task<IActionResult> GetHouseRentsByWaterHeater(bool waterHeater)
+        {
+            return Ok(houseRentRepository.GetHouseRentsByWaterHeater(waterHeater));
+        }
+        [HttpGet("GetHouseRentsByWifi")]
+        public async Task<IActionResult> GetHouseRentsByWifi(bool wifi)
+        {
+            return Ok(houseRentRepository.GetHouseRentsByWifi(wifi));
+        }
+        [HttpGet("GetHouseRentsByWashingMachine")]
+        public async Task<IActionResult> GetHouseRentsByWashingMachine(bool washingMachine)
+        {
+            return Ok(houseRentRepository.GetHouseRentsByWashingMachine(washingMachine));
+        }
+        [HttpGet("GetHouseRentsByParking")]
+        public async Task<IActionResult> GetHouseRentsByParking(bool parking)
+        {
+            return Ok(houseRentRepository.GetHouseRentsByParking(parking));
+        }
+        [HttpGet("GetHouseRentsByRefrigerator")]
+        public async Task<IActionResult> GetHouseRentsByRefrigerator(bool refrigerator)
+        {
+            return Ok(houseRentRepository.GetHouseRentsByRefrigerator(refrigerator));
+        }
+        [HttpGet("GetHouseRentsByKitchen")]
+        public async Task<IActionResult> GetHouseRentsByKitchen(bool kitchen)
+        {
+            return Ok(houseRentRepository.GetHouseRentsByKitchen(kitchen));
+        }
+        [HttpGet("GetHouseRentsByHouseStatus")]
+        public async Task<IActionResult> GetHouseRentsByHouseStatus(bool houseStatus)
+        {
+            return Ok(houseRentRepository.GetHouseRentsByHouseStatus(houseStatus));
+        }
+        [HttpGet("GetHouseRentsByBed")]
+        public async Task<IActionResult> GetHouseRentsByBed(int bed)
+        {
+            return Ok(houseRentRepository.GetHouseRentsByBed(bed));
+        }
+        [HttpGet("GetHouseRentsByRestroom")]
+        public async Task<IActionResult> GetHouseRentsByRestroom(int restroom)
+        {
+            return Ok(houseRentRepository.GetHouseRentsByRestroom(restroom));
         }
         [HttpPost("AddHouseRent")]
         public async Task<IActionResult> AddHouseRent(HouseRentDTO houseRent)

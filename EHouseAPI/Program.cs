@@ -41,7 +41,7 @@ builder.Services.AddAuthentication(o =>
     {
         OnMessageReceived = context =>
         {
-            context.Token = context.Request.Cookies["Token"];
+            context.Token = context.Request.Cookies["token"];
             return Task.CompletedTask;
         }
     };

@@ -43,7 +43,7 @@ namespace BusinessObjects.Migrations
                     UId = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     FullName = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Age = table.Column<int>(type: "int", nullable: false),
+                    Dateofbirth = table.Column<DateTime>(type: "datetime2", nullable: false),
                     Address = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     CitizenIdentification = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     PhoneNumber = table.Column<string>(type: "nvarchar(max)", nullable: false),
@@ -185,7 +185,8 @@ namespace BusinessObjects.Migrations
                     ElectricityPrice = table.Column<float>(type: "real", nullable: false),
                     WaterPrice = table.Column<float>(type: "real", nullable: false),
                     RentPrice = table.Column<float>(type: "real", nullable: false),
-                    HouseStatus = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    HouseStatus = table.Column<bool>(type: "bit", nullable: false),
+                    Detail = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     LeId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
