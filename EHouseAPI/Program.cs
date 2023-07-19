@@ -1,3 +1,4 @@
+using Amazon.S3;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Repositories;
@@ -17,6 +18,7 @@ builder.Services.AddScoped<ILocationRepository, LocationReponsitory>();
 builder.Services.AddScoped<IHouseRentRepository, HouseRentRepository>();
 builder.Services.AddScoped<IHouseAddressRepository, HouseAddressRepository>();
 builder.Services.AddScoped<IContractRepository, ContractRepository>();
+builder.Services.AddScoped<IS3Reponsitory, S3Reponsitory>();
 builder.Services.AddTransient<ITokenManager, TokenManager>();
 
 builder.Services.AddAuthentication(o =>
@@ -46,6 +48,9 @@ builder.Services.AddAuthentication(o =>
         }
     };
 });
+
+builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
+builder.Services.AddAWSService<IAmazonS3>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
