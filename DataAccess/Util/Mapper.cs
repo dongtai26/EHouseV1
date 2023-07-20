@@ -281,7 +281,9 @@ namespace DataAccess.Util
                     ContractCreatedDay = contract.ContractCreatedDay,
                     HoId = contract.HoId,
                     AdId = contract.AdId,
+                    StatusAdminId = contract.StatusAdminId,
                     LeId = contract.LeId,
+                    StatusLessorId = contract.StatusLessorId,
                     LesId = contract.LesId
                 };
                 return contractDTO;
@@ -301,10 +303,47 @@ namespace DataAccess.Util
                 ContractCreatedDay = contractDTO.ContractCreatedDay,
                 HoId = contractDTO.HoId,
                 AdId = contractDTO.AdId,
+                StatusAdminId = contractDTO.StatusAdminId,
                 LeId = contractDTO.LeId,
+                StatusLessorId = contractDTO.StatusLessorId,
                 LesId = contractDTO.LesId
             };
             return contract;
+        }
+        public static PostDTO mapToDTO(Post post)
+        {
+            if(post != null)
+            {
+                PostDTO postDTO = new PostDTO
+                {
+                    PId = post.PId,
+                    PostStatus = post.PostStatus,
+                    AdId = post.AdId,
+                    PostContent = post.PostContent,
+                    PostCreatedDay = post.PostCreatedDay,
+                    PostTitle = post.PostTitle,
+                    UId = post.UId
+                };
+                return postDTO;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public static Post mapToEntity (PostDTO postDTO)
+        {
+            Post post = new Post
+            {
+                PId = postDTO.PId,
+                PostStatus = postDTO.PostStatus,
+                AdId = postDTO.AdId,
+                PostContent = postDTO.PostContent,
+                PostCreatedDay= postDTO.PostCreatedDay,
+                PostTitle = postDTO.PostTitle,
+                UId = postDTO.UId
+            };
+            return post;
         }
     }
 }
