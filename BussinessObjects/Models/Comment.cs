@@ -15,7 +15,6 @@ namespace BusinessObjects.Models
         public int CId { get; set; }
         public string CommentContent { get; set; }
         public DateTime LastTimeModified { get; set; }
-        public string CommentStatus { get; set; }
         public int PId { get; set; }
         [ForeignKey("PId")]
         public virtual Post Post { get; set; }

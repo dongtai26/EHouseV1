@@ -345,5 +345,37 @@ namespace DataAccess.Util
             };
             return post;
         }
+        public static CommentDTO mapToDTO (Comment comment)
+        {
+            if(comment != null)
+            {
+                CommentDTO commentDTO = new CommentDTO
+                {
+                    CId = comment.CId,
+                    CommentContent = comment.CommentContent,
+                    LastTimeModified = comment.LastTimeModified,
+                    PId = comment.PId,
+                    UId = comment.UId
+
+                };
+                return commentDTO;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public static Comment mapToEntity (CommentDTO commentDTO)
+        {
+            Comment comment = new Comment
+            {
+                CId = commentDTO.CId,
+                CommentContent = commentDTO.CommentContent,
+                LastTimeModified = commentDTO.LastTimeModified,
+                PId = commentDTO.PId,
+                UId = commentDTO.UId
+            };
+            return comment;
+        }
     }
 }

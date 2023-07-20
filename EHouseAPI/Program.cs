@@ -20,6 +20,7 @@ builder.Services.AddScoped<IHouseAddressRepository, HouseAddressRepository>();
 builder.Services.AddScoped<IContractRepository, ContractRepository>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IS3Reponsitory, S3Reponsitory>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddTransient<ITokenManager, TokenManager>();
 
 builder.Services.AddAuthentication(o =>

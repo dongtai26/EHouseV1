@@ -35,7 +35,7 @@ namespace Security
         public void SaveToken(int UId, string token)
         {
             UserToken userToken = userTokenDAO.FindUserTokenByUId(UId);
-            userToken.Jwt = token;
+            userToken.Jwt = "bearer " + token;
             userTokenDAO.UpdateUserToken(userToken);
         }
         public void DeleteToken(int UId)
