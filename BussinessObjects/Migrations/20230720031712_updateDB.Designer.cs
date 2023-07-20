@@ -4,6 +4,7 @@ using BusinessObjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObjects.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230720031712_updateDB")]
+    partial class updateDB
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -104,10 +106,10 @@ namespace BusinessObjects.Migrations
                     b.Property<int?>("LesId")
                         .HasColumnType("int");
 
-                    b.Property<bool>("StatusAdminId")
+                    b.Property<bool?>("StatusAdminId")
                         .HasColumnType("bit");
 
-                    b.Property<bool>("StatusLessorId")
+                    b.Property<bool?>("StatusLessorId")
                         .HasColumnType("bit");
 
                     b.HasKey("ConId");

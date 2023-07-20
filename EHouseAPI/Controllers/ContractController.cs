@@ -41,6 +41,16 @@ namespace EHouseAPI.Controllers
         {
             return Ok(contractRepository.GetContractByAdminId(id));
         }
+        [HttpGet("GetStatusAdminId")]
+        public async Task<IActionResult> GetContractByStatusAdminId(bool statusAdminId)
+        {
+            return Ok(contractRepository.GetContractByStatusAdminId(statusAdminId));
+        }
+        [HttpGet("GetStatusLessorId")]
+        public async Task<IActionResult> GetContractByStatusLessorId(bool statusLessorId)
+        {
+            return Ok(contractRepository.GetContractByStatusLessorId(statusLessorId));
+        }
         /*[AuthorizationFilter]*/
         [HttpPost("AddContract")]
         public async Task<IActionResult> AddContract(ContractDTO contract)

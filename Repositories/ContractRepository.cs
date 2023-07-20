@@ -44,5 +44,13 @@ namespace Repositories
         {
             return Mapper.mapToDTO(contractDAO.GetContractByAdminId(id));
         }
+        public List<ContractDTO> GetContractByStatusAdminId(bool StatusAdminId)
+        {
+            return contractDAO.GetContractByStatusAdminId(StatusAdminId).Select(m => Mapper.mapToDTO(m)).ToList();
+        } 
+        public List<ContractDTO> GetContractByStatusLessorId(bool StatusLessorId)
+        {
+            return contractDAO.GetContractByStatusLessorId(StatusLessorId).Select(m => Mapper.mapToDTO(m)).ToList();
+        }
     }
 }
