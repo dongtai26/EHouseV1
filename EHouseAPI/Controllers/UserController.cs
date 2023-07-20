@@ -249,7 +249,7 @@ namespace EHouseAPI.Controllers
                     });
                 return Ok(new
                 {
-                    token = "bearer " + token
+                    token = token
                 });
             }
             catch (Exception e)
