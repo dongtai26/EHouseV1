@@ -22,25 +22,25 @@ namespace EHouseAPI.Controllers
             return Ok(contractRepository.GetContracts());
         }
         /*[AuthorizationFilter]*/
-        [HttpGet("GetContractsById")]
+        [HttpGet("GetContractsById/{id}")]
         public async Task<IActionResult> GetContractsById(int id)
         {
             return Ok(contractRepository.GetContractById(id));
         }
         /*[AuthorizationFilter]*/
-        [HttpGet("GetContractsByLesseeId")]
+        [HttpGet("GetContractsByLesseeId/{id}")]
         public async Task<IActionResult> GetContractsByLesseeId(int id)
         {
             return Ok(contractRepository.GetContractByLesseeId(id));
         }
         /*[AuthorizationFilter]*/
-        [HttpGet("GetContractsByLessorId")]
+        [HttpGet("GetContractsByLessorId/{id}")]
         public async Task<IActionResult> GetContractsByLessorId(int id)
         {
             return Ok(contractRepository.GetContractByLessorId(id));
         }
         /*[AuthorizationFilter]*/
-        [HttpGet("GetContractsByAdminId")]
+        [HttpGet("GetContractsByAdminId/{id}")]
         public async Task<IActionResult> GetContractsByAdminId(int id)
         {
             return Ok(contractRepository.GetContractByAdminId(id));

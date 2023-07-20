@@ -36,22 +36,37 @@ namespace EHouseAPI.Controllers
         {
             return Ok(userRepository.GetUsers());
         }
+        /*[AuthorizationFilter]
+        [Authorize(Roles = "Lessor, Admin, Lessee")]*/
+        [HttpGet("GetUserById/{id}")]
+        public async Task<IActionResult> GetUserById(int id)
+        {
+            return Ok(userRepository.GetUserById(id));
+        }
+        /*[AuthorizationFilter]
+        [Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("GetAdmins")]
         public async Task<IActionResult> GetAdmins()
         {
             return Ok(userRepository.GetUsersByRoleId(1));
         }
+        /*[AuthorizationFilter]
+        [Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("GetLessors")]
         public async Task<IActionResult> GetLessors()
         {
             return Ok(userRepository.GetUsersByRoleId(2));
         }
+        /*[AuthorizationFilter]
+        [Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("GetLesseees")]
         public async Task<IActionResult> GetLesseees()
         {
             return Ok(userRepository.GetUsersByRoleId(3));
         }
-        [HttpGet("GetUserByRoleId")]
+        /*[AuthorizationFilter]
+        [Authorize(Roles = "Lessor, Admin, Lessee")]*/
+        [HttpGet("GetUserByRoleId/{id}")]
         public async Task<IActionResult> GetUserByRoleId(int id)
         {
             return Ok(userRepository.GetUsersByRoleId(id));
@@ -242,6 +257,7 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }   
         }
+        /*[AuthorizationFilter]*/
         [HttpGet("Logout")]
         public async Task<IActionResult> Logout()
         {
@@ -256,6 +272,7 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
+        /*[AuthorizationFilter]*/
         [HttpGet("LoggedUser")]
         public async Task<IActionResult> LoggedUser()
         {
