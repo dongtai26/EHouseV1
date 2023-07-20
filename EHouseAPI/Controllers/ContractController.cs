@@ -21,31 +21,37 @@ namespace EHouseAPI.Controllers
         {
             return Ok(contractRepository.GetContracts());
         }
+        /*[AuthorizationFilter]*/
         [HttpGet("GetContractsById")]
         public async Task<IActionResult> GetContractsById(int id)
         {
             return Ok(contractRepository.GetContractById(id));
         }
+        /*[AuthorizationFilter]*/
         [HttpGet("GetContractsByLesseeId")]
         public async Task<IActionResult> GetContractsByLesseeId(int id)
         {
             return Ok(contractRepository.GetContractByLesseeId(id));
         }
+        /*[AuthorizationFilter]*/
         [HttpGet("GetContractsByLessorId")]
         public async Task<IActionResult> GetContractsByLessorId(int id)
         {
             return Ok(contractRepository.GetContractByLessorId(id));
         }
+        /*[AuthorizationFilter]*/
         [HttpGet("GetContractsByAdminId")]
         public async Task<IActionResult> GetContractsByAdminId(int id)
         {
             return Ok(contractRepository.GetContractByAdminId(id));
         }
+        /*[AuthorizationFilter]*/
         [HttpGet("GetStatusAdminId")]
         public async Task<IActionResult> GetContractByStatusAdminId(bool statusAdminId)
         {
             return Ok(contractRepository.GetContractByStatusAdminId(statusAdminId));
         }
+        /*[AuthorizationFilter]*/
         [HttpGet("GetStatusLessorId")]
         public async Task<IActionResult> GetContractByStatusLessorId(bool statusLessorId)
         {
