@@ -6,14 +6,17 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BussinessObjects.Models
+namespace BusinessObjects.Models
 {
     public class Post
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PId { get; set; }
-        public string PostStatus { get; set; }
+        public bool PostStatus { get; set; }
+        public int? AdId { get; set; }
+        [ForeignKey("AdId")]
+        public virtual Admin Admin { get; set; }
         public string PostContent { get; set; }
         public DateTime PostCreatedDay { get; set; }
         public string PostTitle { get; set; }
@@ -22,8 +25,7 @@ namespace BussinessObjects.Models
         public virtual User User { get; set; }
         public virtual ICollection<Comment> Comment { get; set; }
         public virtual ICollection<History> Histories { get; set; }
-        public virtual ICollection<HouseRent> HouseRents { get; set; }
-        public virtual ICollection<Image> Images { get; set; }
+        public virtual ICollection<PostImage> PostImages { get; set; }
         public virtual ICollection<Notification> Notifications { get; set; }
 
     }

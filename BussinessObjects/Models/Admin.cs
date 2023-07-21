@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BussinessObjects.Models
+namespace BusinessObjects.Models
 {
     public class Admin
     {
@@ -16,5 +16,7 @@ namespace BussinessObjects.Models
         public int UId { get; set; }
         [ForeignKey("UId")]
         public virtual User User { get; set; }
+        public virtual ICollection<Contract> Contracts { get; set; }
+        public virtual ICollection<Post> Posts { get; set; }
     }
 }
