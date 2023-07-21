@@ -25,5 +25,10 @@ namespace Repositories
         {
             lessorDAO.DeleteLessor(id);
         }
+
+        public LessorDTO GetLessorById(int id)
+        {
+            return Mapper.mapToDTO(lessorDAO.GetLessorByUserId(id));
+        }
     }
 }

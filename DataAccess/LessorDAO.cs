@@ -55,5 +55,19 @@ namespace DataAccess
                 throw new Exception(e.Message);
             }
         }
+        public Lessor GetLessorByUserId(int id)
+        {
+            Lessor lessor = new Lessor();
+            try
+            {
+                var db = new AppDbContext();
+                lessor = db.Lessors.SingleOrDefault(x => x.UId == id);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return lessor;
+        }
     }
 }

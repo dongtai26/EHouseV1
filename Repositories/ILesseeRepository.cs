@@ -12,5 +12,6 @@ namespace Repositories
         List<LesseeDTO> GetLessees();
         void AddLessee(LesseeDTO lesseeDTO);
         void DeleteLessee(int id);
+        LesseeDTO GetLesseeById(int id);
     }
 }

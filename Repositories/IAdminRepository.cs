@@ -12,5 +12,6 @@ namespace Repositories
         List<AdminDTO> GetAdmins();
         void AddAdmin(AdminDTO adminDTO);
         void DeleteAdmin(int id);
+        AdminDTO GetAdminById(int id);
     }
 }
