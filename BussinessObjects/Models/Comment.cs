@@ -21,5 +21,6 @@ namespace BusinessObjects.Models
         public int UId { get; set; }
         [ForeignKey("UId")]
         public virtual User User { get; set; }
+        public virtual ICollection<Notification> Notifications { get; set; }
     }
 }

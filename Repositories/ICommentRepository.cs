@@ -11,7 +11,8 @@ namespace Repositories
     {
         List<CommentDTO> GetComments();
         CommentDTO GetCommentById(int id);
-        CommentDTO GetCommentByPostId(int id);
+        List<CommentDTO> GetCommentByPostId(int id);
+        CommentDTO GetLastComment();
         void CreateComment(CommentDTO commentDTO);
         void EditComment(CommentDTO commentDTO);
         void DeleteComment(int id); 

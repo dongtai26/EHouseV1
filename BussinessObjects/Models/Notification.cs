@@ -21,5 +21,8 @@ namespace BusinessObjects.Models
         public int UId { get; set; }
         [ForeignKey("UId")]
         public virtual User User { get; set; }
+        public int CId { get; set; }
+        [ForeignKey("CId")]
+        public virtual Comment comment { get; set; }
     }
 }

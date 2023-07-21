@@ -37,9 +37,14 @@ namespace Repositories
             commentDAO.EditComment(Mapper.mapToEntity(commentDTO));
         }
 
-        public CommentDTO GetCommentByPostId(int id)
+        public List<CommentDTO> GetCommentByPostId(int id)
         {
-            return Mapper.mapToDTO(commentDAO.GetCommentByPostId(id));
+            return commentDAO.GetCommentByPostId(id).Select(m => Mapper.mapToDTO(m)).ToList();
+        }
+
+        public CommentDTO GetLastComment()
+        {
+            return Mapper.mapToDTO(commentDAO.GetLastComment());
         }
     }
 }

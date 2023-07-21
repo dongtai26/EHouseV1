@@ -42,21 +42,21 @@ namespace DataAccess
             }
             return comment;
         }
-        public Comment GetCommentByPostId(int id)
+        public List<Comment> GetCommentByPostId(int id)
         {
-            Comment comment = new Comment();
+            var  ListComment = new List<Comment>();
             try
             {
                 using (var context = new AppDbContext())
                 {
-                    comment = context.Comments.SingleOrDefault(x => x.PId == id);
+                    ListComment = context.Comments.Where(x => x.PId == id).ToList();
                 }
             }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
-            return comment;
+            return ListComment;
         }
         public void CreateComment (Comment comment)
         {
@@ -101,6 +101,21 @@ namespace DataAccess
             {
                 throw new Exception(e.Message);
             }
+        }
+        public Comment GetLastComment()
+        {
+            Comment comment = new Comment();
+            var ListComment = new List<Comment>();
+            try
+            {
+                var db = new AppDbContext();
+                comment = db.Comments.OrderBy(m => m.CId).Last();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return comment;
         }
     }
 }

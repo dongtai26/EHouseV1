@@ -280,6 +280,8 @@ namespace DataAccess.Util
                     ContractContent = contract.ContractContent,
                     ContractCreatedDay = contract.ContractCreatedDay,
                     HoId = contract.HoId,
+                    HouseRentName = contract.HouseRentName,
+                    RentPrice = contract.RentPrice,
                     AdId = contract.AdId,
                     StatusAdminId = contract.StatusAdminId,
                     LeId = contract.LeId,
@@ -302,6 +304,8 @@ namespace DataAccess.Util
                 ContractContent = contractDTO.ContractContent,
                 ContractCreatedDay = contractDTO.ContractCreatedDay,
                 HoId = contractDTO.HoId,
+                HouseRentName = contractDTO.HouseRentName,
+                RentPrice = contractDTO.RentPrice,
                 AdId = contractDTO.AdId,
                 StatusAdminId = contractDTO.StatusAdminId,
                 LeId = contractDTO.LeId,
@@ -376,6 +380,39 @@ namespace DataAccess.Util
                 UId = commentDTO.UId
             };
             return comment;
+        }
+        public static NotificationDTO mapToDTO (Notification notification)
+        {
+            if(notification != null)
+            {
+                NotificationDTO notificationDTO = new NotificationDTO
+                {
+                    NoId = notification.NoId,
+                    NoContent = notification.NoContent,
+                    NoName = notification.NoName,
+                    PId = notification.PId,
+                    UId = notification.UId,
+                    CId = notification.CId,
+                };
+                return notificationDTO;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public static Notification mapToEntity (NotificationDTO notificationDTO)
+        {
+            Notification notification = new Notification
+            {
+                NoId = notificationDTO.NoId,
+                NoContent = notificationDTO.NoContent,
+                NoName = notificationDTO.NoName,
+                PId = notificationDTO.PId,
+                UId = notificationDTO.UId,
+                CId = notificationDTO.CId
+            };
+            return notification;
         }
     }
 }
