@@ -39,6 +39,12 @@ namespace BusinessObjects.Data
         public virtual DbSet<HouseAddress>? HouseAddresses { get; set; }
         public virtual DbSet<HouseImage>? HouseImages { get; set; }
         public virtual DbSet<HouseRent>? HouseRents { get; set; }
+        public virtual DbSet<Merchant>? Merchants { get; set; }
+        public virtual DbSet<Payment>? Payments { get; set; }
+        public virtual DbSet<PaymentDestination>? PaymentDestinations { get; set; }
+        public virtual DbSet<PaymentNotification>? PaymentNotifications { get; set; }
+        public virtual DbSet<PaymentSignature>? PaymentSignatures { get; set; }
+        public virtual DbSet<PaymentTransaction>? PaymentTransactions { get; set; }
 
         override protected void OnModelCreating(ModelBuilder modelBuilder)
         {
