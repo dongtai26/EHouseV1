@@ -126,37 +126,6 @@ namespace BusinessObjects.Migrations
                     b.ToTable("Contracts");
                 });
 
-            modelBuilder.Entity("BusinessObjects.Models.History", b =>
-                {
-                    b.Property<int>("Hid")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Hid"), 1L, 1);
-
-                    b.Property<int>("ConId")
-                        .HasColumnType("int");
-
-                    b.Property<DateTime>("ModifiedDay")
-                        .HasColumnType("datetime2");
-
-                    b.Property<int>("PId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("UId")
-                        .HasColumnType("int");
-
-                    b.HasKey("Hid");
-
-                    b.HasIndex("ConId");
-
-                    b.HasIndex("PId");
-
-                    b.HasIndex("UId");
-
-                    b.ToTable("Histories");
-                });
-
             modelBuilder.Entity("BusinessObjects.Models.HouseAddress", b =>
                 {
                     b.Property<int>("HouseAddressId")
@@ -329,6 +298,46 @@ namespace BusinessObjects.Migrations
                     b.ToTable("Locations");
                 });
 
+            modelBuilder.Entity("BusinessObjects.Models.Merchant", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("CreatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("LastUpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("LastUpdatedBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MerchantIpnUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MerchantName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MerchantReturnUrl")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("MerchantWebLink")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SecretKey")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Merchants");
+                });
+
             modelBuilder.Entity("BusinessObjects.Models.Notification", b =>
                 {
                     b.Property<int>("NoId")
@@ -363,6 +372,228 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("UId");
 
                     b.ToTable("Notifications");
+                });
+
+            modelBuilder.Entity("BusinessObjects.Models.Payment", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<DateTime?>("ExpireDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("MerchantId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<decimal?>("PaymentAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.Property<string>("PaymentContent")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PaymentCurrency")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("PaymentDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("PaymentDestinationId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PaymentLanguage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PaymentLastMessage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PaymentRefId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PaymentStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<decimal?>("RequiredAmount")
+                        .HasColumnType("decimal(18,2)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MerchantId");
+
+                    b.HasIndex("PaymentDestinationId");
+
+                    b.ToTable("Payments");
+                });
+
+            modelBuilder.Entity("BusinessObjects.Models.PaymentDestination", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("CreateBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("DesLogo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DesName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("DesShortName")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("DesSortIndex")
+                        .HasColumnType("int");
+
+                    b.Property<bool?>("IsActive")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("LastUpdateBy")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("LastUpdatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("ParentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentId")
+                        .IsUnique()
+                        .HasFilter("[ParentId] IS NOT NULL");
+
+                    b.ToTable("PaymentDestinations");
+                });
+
+            modelBuilder.Entity("BusinessObjects.Models.PaymentNotification", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("MerchantId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("NotiAmount")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NotiContent")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("NotiDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NotiMessage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("NotiResDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("NotiResHttpCode")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NotiResMessage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NotiSignature")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("NotiStatus")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("ParentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PaymentId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("PaymentRefId")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("MerchantId");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("PaymentNotifications");
+                });
+
+            modelBuilder.Entity("BusinessObjects.Models.PaymentSignature", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<bool>("IsVaid")
+                        .HasColumnType("bit");
+
+                    b.Property<string>("ParentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PaymentId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SignAlgo")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("SignDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("SignOwn")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("SignValue")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("PaymentSignatures");
+                });
+
+            modelBuilder.Entity("BusinessObjects.Models.PaymentTransaction", b =>
+                {
+                    b.Property<string>("Id")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("ParentId")
+                        .HasColumnType("nvarchar(450)");
+
+                    b.Property<string>("PaymentId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TranAmount")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime?>("TranDate")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("TranMessage")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TranPayload")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("TranRefId")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("ParentId");
+
+                    b.ToTable("PaymentTransactions");
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Post", b =>
@@ -585,33 +816,6 @@ namespace BusinessObjects.Migrations
                     b.Navigation("Lessor");
                 });
 
-            modelBuilder.Entity("BusinessObjects.Models.History", b =>
-                {
-                    b.HasOne("BusinessObjects.Models.Contract", "Contract")
-                        .WithMany("Histories")
-                        .HasForeignKey("ConId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("BusinessObjects.Models.Post", "Post")
-                        .WithMany("Histories")
-                        .HasForeignKey("PId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.HasOne("BusinessObjects.Models.User", "User")
-                        .WithMany("Histories")
-                        .HasForeignKey("UId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
-                    b.Navigation("Contract");
-
-                    b.Navigation("Post");
-
-                    b.Navigation("User");
-                });
-
             modelBuilder.Entity("BusinessObjects.Models.HouseAddress", b =>
                 {
                     b.HasOne("BusinessObjects.Models.HouseRent", "HouseRent")
@@ -702,6 +906,73 @@ namespace BusinessObjects.Migrations
                     b.Navigation("comment");
                 });
 
+            modelBuilder.Entity("BusinessObjects.Models.Payment", b =>
+                {
+                    b.HasOne("BusinessObjects.Models.Merchant", "Merchant")
+                        .WithMany("Payments")
+                        .HasForeignKey("MerchantId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BusinessObjects.Models.PaymentDestination", "PaymentDestination")
+                        .WithMany()
+                        .HasForeignKey("PaymentDestinationId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Merchant");
+
+                    b.Navigation("PaymentDestination");
+                });
+
+            modelBuilder.Entity("BusinessObjects.Models.PaymentDestination", b =>
+                {
+                    b.HasOne("BusinessObjects.Models.Payment", "Payment")
+                        .WithOne()
+                        .HasForeignKey("BusinessObjects.Models.PaymentDestination", "ParentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Payment");
+                });
+
+            modelBuilder.Entity("BusinessObjects.Models.PaymentNotification", b =>
+                {
+                    b.HasOne("BusinessObjects.Models.Merchant", "Merchant")
+                        .WithMany("PaymentNotifications")
+                        .HasForeignKey("MerchantId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BusinessObjects.Models.Payment", "Payment")
+                        .WithMany("PaymentNotifications")
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Merchant");
+
+                    b.Navigation("Payment");
+                });
+
+            modelBuilder.Entity("BusinessObjects.Models.PaymentSignature", b =>
+                {
+                    b.HasOne("BusinessObjects.Models.Payment", "Payment")
+                        .WithMany("PaymentSignatures")
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Payment");
+                });
+
+            modelBuilder.Entity("BusinessObjects.Models.PaymentTransaction", b =>
+                {
+                    b.HasOne("BusinessObjects.Models.Payment", "Payment")
+                        .WithMany("PaymentTransactions")
+                        .HasForeignKey("ParentId")
+                        .OnDelete(DeleteBehavior.Restrict);
+
+                    b.Navigation("Payment");
+                });
+
             modelBuilder.Entity("BusinessObjects.Models.Post", b =>
                 {
                     b.HasOne("BusinessObjects.Models.Admin", "Admin")
@@ -765,11 +1036,6 @@ namespace BusinessObjects.Migrations
                     b.Navigation("Notifications");
                 });
 
-            modelBuilder.Entity("BusinessObjects.Models.Contract", b =>
-                {
-                    b.Navigation("Histories");
-                });
-
             modelBuilder.Entity("BusinessObjects.Models.Lessee", b =>
                 {
                     b.Navigation("Contracts");
@@ -782,11 +1048,25 @@ namespace BusinessObjects.Migrations
                     b.Navigation("HouseRents");
                 });
 
+            modelBuilder.Entity("BusinessObjects.Models.Merchant", b =>
+                {
+                    b.Navigation("PaymentNotifications");
+
+                    b.Navigation("Payments");
+                });
+
+            modelBuilder.Entity("BusinessObjects.Models.Payment", b =>
+                {
+                    b.Navigation("PaymentNotifications");
+
+                    b.Navigation("PaymentSignatures");
+
+                    b.Navigation("PaymentTransactions");
+                });
+
             modelBuilder.Entity("BusinessObjects.Models.Post", b =>
                 {
                     b.Navigation("Comment");
-
-                    b.Navigation("Histories");
 
                     b.Navigation("Notifications");
 
@@ -796,8 +1076,6 @@ namespace BusinessObjects.Migrations
             modelBuilder.Entity("BusinessObjects.Models.User", b =>
                 {
                     b.Navigation("Comments");
-
-                    b.Navigation("Histories");
 
                     b.Navigation("Notifications");
 

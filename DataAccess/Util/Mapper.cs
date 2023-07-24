@@ -414,5 +414,77 @@ namespace DataAccess.Util
             };
             return notification;
         }
+        /*public static MerchantDTO mapToDTO(Merchant merchant)
+        {
+            if(merchant != null)
+            {
+                MerchantDTO merchantDTO = new MerchantDTO
+                {
+                    Id = merchant.Id,
+                    MerchantName = merchant.MerchantName,
+                    MerchantWebLink = merchant.MerchantWebLink,
+                    MerchantIpnUrl = merchant.MerchantIpnUrl,
+                    MerchantReturnUrl = merchant.MerchantReturnUrl,
+                    IsActive = merchant.IsActive
+                };
+                return merchantDTO;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public static Merchant mapToEntity(MerchantDTO merchantDTO)
+        {
+            Merchant merchant = new Merchant
+            {
+                Id = merchantDTO.Id,
+                MerchantName = merchantDTO.MerchantName,
+                MerchantWebLink = merchantDTO.MerchantWebLink,
+                MerchantIpnUrl = merchantDTO.MerchantIpnUrl,
+                MerchantReturnUrl = merchantDTO.MerchantReturnUrl,
+                IsActive = merchantDTO.IsActive
+            };
+            return merchant;
+        }*/
+        public static PaymentDTO mapToDTO (Payment payment)
+        {
+            if(payment != null)
+            {
+                PaymentDTO paymentDTO = new PaymentDTO
+                {
+                    Id = payment.Id,
+                    PaymentContent = payment.PaymentContent,
+                    PaymentCurrency = payment.PaymentCurrency,
+                    PaymentDate = payment.PaymentDate,
+                    PaymentRefId = payment.PaymentRefId,
+                    RequiredAmount = payment.RequiredAmount,
+                    PaymentLanguage = payment.PaymentLanguage,
+                    MerchantId = payment.MerchantId,
+                    PaymentDestinationId = payment.PaymentDestinationId
+                };
+                return paymentDTO;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public static Payment mapToEntity (PaymentDTO paymentDTO)
+        {
+            Payment payment = new Payment
+            {
+                Id = paymentDTO.Id,
+                PaymentContent = paymentDTO.PaymentContent,
+                PaymentCurrency = paymentDTO.PaymentCurrency,
+                PaymentDate = paymentDTO.PaymentDate,
+                PaymentRefId = paymentDTO.PaymentRefId,
+                RequiredAmount = paymentDTO.RequiredAmount,
+                PaymentLanguage = paymentDTO.PaymentLanguage,
+                MerchantId = paymentDTO.MerchantId,
+                PaymentDestinationId = paymentDTO.PaymentDestinationId
+            };
+            return payment;
+        }
     }
 }

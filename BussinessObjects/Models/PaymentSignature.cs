@@ -12,13 +12,14 @@ namespace BusinessObjects.Models
     {
         [Key]
         public string Id { get; set; }
-        public string SignValue { get; set; }
-        public string SignAlgo { get; set; }
-        public DateTime SignDate { get; set; }
-        public string SignOwn { get; set; }
-        public string PaymentId { get; set; }
+        public string? SignValue { get; set; }
+        public string? SignAlgo { get; set; }
+        public DateTime? SignDate { get; set; }
+        public string? SignOwn { get; set; }
+        public string? PaymentId { get; set; }
         [ForeignKey("ParentId")]
         public virtual Payment Payment { get; set; }
+        public bool IsVaid { get; set; }
 
     }
 }

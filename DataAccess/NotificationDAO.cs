@@ -1,5 +1,7 @@
 ﻿using BusinessObjects.Data;
 using BusinessObjects.Models;
+using DataAccess.DTO;
+using MediatR;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    public class NotificationDAO
+    public class NotificationDAO : IRequest<PaymentLinkDTO>
     {
         public List<Notification> GetNotifications()
         {

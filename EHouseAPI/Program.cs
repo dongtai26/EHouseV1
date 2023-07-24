@@ -2,6 +2,7 @@ using Amazon.S3;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Repositories;
+using Repositories.Zalopay.Config;
 using Security;
 using System.Text;
 
@@ -22,6 +23,7 @@ builder.Services.AddScoped<IPostRepository, PostRepository>();
 builder.Services.AddScoped<IS3Reponsitory, S3Reponsitory>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
+builder.Services.AddScoped<IMerchantRepository, MerchantRepository>();
 builder.Services.AddTransient<ITokenManager, TokenManager>();
 
 builder.Services.AddAuthentication(o =>
@@ -61,6 +63,8 @@ builder.Services.AddHttpContextAccessor();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+builder.Services.Configure<ZaloPayConfig>(
+    builder.Configuration.GetSection(ZaloPayConfig.ConfigName));
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.

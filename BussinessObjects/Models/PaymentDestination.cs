@@ -12,14 +12,17 @@ namespace BusinessObjects.Models
     {
         [Key]
         public string Id { get; set; }
-        public string DesLogo { get; set; }
-        public string DesShortName { get; set; }
-        public string DesName { get; set; }
+        public string? DesLogo { get; set; }
+        public string? DesShortName { get; set; }
+        public string? DesName { get; set; }
         public int DesSortIndex { get; set; }
-        public string ParentId { get; set; }
+        public string? ParentId { get; set; }
         [ForeignKey("ParentId")]
         public virtual Payment Payment { get; set; }
-        public bool IsActive { get; set; }
-        public virtual ICollection<Payment> Payments { get; set; }
+        public bool? IsActive { get; set; }
+        public string? CreateBy { get; set; }
+        public string? LastUpdateBy { get; set; }
+        public DateTime? CreatedAt { get; set; }
+        public DateTime? LastUpdatedAt { get; set; }
     }
 }

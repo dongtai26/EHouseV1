@@ -25,7 +25,6 @@ namespace BusinessObjects.Data
 
         public virtual DbSet<Comment>? Comments { get; set; }
         public virtual DbSet<Contract>? Contracts { get; set; }
-        public virtual DbSet<History>? Histories { get; set; }
         public virtual DbSet<PostImage>? PostImages { get; set; }
         public virtual DbSet<Notification>? Notifications { get; set; }
         public virtual DbSet<Post>? Posts { get; set; }

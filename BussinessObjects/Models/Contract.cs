@@ -32,6 +32,5 @@ namespace BusinessObjects.Models
         public int? LesId { get; set; }
         [ForeignKey("LesId")]
         public virtual Lessee Lessee { get; set; }
-        public virtual ICollection<History> Histories { get; set; }
     }
 }

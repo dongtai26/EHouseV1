@@ -13,16 +13,20 @@ namespace BusinessObjects.Models
         [Key]
         public string Id { get; set; }
         public string PaymentRefId { get; set; }
-        public string NotiDate { get; set; }
+        public DateTime? NotiDate { get; set; }
         public string NotiAmount { get; set; }
         public string NotiContent { get; set; }
-        public string NotiMessage { get; set; }
-        public string NotiSignature { get; set; }
-        public string PaymentId { get; set; }
+        public string? NotiMessage { get; set; }
+        public string? NotiSignature { get; set; }
+        public string? PaymentId { get; set; }
         [ForeignKey("ParentId")]
         public virtual Payment Payment { get; set; }
-        public string MerchantId { get; set; }
-        public string NotiStatus { get; set; }
-        public string NotiResDate { get; set; }
+        public string? MerchantId { get; set; }
+        [ForeignKey("MerchantId")]
+        public virtual Merchant Merchant { get; set; }
+        public string? NotiStatus { get; set; }
+        public DateTime? NotiResDate { get; set; }
+        public string? NotiResMessage { get; set; }
+        public string? NotiResHttpCode { get; set; }
     }
 }
