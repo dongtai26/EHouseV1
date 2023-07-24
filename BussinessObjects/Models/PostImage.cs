@@ -6,16 +6,16 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BussinessObjects.Models
+namespace BusinessObjects.Models
 {
-    public class Image
+    public class PostImage
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int IId { get; set; }
-        public string ImageCode { get; set; }
-        public string? ImageName { get; set; }
-        public string ImageContent { get; set; }
+        public int PIId { get; set; }
+        public string PostImageCode { get; set; }
+        public string? PostImageName { get; set; }
+        public string PostImageContent { get; set; }
         public int PId { get; set; }
         [ForeignKey("PId")]
         public virtual Post Post { get; set; }

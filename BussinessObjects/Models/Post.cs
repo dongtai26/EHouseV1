@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace BussinessObjects.Models
+namespace BusinessObjects.Models
 {
     public class Post
     {
@@ -22,8 +22,7 @@ namespace BussinessObjects.Models
         public virtual User User { get; set; }
         public virtual ICollection<Comment> Comment { get; set; }
         public virtual ICollection<History> Histories { get; set; }
-        public virtual ICollection<HouseRent> HouseRents { get; set; }
-        public virtual ICollection<Image> Images { get; set; }
+        public virtual ICollection<PostImage> PostImages { get; set; }
         public virtual ICollection<Notification> Notifications { get; set; }
 
     }
