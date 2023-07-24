@@ -9,7 +9,7 @@ namespace Repositories.Service
 {
     public class MerchantStatusServiceImpl : IMerchantStatusService
     {
-        public MerchantStatus getStatusOrder(String orderId)
+        public MerchantStatus getStatusOrder(string orderId)
         {
             return new MerchantStatus("1", "DELIVERED");
         }

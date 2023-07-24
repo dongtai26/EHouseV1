@@ -12,29 +12,54 @@ namespace Repositories
     public class MerchantRepository : IMerchantRepository
     {
         MerchantDAO merchantDAO = new MerchantDAO();
+
         public void CreateMerchant(MerchantDTO merchantDTO)
         {
-            merchantDAO.CreateMerchant(Mapper.mapToEntity(merchantDTO));
+            throw new NotImplementedException();
         }
 
         public void DeleteMerchant(string id)
         {
-            merchantDAO.DeleteMerchant(id);
+            throw new NotImplementedException();
         }
 
         public void EditMerchant(MerchantDTO merchantDTO)
         {
-            merchantDAO.EditMerchant(Mapper.mapToEntity(merchantDTO));
+            throw new NotImplementedException();
         }
 
         public MerchantDTO GetMerchantById(string id)
         {
-            return Mapper.mapToDTO(merchantDAO.GetMerchantById(id));
+            throw new NotImplementedException();
         }
 
         public List<MerchantDTO> GetMerchants()
         {
-            return merchantDAO.GetMerchants().Select(m => Mapper.mapToDTO(m)).ToList();
+            throw new NotImplementedException();
         }
+        /*public void CreateMerchant(MerchantDTO merchantDTO)
+{
+   merchantDAO.CreateMerchant(Mapper.mapToEntity(merchantDTO));
+}
+
+public void DeleteMerchant(string id)
+{
+   merchantDAO.DeleteMerchant(id);
+}
+
+public void EditMerchant(MerchantDTO merchantDTO)
+{
+   merchantDAO.EditMerchant(Mapper.mapToEntity(merchantDTO));
+}
+
+public MerchantDTO GetMerchantById(string id)
+{
+   return Mapper.mapToDTO(merchantDAO.GetMerchantById(id));
+}
+
+public List<MerchantDTO> GetMerchants()
+{
+   return merchantDAO.GetMerchants().Select(m => Mapper.mapToDTO(m)).ToList();
+}*/
     }
 }

@@ -29,7 +29,7 @@ namespace EHouseAPI.Controllers
             this.merchantStatusService = merchantStatusService;
             this.logger = logger;
         }
-        [HttpPost]
+        /*[HttpPost]
         public MerchantResponse CreateOrder([FromBody] string jsonOrder)
         {
             JObject input = JObject.Parse(jsonOrder);
@@ -55,6 +55,6 @@ namespace EHouseAPI.Controllers
                 OrderId = orderInfo["_orderId"].ToString()
             };
             return this.checkoutService.CreateMerchant(items, order);
-        }
+        }*/
     }
 }
