@@ -55,5 +55,19 @@ namespace DataAccess
                 throw new Exception(e.Message);
             }
         }
+        public Admin GetAdminByUserId(int id)
+        {
+            Admin admin = new Admin();
+            try
+            {
+                var db = new AppDbContext();
+                admin = db.Admins.SingleOrDefault(x => x.UId == id);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return admin;
+        }
     }
 }

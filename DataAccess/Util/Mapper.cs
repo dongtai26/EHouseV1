@@ -364,5 +364,105 @@ namespace DataAccess.Util
             };
             return postImage;
         }
+        public static PostDTO mapToDTO(Post post)
+        {
+            if (post != null)
+            {
+                PostDTO postDTO = new PostDTO
+                {
+                    PId = post.PId,
+                    PostStatus = post.PostStatus,
+                    AdId = post.AdId,
+                    PostContent = post.PostContent,
+                    PostCreatedDay = post.PostCreatedDay,
+                    PostTitle = post.PostTitle,
+                    UId = post.UId
+                };
+                return postDTO;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public static Post mapToEntity(PostDTO postDTO)
+        {
+            Post post = new Post
+            {
+                PId = postDTO.PId,
+                PostStatus = postDTO.PostStatus,
+                AdId = postDTO.AdId,
+                PostContent = postDTO.PostContent,
+                PostCreatedDay = postDTO.PostCreatedDay,
+                PostTitle = postDTO.PostTitle,
+                UId = postDTO.UId
+            };
+            return post;
+        }
+        public static CommentDTO mapToDTO(Comment comment)
+        {
+            if (comment != null)
+            {
+                CommentDTO commentDTO = new CommentDTO
+                {
+                    CId = comment.CId,
+                    CommentContent = comment.CommentContent,
+                    LastTimeModified = comment.LastTimeModified,
+                    PId = comment.PId,
+                    UId = comment.UId
+
+                };
+                return commentDTO;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public static Comment mapToEntity(CommentDTO commentDTO)
+        {
+            Comment comment = new Comment
+            {
+                CId = commentDTO.CId,
+                CommentContent = commentDTO.CommentContent,
+                LastTimeModified = commentDTO.LastTimeModified,
+                PId = commentDTO.PId,
+                UId = commentDTO.UId
+            };
+            return comment;
+        }
+        public static NotificationDTO mapToDTO(Notification notification)
+        {
+            if (notification != null)
+            {
+                NotificationDTO notificationDTO = new NotificationDTO
+                {
+                    NoId = notification.NoId,
+                    NoContent = notification.NoContent,
+                    NoName = notification.NoName,
+                    PId = notification.PId,
+                    UId = notification.UId,
+                    CId = notification.CId,
+                };
+                return notificationDTO;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public static Notification mapToEntity(NotificationDTO notificationDTO)
+        {
+            Notification notification = new Notification
+            {
+                NoId = notificationDTO.NoId,
+                NoContent = notificationDTO.NoContent,
+                NoName = notificationDTO.NoName,
+                PId = notificationDTO.PId,
+                UId = notificationDTO.UId,
+                CId = notificationDTO.CId
+            };
+            return notification;
+        }
     }
 }

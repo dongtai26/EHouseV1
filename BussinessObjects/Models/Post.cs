@@ -13,7 +13,10 @@ namespace BusinessObjects.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PId { get; set; }
-        public string PostStatus { get; set; }
+        public bool PostStatus { get; set; }
+        public int? AdId { get; set; }
+        [ForeignKey("AdId")]
+        public virtual Admin Admin { get; set; }
         public string PostContent { get; set; }
         public DateTime PostCreatedDay { get; set; }
         public string PostTitle { get; set; }

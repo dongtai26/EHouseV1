@@ -4,6 +4,7 @@ using BusinessObjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObjects.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230721085027_UpdateDB5")]
+    partial class UpdateDB5
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -94,18 +96,11 @@ namespace BusinessObjects.Migrations
                     b.Property<int>("HoId")
                         .HasColumnType("int");
 
-                    b.Property<string>("HouseRentName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("LeId")
                         .HasColumnType("int");
 
                     b.Property<int?>("LesId")
                         .HasColumnType("int");
-
-                    b.Property<float>("RentPrice")
-                        .HasColumnType("real");
 
                     b.Property<bool>("StatusAdminId")
                         .HasColumnType("bit");

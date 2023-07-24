@@ -36,22 +36,85 @@ namespace EHouseAPI.Controllers
         {
             return Ok(userRepository.GetUsers());
         }
+        /*[AuthorizationFilter]
+        [Authorize(Roles = "Lessor, Admin, Lessee")]*/
+        [HttpGet("GetUserById/{id}")]
+        public async Task<IActionResult> GetUserById(int id)
+        {
+            return Ok(userRepository.GetUserById(id));
+        }
+        /*[AuthorizationFilter]
+        [Authorize(Roles = "Lessor, Admin, Lessee")]*/
+        [HttpGet("GetRoleByUserId/{id}")]
+        public async Task<IActionResult> GetRoleIdByUserId(int id)
+        {
+            try
+            {
+                var UserDTO = userRepository.GetUserById(id);
+                if (UserDTO.RId == 1)
+                {
+                    return Ok(adminRepository.GetAdminById(id));
+                }
+                else if (UserDTO.RId == 2)
+                {
+                    return Ok(lessorRepository.GetLessorById(id));
+                }
+                else if (UserDTO.RId == 3)
+                {
+                    return Ok(lesseeRepository.GetLesseeById(id));
+                }
+            }
+            catch (Exception e)
+            {
+                return Ok("Người dùng không tồn tại");
+            }
+            return null;
+        }
+        /*[AuthorizationFilter]
+        [Authorize(Roles = "Lessor, Admin, Lessee")]*/
+        [HttpGet("GetAdminByUserId/{id}")]
+        public async Task<IActionResult> GetAdminByUserId(int id)
+        {
+            return Ok(adminRepository.GetAdminById(id));
+        }
+        /*[AuthorizationFilter]
+        [Authorize(Roles = "Lessor, Admin, Lessee")]*/
+        [HttpGet("GetLessorByUserId/{id}")]
+        public async Task<IActionResult> GetLessorByUserId(int id)
+        {
+            return Ok(lessorRepository.GetLessorById(id));
+        }
+        /*[AuthorizationFilter]
+        [Authorize(Roles = "Lessor, Admin, Lessee")]*/
+        [HttpGet("GetLesseeByUserId/{id}")]
+        public async Task<IActionResult> GetLesseeByUserId(int id)
+        {
+            return Ok(lesseeRepository.GetLesseeById(id));
+        }
+        /*[AuthorizationFilter]
+        [Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("GetAdmins")]
         public async Task<IActionResult> GetAdmins()
         {
             return Ok(userRepository.GetUsersByRoleId(1));
         }
+        /*[AuthorizationFilter]
+        [Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("GetLessors")]
         public async Task<IActionResult> GetLessors()
         {
             return Ok(userRepository.GetUsersByRoleId(2));
         }
+        /*[AuthorizationFilter]
+        [Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("GetLesseees")]
         public async Task<IActionResult> GetLesseees()
         {
             return Ok(userRepository.GetUsersByRoleId(3));
         }
-        [HttpGet("GetUserByRoleId")]
+        /*[AuthorizationFilter]
+        [Authorize(Roles = "Lessor, Admin, Lessee")]*/
+        [HttpGet("GetUserByRoleId/{id}")]
         public async Task<IActionResult> GetUserByRoleId(int id)
         {
             return Ok(userRepository.GetUsersByRoleId(id));
@@ -101,7 +164,7 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         [HttpPut("UpdateUser")]
         public async Task<IActionResult> UpdateUser(UserDTO user)
         {
@@ -242,6 +305,7 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }   
         }
+        /*[AuthorizationFilter]*/
         [HttpGet("Logout")]
         public async Task<IActionResult> Logout()
         {
@@ -256,6 +320,7 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
+        /*[AuthorizationFilter]*/
         [HttpGet("LoggedUser")]
         public async Task<IActionResult> LoggedUser()
         {

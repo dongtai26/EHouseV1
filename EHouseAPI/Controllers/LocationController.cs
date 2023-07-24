@@ -1,4 +1,5 @@
 ﻿using DataAccess.DTO;
+using EHouseAPI.Filter;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Repositories;
@@ -16,12 +17,20 @@ namespace EHouseAPI.Controllers
             this.locationRepository = locationRepository;
             this.houseAddressRepository = houseAddressRepository;
         }
+        /*[AuthorizationFilter]*/
         [HttpGet("GetLocations")]
         public async Task<IActionResult> GetLocations()
         {
             return Ok(locationRepository.GetLocations());
         }
-        [HttpGet("GetLocationsByHouseRentId")]
+        /*[AuthorizationFilter]*/
+        [HttpGet("GetLocationById/{id}")]
+        public async Task<IActionResult> GetLocationById(int id)
+        {
+            return Ok(locationRepository.GetLocationByLocationId(id));
+        }
+        /*[AuthorizationFilter]*/
+        [HttpGet("GetLocationsByHouseRentId/{id}")]
         public async Task<IActionResult> GetLocationsByHouseRentId(int HoId)
         {
             List<HouseAddressDTO> houseAddressDTOList = new List<HouseAddressDTO>();
@@ -33,6 +42,7 @@ namespace EHouseAPI.Controllers
             }
             return Ok(locationDTOList);
         }
+        /*[AuthorizationFilter]*/
         [HttpPost("AddLocation")]
         public async Task<IActionResult> AddLocation(LocationDTO location, int HoId)
         {
@@ -54,6 +64,7 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
+        /*[AuthorizationFilter]*/
         [HttpPut("UpdateLocation")]
         public async Task<IActionResult> UpdateLocation(LocationDTO location)
         {
@@ -67,6 +78,7 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
+        /*[AuthorizationFilter]*/
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeleteLocation(int id)
         {

@@ -4,6 +4,7 @@ using BusinessObjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObjects.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230720110651_updateDB3")]
+    partial class updateDB3
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -49,6 +51,10 @@ namespace BusinessObjects.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("CId"), 1L, 1);
 
                     b.Property<string>("CommentContent")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<string>("CommentStatus")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
@@ -94,18 +100,11 @@ namespace BusinessObjects.Migrations
                     b.Property<int>("HoId")
                         .HasColumnType("int");
 
-                    b.Property<string>("HouseRentName")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<int?>("LeId")
                         .HasColumnType("int");
 
                     b.Property<int?>("LesId")
                         .HasColumnType("int");
-
-                    b.Property<float>("RentPrice")
-                        .HasColumnType("real");
 
                     b.Property<bool>("StatusAdminId")
                         .HasColumnType("bit");
@@ -337,9 +336,6 @@ namespace BusinessObjects.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("NoId"), 1L, 1);
 
-                    b.Property<int>("CId")
-                        .HasColumnType("int");
-
                     b.Property<string>("NoContent")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -355,8 +351,6 @@ namespace BusinessObjects.Migrations
                         .HasColumnType("int");
 
                     b.HasKey("NoId");
-
-                    b.HasIndex("CId");
 
                     b.HasIndex("PId");
 
@@ -677,12 +671,6 @@ namespace BusinessObjects.Migrations
 
             modelBuilder.Entity("BusinessObjects.Models.Notification", b =>
                 {
-                    b.HasOne("BusinessObjects.Models.Comment", "comment")
-                        .WithMany("Notifications")
-                        .HasForeignKey("CId")
-                        .OnDelete(DeleteBehavior.Restrict)
-                        .IsRequired();
-
                     b.HasOne("BusinessObjects.Models.Post", "Post")
                         .WithMany("Notifications")
                         .HasForeignKey("PId")
@@ -698,8 +686,6 @@ namespace BusinessObjects.Migrations
                     b.Navigation("Post");
 
                     b.Navigation("User");
-
-                    b.Navigation("comment");
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Post", b =>
@@ -758,11 +744,6 @@ namespace BusinessObjects.Migrations
                     b.Navigation("Contracts");
 
                     b.Navigation("Posts");
-                });
-
-            modelBuilder.Entity("BusinessObjects.Models.Comment", b =>
-                {
-                    b.Navigation("Notifications");
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Contract", b =>
