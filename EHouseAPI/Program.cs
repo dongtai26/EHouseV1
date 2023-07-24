@@ -1,4 +1,5 @@
 using Amazon.S3;
+using AwsS3.Services;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using Repositories;
@@ -18,7 +19,9 @@ builder.Services.AddScoped<ILocationRepository, LocationReponsitory>();
 builder.Services.AddScoped<IHouseRentRepository, HouseRentRepository>();
 builder.Services.AddScoped<IHouseAddressRepository, HouseAddressRepository>();
 builder.Services.AddScoped<IContractRepository, ContractRepository>();
-builder.Services.AddScoped<IS3Reponsitory, S3Reponsitory>();
+builder.Services.AddScoped<IStorageService, StorageService>();
+builder.Services.AddScoped<IHouseImageRepository, HouseImageRepository>();
+builder.Services.AddScoped<IPostImageRepository, PostImageRepository>();
 builder.Services.AddTransient<ITokenManager, TokenManager>();
 
 builder.Services.AddAuthentication(o =>

@@ -306,5 +306,63 @@ namespace DataAccess.Util
             };
             return contract;
         }
+        public static HouseImageDTO mapToDTO(HouseImage houseImage)
+        {
+            if (houseImage != null)
+            {
+                HouseImageDTO houseImageDTO = new HouseImageDTO
+                {
+                    HIId = houseImage.HIId,
+                    HouseImageCode = houseImage.HouseImageCode,
+                    HoId = houseImage.HoId,
+                };
+                return houseImageDTO;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public static HouseImage mapToEntity(HouseImageDTO houseImageDTO)
+        {
+            HouseImage houseImage = new HouseImage
+            {
+                HIId = houseImageDTO.HIId,
+                HouseImageCode = houseImageDTO.HouseImageCode,
+                HoId = houseImageDTO.HoId
+            };
+            return houseImage;
+        }
+        public static PostImageDTO mapToDTO(PostImage postImage)
+        {
+            if (postImage != null)
+            {
+                PostImageDTO postImageDTO = new PostImageDTO
+                {
+                    PIId = postImage.PIId,
+                    PostImageCode = postImage.PostImageCode,
+                    PostImageName = postImage.PostImageName,
+                    PostImageContent = postImage.PostImageContent,
+                    PId = postImage.PId
+                };
+                return postImageDTO;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public static PostImage mapToEntity(PostImageDTO postImageDTO)
+        {
+            PostImage postImage = new PostImage
+            {
+                PIId = postImageDTO.PIId,
+                PostImageCode = postImageDTO.PostImageCode,
+                PostImageName = postImageDTO.PostImageName,
+                PostImageContent = postImageDTO.PostImageContent,
+                PId = postImageDTO.PId
+            };
+            return postImage;
+        }
     }
 }

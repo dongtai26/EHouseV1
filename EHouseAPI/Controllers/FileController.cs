@@ -1,7 +1,6 @@
-﻿using Amazon.S3;
-using Amazon.S3.Model;
+﻿using AwsS3.Models;
+using AwsS3.Services;
 using BusinessObjects.Models;
-using DataAccess.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Repositories;
 
@@ -11,40 +10,48 @@ namespace EHouseAPI.Controllers
     [ApiController]
     public class FileController : Controller
     {
-        private readonly IAmazonS3 amazon3;
-        private readonly ILogger<FileController> logger;
-        private readonly IS3Reponsitory iS3Reponsitory;
-        private readonly IConfiguration configuration;
-        public FileController (IAmazonS3 amazonS3, IS3Reponsitory iS3Reponsitory, ILogger<FileController> logger, IConfiguration configuration)
+        private readonly IStorageService _storageService;
+        private readonly IConfiguration _config;
+        private readonly ILogger<FileController> _logger;
+
+        public FileController(
+            ILogger<FileController> logger,
+            IConfiguration config,
+            IStorageService storageService)
         {
-            this.amazon3 = amazonS3;
-            this.iS3Reponsitory = iS3Reponsitory;
-            this.logger = logger;
-            this.configuration = configuration;
+            _logger = logger;
+            _config = config;
+            _storageService = storageService;
         }
+
         [HttpPost("UploadFile")]
-        public async Task<IActionResult> UploadFileAsync(IFormFile file)
+        public async Task<IActionResult> UploadFile(IFormFile file)
         {
-            await using var memoryStr = new MemoryStream();
-            await file.CopyToAsync(memoryStr);
+            // Process file
+            await using var memoryStream = new MemoryStream();
+            await file.CopyToAsync(memoryStream);
 
-            var fileExt = Path.GetExtension(file.Name);
-            var objName = $"{Guid.NewGuid()}.{fileExt}";
+            var fileExt = Path.GetExtension(file.FileName);
+            var docName = $"{Guid.NewGuid()}{fileExt}";
+            // call server
 
-            var s3Obj = new S3Obj()
+            var s3Obj = new S3Object()
             {
                 BucketName = "ehouse",
-                InputStream = memoryStr,
-                Name = objName,
+                InputStream = memoryStream,
+                Name = docName
             };
 
             var cred = new AwsCredentials()
             {
-                AwsKey = this.configuration["AwsConfiguration:AWSAccessKey"],
-                AwsSecretKey = this.configuration["AwsConfiguration:AWSSecretKey"],
+                AccessKey = _config["AwsConfiguration:AWSAccessKey"],
+                SecretKey = _config["AwsConfiguration:AWSSecretKey"]
             };
-            var result = await this.iS3Reponsitory.UploadFileAsync(s3Obj, cred);
-            return Ok(result);
+
+            var result = await _storageService.UploadFileAsync(s3Obj, cred);
+            var url = $"https://ehouse.s3.ap-southeast-2.amazonaws.com/{docName}";
+            return Ok(url);
+
         }
         /*[HttpGet]
         public async Task<IActionResult> GetAllFileAsyn(string imageName)

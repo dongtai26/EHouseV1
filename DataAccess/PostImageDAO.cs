@@ -8,16 +8,16 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    public class HouseImageDAO
+    public class PostImageDAO
     {
-        public List<HouseImage> GetHouseImages()
+        public List<PostImage> GetPostImages()
         {
-            var ListUser = new List<HouseImage>();
+            var ListUser = new List<PostImage>();
             try
             {
                 using (var context = new AppDbContext())
                 {
-                    ListUser = context.HouseImages.ToList();
+                    ListUser = context.PostImages.ToList();
                 }
             }
             catch (Exception e)
@@ -26,12 +26,12 @@ namespace DataAccess
             }
             return ListUser;
         }
-        public void AddHouseImage(HouseImage houseImage)
+        public void AddPostImage(PostImage postImage)
         {
             try
             {
                 var db = new AppDbContext();
-                db.HouseImages.Add(houseImage);
+                db.PostImages.Add(postImage);
                 db.SaveChanges();
             }
             catch (Exception e)
@@ -39,13 +39,13 @@ namespace DataAccess
                 throw new Exception(e.Message);
             }
         }
-        public void UpdateHouseImage(HouseImage houseImage)
+        public void UpdatePostImage(PostImage postImage)
         {
             try
             {
                 using (var context = new AppDbContext())
                 {
-                    context.Entry<HouseImage>(houseImage).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    context.Entry<PostImage>(postImage).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
                     context.SaveChanges();
                 }
             }
@@ -54,14 +54,14 @@ namespace DataAccess
                 throw new Exception(e.Message);
             }
         }
-        public void DeleteHouseImage(int id)
+        public void DeletePostImage(int id)
         {
             try
             {
                 using (var context = new AppDbContext())
                 {
-                    var rDelete = context.HouseImages.SingleOrDefault(x => x.HIId == id);
-                    context.HouseImages.Remove(rDelete);
+                    var rDelete = context.PostImages.SingleOrDefault(x => x.PIId == id);
+                    context.PostImages.Remove(rDelete);
                     context.SaveChanges();
                 }
             }

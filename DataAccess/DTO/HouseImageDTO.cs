@@ -8,7 +8,7 @@ namespace DataAccess.DTO
 {
     public class HouseImageDTO
     {
-        public int PIId { get; set; }
+        public int HIId { get; set; }
         public string HouseImageCode { get; set; }
         public int HoId { get; set; }
     }

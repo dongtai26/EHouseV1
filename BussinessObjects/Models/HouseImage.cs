@@ -12,7 +12,7 @@ namespace BusinessObjects.Models
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
-        public int PIId { get; set; }
+        public int HIId { get; set; }
         public string HouseImageCode { get; set; }
         public int HoId { get; set; }
         [ForeignKey("HoId")]
