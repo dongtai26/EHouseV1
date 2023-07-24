@@ -19,7 +19,6 @@ builder.Services.AddScoped<IHouseRentRepository, HouseRentRepository>();
 builder.Services.AddScoped<IHouseAddressRepository, HouseAddressRepository>();
 builder.Services.AddScoped<IContractRepository, ContractRepository>();
 builder.Services.AddScoped<IPostRepository, PostRepository>();
-builder.Services.AddScoped<IS3Reponsitory, S3Reponsitory>();
 builder.Services.AddScoped<ICommentRepository, CommentRepository>();
 builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 builder.Services.AddTransient<ITokenManager, TokenManager>();
@@ -52,8 +51,6 @@ builder.Services.AddAuthentication(o =>
     };
 });
 
-builder.Services.AddDefaultAWSOptions(builder.Configuration.GetAWSOptions());
-builder.Services.AddAWSService<IAmazonS3>();
 
 builder.Services.AddControllers();
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
