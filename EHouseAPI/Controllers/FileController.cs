@@ -1,6 +1,7 @@
 ﻿using AwsS3.Models;
 using AwsS3.Services;
 using BusinessObjects.Models;
+using DataAccess.DTO;
 using Microsoft.AspNetCore.Mvc;
 using Repositories;
 
@@ -13,19 +14,25 @@ namespace EHouseAPI.Controllers
         private readonly IStorageService _storageService;
         private readonly IConfiguration _config;
         private readonly ILogger<FileController> _logger;
+        private readonly IHouseImageRepository _houseImageRepository;
+        private readonly IPostImageRepository _postImageRepository;
 
         public FileController(
             ILogger<FileController> logger,
             IConfiguration config,
-            IStorageService storageService)
+            IStorageService storageService,
+            IHouseImageRepository houseImageRepository,
+            IPostImageRepository postImageRepository)
         {
             _logger = logger;
             _config = config;
             _storageService = storageService;
+            _houseImageRepository = houseImageRepository;
+            _postImageRepository = postImageRepository;
         }
 
-        [HttpPost("UploadFile")]
-        public async Task<IActionResult> UploadFile(IFormFile file)
+        [HttpPost("UploadFileForHouseRent")]
+        public async Task<IActionResult> UploadFileForHouseRent(IFormFile file, int hoid)
         {
             // Process file
             await using var memoryStream = new MemoryStream();
@@ -50,6 +57,51 @@ namespace EHouseAPI.Controllers
 
             var result = await _storageService.UploadFileAsync(s3Obj, cred);
             var url = $"https://ehouse.s3.ap-southeast-2.amazonaws.com/{docName}";
+            HouseImageDTO houseImageDTO = new HouseImageDTO
+            {
+                HIId = 0,
+                HouseImageCode = url,
+                HoId = hoid
+            };
+            _houseImageRepository.AddHouseImage(houseImageDTO);
+            return Ok(url);
+
+        }
+        [HttpPost("UploadFileForPost")]
+        public async Task<IActionResult> UploadFileForPost(IFormFile file, int pid)
+        {
+            // Process file
+            await using var memoryStream = new MemoryStream();
+            await file.CopyToAsync(memoryStream);
+
+            var fileExt = Path.GetExtension(file.FileName);
+            var docName = $"{Guid.NewGuid()}{fileExt}";
+            // call server
+
+            var s3Obj = new S3Object()
+            {
+                BucketName = "ehouse",
+                InputStream = memoryStream,
+                Name = docName
+            };
+
+            var cred = new AwsCredentials()
+            {
+                AccessKey = _config["AwsConfiguration:AWSAccessKey"],
+                SecretKey = _config["AwsConfiguration:AWSSecretKey"]
+            };
+
+            var result = await _storageService.UploadFileAsync(s3Obj, cred);
+            var url = $"https://ehouse.s3.ap-southeast-2.amazonaws.com/{docName}";
+            PostImageDTO postImageDTO = new PostImageDTO
+            {
+                PIId = 0,
+                PostImageUrl = url,
+                PostImageName = "",
+                PostImageContent = "",
+                PId = pid
+            };
+            _postImageRepository.AddPostImage(postImageDTO);
             return Ok(url);
 
         }

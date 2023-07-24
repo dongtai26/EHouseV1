@@ -340,7 +340,7 @@ namespace DataAccess.Util
                 PostImageDTO postImageDTO = new PostImageDTO
                 {
                     PIId = postImage.PIId,
-                    PostImageCode = postImage.PostImageCode,
+                    PostImageUrl = postImage.PostImageUrl,
                     PostImageName = postImage.PostImageName,
                     PostImageContent = postImage.PostImageContent,
                     PId = postImage.PId
@@ -357,7 +357,7 @@ namespace DataAccess.Util
             PostImage postImage = new PostImage
             {
                 PIId = postImageDTO.PIId,
-                PostImageCode = postImageDTO.PostImageCode,
+                PostImageUrl = postImageDTO.PostImageUrl,
                 PostImageName = postImageDTO.PostImageName,
                 PostImageContent = postImageDTO.PostImageContent,
                 PId = postImageDTO.PId

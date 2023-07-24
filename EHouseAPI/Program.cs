@@ -22,6 +22,9 @@ builder.Services.AddScoped<IContractRepository, ContractRepository>();
 builder.Services.AddScoped<IStorageService, StorageService>();
 builder.Services.AddScoped<IHouseImageRepository, HouseImageRepository>();
 builder.Services.AddScoped<IPostImageRepository, PostImageRepository>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 builder.Services.AddTransient<ITokenManager, TokenManager>();
 
 builder.Services.AddAuthentication(o =>
