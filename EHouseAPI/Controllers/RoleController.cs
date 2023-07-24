@@ -65,7 +65,6 @@ namespace EHouseAPI.Controllers
             }
             catch (Exception e)
             {
-
                 return BadRequest(e.Message);
             }
         }

@@ -15,12 +15,12 @@ namespace BusinessObjects.Models
         public int CId { get; set; }
         public string CommentContent { get; set; }
         public DateTime LastTimeModified { get; set; }
-        public string CommentStatus { get; set; }
         public int PId { get; set; }
         [ForeignKey("PId")]
         public virtual Post Post { get; set; }
         public int UId { get; set; }
         [ForeignKey("UId")]
         public virtual User User { get; set; }
+        public virtual ICollection<Notification> Notifications { get; set; }
     }
 }

@@ -19,12 +19,16 @@ namespace BusinessObjects.Models
         public int HoId { get; set; }
         [ForeignKey("HoId")]
         public virtual HouseRent HouseRent { get; set; }
+        public string HouseRentName { get; set; }
+        public float RentPrice { get; set; }
         public int? AdId { get; set; }
         [ForeignKey("AdId")]
         public virtual Admin Admin { get; set; }
+        public bool StatusAdminId { get; set; }
         public int? LeId { get; set; }
         [ForeignKey("LeId")]
         public virtual Lessor Lessor { get; set; }
+        public bool StatusLessorId { get; set; }
         public int? LesId { get; set; }
         [ForeignKey("LesId")]
         public virtual Lessee Lessee { get; set; }

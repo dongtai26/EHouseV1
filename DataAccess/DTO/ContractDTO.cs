@@ -13,8 +13,12 @@ namespace DataAccess.DTO
         public string ContractContent { get; set; }
         public DateTime ContractApproveDay { get; set; }
         public int HoId { get; set; }
+        public string HouseRentName { get; set; }
+        public float RentPrice { get; set; }
         public int? AdId { get; set; }
+        public bool StatusAdminId { get; set; }
         public int? LeId { get; set; }
+        public bool StatusLessorId { get; set; }
         public int? LesId { get; set; }
     }
 }

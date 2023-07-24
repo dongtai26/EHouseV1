@@ -8,30 +8,46 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    public class LesseeDAO
+    public class PostDAO
     {
-        public List<Lessee> GetLessees()
+        public List<Post> GetPosts()
         {
-            var ListLessee = new List<Lessee>();
+            var listPost = new List<Post>();
             try
             {
                 using (var context = new AppDbContext())
                 {
-                    ListLessee = context.Lessees.ToList();
+                    listPost = context.Posts.ToList();
                 }
             }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
-            return ListLessee;
+            return listPost;
         }
-        public void AddLessee(Lessee lessee)
+        public Post GetPostById (int id)
+        {
+            Post post = new Post();
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    post = context.Posts.SingleOrDefault(x => x.PId == id);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return post;
+        }
+        public void CreatePost(Post post)
         {
             try
             {
                 var db = new AppDbContext();
-                db.Lessees.Add(lessee);
+                db.Posts.Add(post);
                 db.SaveChanges();
             }
             catch (Exception e)
@@ -39,14 +55,29 @@ namespace DataAccess
                 throw new Exception(e.Message);
             }
         }
-        public void DeleteLessee(int id)
+        public void EditPost (Post post)
         {
             try
             {
                 using (var context = new AppDbContext())
                 {
-                    var lDelete = context.Lessees.SingleOrDefault(x => x.UId == id);
-                    context.Lessees.Remove(lDelete);
+                    context.Entry<Post>(post).State = Microsoft.EntityFrameworkCore.EntityState.Modified;
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            };
+        }
+        public void DeletePost(int id)
+        {
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    var rDelete = context.Posts.SingleOrDefault(x => x.PId == id);
+                    context.Posts.Remove(rDelete);
                     context.SaveChanges();
                 }
             }
@@ -54,20 +85,6 @@ namespace DataAccess
             {
                 throw new Exception(e.Message);
             }
-        }
-        public Lessee GetLesseeByUserId(int id)
-        {
-            Lessee lessee = new Lessee();
-            try
-            {
-                var db = new AppDbContext();
-                lessee = db.Lessees.SingleOrDefault(x => x.UId == id);
-            }
-            catch (Exception e)
-            {
-                throw new Exception(e.Message);
-            }
-            return lessee;
         }
     }
 }

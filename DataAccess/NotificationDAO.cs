@@ -8,30 +8,30 @@ using System.Threading.Tasks;
 
 namespace DataAccess
 {
-    public class LesseeDAO
+    public class NotificationDAO
     {
-        public List<Lessee> GetLessees()
+        public List<Notification> GetNotifications()
         {
-            var ListLessee = new List<Lessee>();
+            var ListNotification = new List<Notification>();
             try
             {
                 using (var context = new AppDbContext())
                 {
-                    ListLessee = context.Lessees.ToList();
+                    ListNotification = context.Notifications.ToList();
                 }
             }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
-            return ListLessee;
+            return ListNotification;
         }
-        public void AddLessee(Lessee lessee)
+        public void CreateNotification(Notification notification)
         {
             try
             {
                 var db = new AppDbContext();
-                db.Lessees.Add(lessee);
+                db.Notifications.Add(notification);
                 db.SaveChanges();
             }
             catch (Exception e)
@@ -39,14 +39,14 @@ namespace DataAccess
                 throw new Exception(e.Message);
             }
         }
-        public void DeleteLessee(int id)
+        public void DeleteNotification(int id)
         {
             try
             {
                 using (var context = new AppDbContext())
                 {
-                    var lDelete = context.Lessees.SingleOrDefault(x => x.UId == id);
-                    context.Lessees.Remove(lDelete);
+                    var nDelete = context.Notifications.SingleOrDefault(x => x.NoId == id);
+                    context.Notifications.Remove(nDelete);
                     context.SaveChanges();
                 }
             }
@@ -55,19 +55,19 @@ namespace DataAccess
                 throw new Exception(e.Message);
             }
         }
-        public Lessee GetLesseeByUserId(int id)
+        public Notification GetNotificationById (int id)
         {
-            Lessee lessee = new Lessee();
+            Notification notification = new Notification();
             try
             {
                 var db = new AppDbContext();
-                lessee = db.Lessees.SingleOrDefault(x => x.UId == id);
+                notification = db.Notifications.SingleOrDefault(x => x.NoId == id);
             }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
-            return lessee;
+            return notification;
         }
     }
 }

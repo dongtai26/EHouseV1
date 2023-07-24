@@ -25,5 +25,10 @@ namespace Repositories
         {
             adminDAO.DeleteAdmin(id);
         }
+
+        public AdminDTO GetAdminById(int id)
+        {
+            return Mapper.mapToDTO(adminDAO.GetAdminByUserId(id));
+        }
     }
 }

@@ -21,25 +21,53 @@ namespace EHouseAPI.Controllers
         {
             return Ok(contractRepository.GetContracts());
         }
-        [HttpGet("GetContractsById")]
+        /*[AuthorizationFilter]*/
+        [HttpGet("GetContractsById/{id}")]
         public async Task<IActionResult> GetContractsById(int id)
         {
             return Ok(contractRepository.GetContractById(id));
         }
-        [HttpGet("GetContractsByLesseeId")]
+        /*[AuthorizationFilter]*/
+        [HttpGet("GetContractsByLesseeId/{id}")]
         public async Task<IActionResult> GetContractsByLesseeId(int id)
         {
             return Ok(contractRepository.GetContractByLesseeId(id));
         }
-        [HttpGet("GetContractsByLessorId")]
+        /*[AuthorizationFilter]*/
+        [HttpGet("GetContractsByLessorId/{id}")]
         public async Task<IActionResult> GetContractsByLessorId(int id)
         {
             return Ok(contractRepository.GetContractByLessorId(id));
         }
-        [HttpGet("GetContractsByAdminId")]
+        /*[AuthorizationFilter]*/
+        [HttpGet("GetContractsByAdminId/{id}")]
         public async Task<IActionResult> GetContractsByAdminId(int id)
         {
             return Ok(contractRepository.GetContractByAdminId(id));
+        }
+        /*[AuthorizationFilter]*/
+        [HttpGet("GetStatusAdminId")]
+        public async Task<IActionResult> GetContractByStatusAdminId(bool statusAdminId)
+        {
+            return Ok(contractRepository.GetContractByStatusAdminId(statusAdminId));
+        }
+        /*[AuthorizationFilter]*/
+        [HttpGet("GetStatusLessorId")]
+        public async Task<IActionResult> GetContractByStatusLessorId(bool statusLessorId)
+        {
+            return Ok(contractRepository.GetContractByStatusLessorId(statusLessorId));
+        }
+        /*[AuthorizationFilter]*/
+        [HttpGet("GetContractsByLessorIdAndStutasLessorId")]
+        public async Task<IActionResult> GetContractsByLessorIdAndStutasLessorId(int id, bool StatusLessorId)
+        {
+            return Ok(contractRepository.GetContractsByLessorIdAndStutasLessorId(id, StatusLessorId));
+        }
+        /*[AuthorizationFilter]*/
+        [HttpGet("GetContractByLessorIdAndStatusLessor")]
+        public async Task<IActionResult> GetContractByLessorIdAndStutasLessorId(int id, bool StatusLessorId)
+        {
+            return Ok(contractRepository.GetContractByLessorIdAndStutasLessorId(id, StatusLessorId));
         }
         /*[AuthorizationFilter]*/
         [HttpPost("AddContract")]
