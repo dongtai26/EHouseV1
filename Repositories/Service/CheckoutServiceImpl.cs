@@ -61,14 +61,14 @@ namespace Repositories.Service
                 var content = new FormUrlEncodedContent(param);
                 var response = client.PostAsync(key1.ToString(), content).Result;
                 var resultJsonStr = response.Content.ReadAsStringAsync().Result;
-                var result = JsonObject.Parse(resultJsonStr);
+                var resultpay = JsonObject.Parse(resultJsonStr);
 
-                foreach (var pair in result)
+                foreach (var pair in resultpay)
                 {
                     Console.WriteLine("{0} = {1}", pair.Key, pair.Value);
                 }
 
-                return new MerchantResponse(result["order_url"].ToString(), "TOK_" + appTransId);
+                return new MerchantResponse(resultpay["order_url"].ToString(), "TOK_" + appTransId);
             }
 
         }
