@@ -158,5 +158,35 @@ namespace DataAccess
             }
             return ListContract;
         }
+        public List<Contract> GetContractsByLessorIdAndStutasLessorId(int id, bool StatusLessorId)
+        {
+            var ListContract = new List<Contract>();
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    ListContract = context.Contracts.Where(x => x.LeId == id && x.StatusLessorId == StatusLessorId).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return ListContract;
+        }
+        public Contract GetContractByLessorIdAndStutasLessorId (int id, bool StatusLessorId)
+        {
+            Contract contract = new Contract();
+            try
+            {
+                var db = new AppDbContext();
+                contract = db.Contracts.SingleOrDefault(x => x.LeId == id && x.StatusLessorId == StatusLessorId);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return contract;
+        }
     }
 }
