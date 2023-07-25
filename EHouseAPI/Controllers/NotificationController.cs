@@ -1,4 +1,5 @@
 ﻿using EHouseAPI.Filter;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repositories;
 
@@ -17,19 +18,22 @@ namespace EHouseAPI.Controllers
             this.commentRepository = commentRepository;
             this.postRepository = postRepository;
         }
-        /*[AuthorizationFilter]*/
+        [AuthorizationFilter]
+        /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("GetNotifications")]
         public async Task<IActionResult> GetNotifications()
         {
             return Ok(notificationRepository.GetNotifications());
         }
-        /*[AuthorizationFilter]*/
+        [AuthorizationFilter]
+        /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("GetCommentByIdInNotification/{id}")]
         public async Task<IActionResult> GetCommentByIdInNotification(int id)
         {
             return Ok(commentRepository.GetCommentById(id));
         }
-        /*[AuthorizationFilter]*/
+        [AuthorizationFilter]
+        /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("GetPostByIdInNotification/{id}")]
         public async Task<IActionResult> GetPostByIdInNotification(int id)
         {

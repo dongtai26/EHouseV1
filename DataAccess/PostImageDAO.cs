@@ -26,6 +26,22 @@ namespace DataAccess
             }
             return ListUser;
         }
+        public List<PostImage> GetHouseImageByPostId(int id)
+        {
+            var ListImage = new List<PostImage>();
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    ListImage = context.PostImages.Where(m => m.PId == id).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return ListImage;
+        }
         public void AddPostImage(PostImage postImage)
         {
             try

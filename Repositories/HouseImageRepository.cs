@@ -24,7 +24,7 @@ namespace Repositories
 
         public List<HouseImageDTO> GetHouseImageByHoId(int id)
         {
-            return houseImageDAO.GetHouseImageById(id).Select(m => Mapper.mapToDTO(m)).ToList();
+            return houseImageDAO.GetHouseImageByHoId(id).Select(m => Mapper.mapToDTO(m)).ToList();
         }
 
         public List<HouseImageDTO> GetHouseImages()

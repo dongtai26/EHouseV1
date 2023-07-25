@@ -10,6 +10,7 @@ namespace Repositories
     public interface IPostImageRepository
     {
         List<PostImageDTO> GetPostImages();
+        List<PostImageDTO> GetHouseImageByPostId(int id);
         void AddPostImage(PostImageDTO postImageDTO);
         void UpdatePostImage(PostImageDTO pouseImageDTO);
         void DeletePostImage(int id);

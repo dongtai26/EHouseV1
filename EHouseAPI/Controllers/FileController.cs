@@ -33,7 +33,35 @@ namespace EHouseAPI.Controllers
             _postImageRepository = postImageRepository;
             _userRepository = userRepository;
         }
+        [HttpPost("UploadFile")]
+        public async Task<IActionResult> UploadFile(IFormFile file)
+        {
+            // Process file
+            await using var memoryStream = new MemoryStream();
+            await file.CopyToAsync(memoryStream);
 
+            var fileExt = Path.GetExtension(file.FileName);
+            var docName = $"{Guid.NewGuid()}{fileExt}";
+            // call server
+
+            var s3Obj = new S3Object()
+            {
+                BucketName = "ehouse",
+                InputStream = memoryStream,
+                Name = docName
+            };
+
+            var cred = new AwsCredentials()
+            {
+                AccessKey = _config["AwsConfiguration:AWSAccessKey"],
+                SecretKey = _config["AwsConfiguration:AWSSecretKey"]
+            };
+
+            var result = await _storageService.UploadFileAsync(s3Obj, cred);
+            var url = $"https://ehouse.s3.ap-southeast-2.amazonaws.com/{docName}";
+            return Ok(url);
+
+        }
         [HttpPost("UploadFileForHouseRent")]
         public async Task<IActionResult> UploadFileForHouseRent(IFormFile file, int hoid)
         {
@@ -108,7 +136,7 @@ namespace EHouseAPI.Controllers
             return Ok(url);
 
         }
-        [HttpPut("UploadAvatarforUser")]
+        /*[HttpPut("UploadAvatarforUser")]
         public async Task<IActionResult> UploadAvatarforUser(IFormFile file, int uid)
         {
             // Process file
@@ -154,7 +182,7 @@ namespace EHouseAPI.Controllers
             _userRepository.UpdateAvatarForUser(userDTO);
             return Ok(url);
 
-        }
+        }*/
         /*[HttpGet]
         public async Task<IActionResult> GetAllFileAsyn(string imageName)
         {

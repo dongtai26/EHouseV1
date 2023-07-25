@@ -26,7 +26,7 @@ namespace DataAccess
             }
             return ListUser;
         }
-        public List<HouseImage> GetHouseImageById(int id)
+        public List<HouseImage> GetHouseImageByHoId(int id)
         {
             var ListImage = new List<HouseImage>();
             try
