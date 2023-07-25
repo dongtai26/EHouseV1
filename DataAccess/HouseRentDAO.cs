@@ -266,6 +266,38 @@ namespace DataAccess
             }
             return ListHouse;
         }
+        public List<HouseRent> GetAddress()
+        {
+            var ListHouse = new List<HouseRent>();
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    ListHouse = context.HouseRents.ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return ListHouse;
+        }
+        public HouseRent GetAddressHouseRentById(int id)
+        {
+            HouseRent House = new HouseRent();
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    House = context.HouseRents.SingleOrDefault(x => x.HoId == id);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return House;
+        }
         public void AddHouseRent(HouseRent houseRent)
         {
             try

@@ -4,6 +4,7 @@ using BusinessObjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObjects.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230725034943_updateDB9")]
+    partial class updateDB9
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -157,6 +159,29 @@ namespace BusinessObjects.Migrations
                     b.ToTable("Histories");
                 });
 
+            modelBuilder.Entity("BusinessObjects.Models.HouseAddress", b =>
+                {
+                    b.Property<int>("HouseAddressId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HouseAddressId"), 1L, 1);
+
+                    b.Property<int>("House_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Location_Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("HouseAddressId");
+
+                    b.HasIndex("House_Id");
+
+                    b.HasIndex("Location_Id");
+
+                    b.ToTable("HouseAddresses");
+                });
+
             modelBuilder.Entity("BusinessObjects.Models.HouseImage", b =>
                 {
                     b.Property<int>("HIId")
@@ -291,6 +316,29 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("UId");
 
                     b.ToTable("Lessors");
+                });
+
+            modelBuilder.Entity("BusinessObjects.Models.Location", b =>
+                {
+                    b.Property<int>("LId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LId"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("Latitude")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Longitude")
+                        .HasColumnType("real");
+
+                    b.HasKey("LId");
+
+                    b.ToTable("Locations");
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Notification", b =>
@@ -573,6 +621,25 @@ namespace BusinessObjects.Migrations
                     b.Navigation("Post");
 
                     b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BusinessObjects.Models.HouseAddress", b =>
+                {
+                    b.HasOne("BusinessObjects.Models.HouseRent", "HouseRent")
+                        .WithMany()
+                        .HasForeignKey("House_Id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BusinessObjects.Models.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("Location_Id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("HouseRent");
+
+                    b.Navigation("Location");
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.HouseImage", b =>

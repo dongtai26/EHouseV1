@@ -88,9 +88,23 @@ namespace Repositories
         {
             HouseRentDAO.UpdateHouseRent(Mapper.mapToEntity(houseRentDTO));
         }
+        public void UpdateAddress(HouseRentAddressDTO houseRentAddressDTO)
+        {
+            HouseRentDAO.UpdateHouseRent(Mapper.mapToEntityAddress(houseRentAddressDTO));
+        }
         public HouseRentDTO GetHouseRentById(int id)
         {
             return Mapper.mapToDTO(HouseRentDAO.GetHouseRentById(id));
+        }
+
+        public List<HouseRentAddressDTO> GetAddress()
+        {
+            return HouseRentDAO.GetAddress().Select(m => Mapper.mapToDTOAddress(m)).ToList();
+        }
+
+        public HouseRentAddressDTO GetAddressHouseRentById(int id)
+        {
+            return Mapper.mapToDTOAddress(HouseRentDAO.GetAddressHouseRentById(id));
         }
     }
 }

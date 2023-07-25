@@ -15,9 +15,9 @@ builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<ILesseeRepository, LesseeRepository>();
 builder.Services.AddScoped<ILessorRepository, LessorRepository>();
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
-builder.Services.AddScoped<ILocationRepository, LocationReponsitory>();
+/*builder.Services.AddScoped<ILocationRepository, LocationReponsitory>();*/
 builder.Services.AddScoped<IHouseRentRepository, HouseRentRepository>();
-builder.Services.AddScoped<IHouseAddressRepository, HouseAddressRepository>();
+/*builder.Services.AddScoped<IHouseAddressRepository, HouseAddressRepository>();*/
 builder.Services.AddScoped<IContractRepository, ContractRepository>();
 builder.Services.AddScoped<IStorageService, StorageService>();
 builder.Services.AddScoped<IHouseImageRepository, HouseImageRepository>();

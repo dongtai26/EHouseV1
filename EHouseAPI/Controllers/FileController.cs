@@ -16,19 +16,22 @@ namespace EHouseAPI.Controllers
         private readonly ILogger<FileController> _logger;
         private readonly IHouseImageRepository _houseImageRepository;
         private readonly IPostImageRepository _postImageRepository;
+        private readonly IUserRepository _userRepository;
 
         public FileController(
             ILogger<FileController> logger,
             IConfiguration config,
             IStorageService storageService,
             IHouseImageRepository houseImageRepository,
-            IPostImageRepository postImageRepository)
+            IPostImageRepository postImageRepository,
+            IUserRepository userRepository)
         {
             _logger = logger;
             _config = config;
             _storageService = storageService;
             _houseImageRepository = houseImageRepository;
             _postImageRepository = postImageRepository;
+            _userRepository = userRepository;
         }
 
         [HttpPost("UploadFileForHouseRent")]
@@ -102,6 +105,53 @@ namespace EHouseAPI.Controllers
                 PId = pid
             };
             _postImageRepository.AddPostImage(postImageDTO);
+            return Ok(url);
+
+        }
+        [HttpPut("UploadAvatarforUser")]
+        public async Task<IActionResult> UploadAvatarforUser(IFormFile file, int uid)
+        {
+            // Process file
+            await using var memoryStream = new MemoryStream();
+            await file.CopyToAsync(memoryStream);
+
+            var fileExt = Path.GetExtension(file.FileName);
+            var docName = $"{Guid.NewGuid()}{fileExt}";
+            // call server
+
+            var s3Obj = new S3Object()
+            {
+                BucketName = "ehouse",
+                InputStream = memoryStream,
+                Name = docName
+            };
+
+            var cred = new AwsCredentials()
+            {
+                AccessKey = _config["AwsConfiguration:AWSAccessKey"],
+                SecretKey = _config["AwsConfiguration:AWSSecretKey"]
+            };
+
+            var result = await _storageService.UploadFileAsync(s3Obj, cred);
+            var url = $"https://ehouse.s3.ap-southeast-2.amazonaws.com/{docName}";
+            UserDTO userDTO = new UserDTO
+            {
+                UId = uid,
+                FullName = "",
+                Dateofbirth = DateTime.Now,
+                Address = "",
+                CitizenIdentification = "",
+                PhoneNumber = "",
+                Gender = "",
+                Gmail = "",
+                Avatar = url,
+                Username = "",
+                Password = "",
+                RId = 0,
+                RoleName = ""
+
+            };
+            _userRepository.UpdateAvatarForUser(userDTO);
             return Ok(url);
 
         }

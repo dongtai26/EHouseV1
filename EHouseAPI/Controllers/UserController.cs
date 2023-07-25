@@ -236,6 +236,20 @@ namespace EHouseAPI.Controllers
             }
         }
         [AuthorizationFilter]
+        [HttpPut("UpdateAvatar")]
+        public async Task<IActionResult> UpdateAvatar(UserDTO user)
+        {
+            try
+            {
+                userRepository.UpdateAvatarForUser(user);
+                return Ok("SUCCESS");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [AuthorizationFilter]
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeleteUser(int id)
         {

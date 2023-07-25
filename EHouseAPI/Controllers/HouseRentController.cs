@@ -11,17 +11,29 @@ namespace EHouseAPI.Controllers
     public class HouseRentController : Controller
     {
         private readonly IHouseRentRepository houseRentRepository;
-        private readonly IHouseAddressRepository houseAddressRepository;
-        public HouseRentController(IHouseRentRepository houseRentRepository, IHouseAddressRepository houseAddressRepository)
+/*        private readonly IHouseAddressRepository houseAddressRepository;*/
+        public HouseRentController(IHouseRentRepository houseRentRepository)
         {
             this.houseRentRepository = houseRentRepository;
-            this.houseAddressRepository = houseAddressRepository;
+/*            this.houseAddressRepository = houseAddressRepository;*/
         }
         /*[AuthorizationFilter]*/
         [HttpGet("GetHouseRents")]
         public async Task<IActionResult> GetHouseRents()
         {
             return Ok(houseRentRepository.GetHouseRents());
+        }
+        /*[AuthorizationFilter]*/
+        [HttpGet("GetAddress")]
+        public async Task<IActionResult> GetAddress()
+        {
+            return Ok(houseRentRepository.GetAddress());
+        }
+        /*[AuthorizationFilter]*/
+        [HttpGet("GetAddressHouseRentById")]
+        public async Task<IActionResult> GetAddressHouseRentById(int id)
+        {
+            return Ok(houseRentRepository.GetAddressHouseRentById(id));
         }
         /*[AuthorizationFilter]*/
         [HttpGet("SearchHouseRents")]
@@ -148,12 +160,25 @@ namespace EHouseAPI.Controllers
             }
         }
         /*[AuthorizationFilter]*/
+        [HttpPut("UpdateAddress")]
+        public async Task<IActionResult> UpdateAddress(HouseRentAddressDTO houseRentAddress)
+        {
+            try
+            {
+                houseRentRepository.UpdateAddress(houseRentAddress);
+                return Ok("SUCCESS");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        /*[AuthorizationFilter]*/
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeleteHouseRent(int id)
         {
             try
             {
-                houseAddressRepository.DeleteHouseAddressWithHouseId(id);
                 houseRentRepository.DeleteHouseRent(id);
                 return Ok("SUCCESS");
             }
