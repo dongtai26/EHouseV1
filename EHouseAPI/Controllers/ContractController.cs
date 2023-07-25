@@ -16,7 +16,7 @@ namespace EHouseAPI.Controllers
         {
             this.contractRepository = contractRepository;
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Admin")]*/
         [HttpGet("GetContracts")]
         public async Task<IActionResult> GetContracts()
@@ -79,7 +79,7 @@ namespace EHouseAPI.Controllers
         {
             return Ok(contractRepository.GetContractByLessorIdAndStutasLessorId(id, StatusLessorId));
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Admin")]*/
         [HttpPost("AddContract")]
         public async Task<IActionResult> AddContract(ContractDTO contract)

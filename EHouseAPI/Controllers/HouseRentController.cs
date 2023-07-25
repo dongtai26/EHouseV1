@@ -18,7 +18,7 @@ namespace EHouseAPI.Controllers
             this.houseRentRepository = houseRentRepository;
 /*            this.houseAddressRepository = houseAddressRepository;*/
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("GetHouseRents")]
         public async Task<IActionResult> GetHouseRents()
@@ -151,7 +151,7 @@ namespace EHouseAPI.Controllers
         {
             return Ok(houseRentRepository.GetHouseRentsByRestroom(restroom));
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpPost("AddHouseRent")]
         public async Task<IActionResult> AddHouseRent(HouseRentDTO houseRent)

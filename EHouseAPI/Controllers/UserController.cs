@@ -29,21 +29,21 @@ namespace EHouseAPI.Controllers
             this.tokenManager = tokenManager;
             this.httpContextAccessor = httpContextAccessor;
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("GetUsers")]
         public async Task<IActionResult> GetUsers()
         {
             return Ok(userRepository.GetUsers());
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("GetUserById/{id}")]
         public async Task<IActionResult> GetUserById(int id)
         {
             return Ok(userRepository.GetUserById(id));
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("GetRoleByUserId/{id}")]
         public async Task<IActionResult> GetRoleIdByUserId(int id)
@@ -70,21 +70,21 @@ namespace EHouseAPI.Controllers
             }
             return null;
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("GetAdminByUserId/{id}")]
         public async Task<IActionResult> GetAdminByUserId(int id)
         {
             return Ok(adminRepository.GetAdminById(id));
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("GetLessorByUserId/{id}")]
         public async Task<IActionResult> GetLessorByUserId(int id)
         {
             return Ok(lessorRepository.GetLessorById(id));
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("GetLesseeByUserId/{id}")]
         public async Task<IActionResult> GetLesseeByUserId(int id)
@@ -112,7 +112,7 @@ namespace EHouseAPI.Controllers
         {
             return Ok(userRepository.GetUsersByRoleId(3));
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("GetUserByRoleId/{id}")]
         public async Task<IActionResult> GetUserByRoleId(int id)

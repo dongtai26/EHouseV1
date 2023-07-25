@@ -265,8 +265,12 @@ namespace DataAccess.Util
                     ContractContent = contract.ContractContent,
                     ContractCreatedDay = contract.ContractCreatedDay,
                     HoId = contract.HoId,
+                    HouseRentName = contract.HouseRentName,
+                    RentPrice = contract.RentPrice,
                     AdId = contract.AdId,
+                    StatusAdminId = contract.StatusAdminId,
                     LeId = contract.LeId,
+                    StatusLessorId = contract.StatusLessorId,
                     LesId = contract.LesId
                 };
                 return contractDTO;
@@ -285,8 +289,12 @@ namespace DataAccess.Util
                 ContractContent = contractDTO.ContractContent,
                 ContractCreatedDay = contractDTO.ContractCreatedDay,
                 HoId = contractDTO.HoId,
+                HouseRentName = contractDTO.HouseRentName,
+                RentPrice = contractDTO.RentPrice,
                 AdId = contractDTO.AdId,
+                StatusAdminId = contractDTO.StatusAdminId,
                 LeId = contractDTO.LeId,
+                StatusLessorId = contractDTO.StatusLessorId,
                 LesId = contractDTO.LesId
             };
             return contract;
