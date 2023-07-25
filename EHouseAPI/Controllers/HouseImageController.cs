@@ -23,14 +23,14 @@ namespace EHouseAPI.Controllers
             this.storageService = storageService;
             this.config = config;
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor")]*/
         [HttpGet("GetHouseImages")]
         public async Task<IActionResult> GetHouseImages()
         {
             return Ok(houseImageRepository.GetHouseImages());
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor")]*/
         [HttpGet("GetHouseImageByHoId/{id}")]
         public async Task<IActionResult> GetHouseImageByHoId(int id)

@@ -17,14 +17,14 @@ namespace EHouseAPI.Controllers
         {
             this.postImageRepository = postImageRepository;
         }
-        [AuthorizationFilter]
-        [Authorize(Roles = "Lessor, Admin, Lessee")]
+        /*[AuthorizationFilter]
+        [Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("GetPostImages")]
         public async Task<IActionResult> GetPostImages()
         {
             return Ok(postImageRepository.GetPostImages());
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("GetHouseImageByPostId/{id}")]
         public async Task<IActionResult> GetHouseImageByPostId(int id)
