@@ -26,6 +26,22 @@ namespace DataAccess
             }
             return ListUser;
         }
+        public List<HouseImage> GetHouseImageById(int id)
+        {
+            var ListImage = new List<HouseImage>();
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    ListImage = context.HouseImages.Where(m => m.HoId == id).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return ListImage;
+        }
         public void AddHouseImage(HouseImage houseImage)
         {
             try

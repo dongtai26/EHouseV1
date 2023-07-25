@@ -29,6 +29,13 @@ namespace EHouseAPI.Controllers
             return Ok(houseImageRepository.GetHouseImages());
         }
         /*[AuthorizationFilter]
+        [Authorize(HouseImages = "Lessor, Admin, Lessee")]*/
+        [HttpGet("GetHouseImageByHoId/{id}")]
+        public async Task<IActionResult> GetHouseImageByHoId(int id)
+        {
+            return Ok(houseImageRepository.GetHouseImageByHoId(id));
+        }
+        /*[AuthorizationFilter]
         [Authorize(HouseImages = "Admin")]*/
         [HttpPost("AddHouseImage")]
         public async Task<IActionResult> AddHouseImage(HouseImageDTO houseImage)
