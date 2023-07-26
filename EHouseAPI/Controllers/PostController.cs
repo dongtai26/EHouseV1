@@ -15,14 +15,14 @@ namespace EHouseAPI.Controllers
         {
             this.postRepository = postRepository;
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Admin")]*/
         [HttpGet("GetPosts")]
         public async Task<IActionResult> GetPosts()
         {
             return Ok(postRepository.GetPosts());
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Admin")]*/
         [HttpGet("GetPostByid/{id}")]
         public async Task<IActionResult> GetPostById(int id)

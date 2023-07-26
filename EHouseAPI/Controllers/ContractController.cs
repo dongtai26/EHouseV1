@@ -16,7 +16,7 @@ namespace EHouseAPI.Controllers
         {
             this.contractRepository = contractRepository;
         }
-        /*[AuthorizationFilter]*/
+        [AuthorizationFilter]
         /*[Authorize(Roles = "Admin")]*/
         [HttpGet("GetContracts")]
         public async Task<IActionResult> GetContracts()

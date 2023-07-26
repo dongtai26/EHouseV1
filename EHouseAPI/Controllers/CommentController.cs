@@ -21,14 +21,14 @@ namespace EHouseAPI.Controllers
             this.notificationRepository = notificationRepository;
             this.userRepository = userRepository;
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Admin")]*/
         [HttpGet("GetComments")]
         public async Task<IActionResult> GetComments()
         {
             return Ok(commentRepository.GetComments());
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Admin")]*/
         [HttpGet("GetCommentById/{id}")]
         public async Task<IActionResult> getCommentById(int id)

@@ -41,7 +41,7 @@ namespace EHouseAPI.Controllers
         }
         /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
-        /*[AuthorizationFilter]*/
+        [HttpGet("SearchHouseRents")]
         public async Task<IActionResult> SearchHouseRents(string houseRentName)
         {
             return Ok(houseRentRepository.GetHouseRentsByName(houseRentName));
