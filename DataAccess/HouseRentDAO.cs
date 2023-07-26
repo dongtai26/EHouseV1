@@ -97,7 +97,7 @@ namespace DataAccess
             {
                 using (var context = new AppDbContext())
                 {
-                    ListHouse = context.HouseRents.Where(x => minRentPrice <= x.RentPrice && x.Area <= maxRentPrice).ToList();
+                    ListHouse = context.HouseRents.Where(x => minRentPrice <= x.RentPrice && x.RentPrice <= maxRentPrice).ToList();
                 }
             }
             catch (Exception e)
