@@ -188,6 +188,9 @@ namespace DataAccess.Util
                     RentPrice = houseRent.RentPrice,
                     HouseStatus = houseRent.HouseStatus,
                     Detail = houseRent.Detail,
+                    Longitude = houseRent.Longitude,
+                    Latitude = houseRent.Latitude,
+                    Address = houseRent.Address,
                     LeId = houseRent.LeId
                 };
                 return houseRentDTO;
