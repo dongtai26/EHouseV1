@@ -58,6 +58,22 @@ namespace DataAccess
             }
             return ListHouse;
         }
+        public HouseRent GetHouseRentsIdByName(string houseRentName)
+        {
+            HouseRent house = new HouseRent();
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    house = context.HouseRents.SingleOrDefault(x => x.HouseRentName == houseRentName);
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return house;
+        }
         public List<HouseRent> GetHouseRentsByDetail(string detail)
         {
             var ListHouse = new List<HouseRent>();

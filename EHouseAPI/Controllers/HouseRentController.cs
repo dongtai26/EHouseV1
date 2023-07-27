@@ -48,8 +48,8 @@ namespace EHouseAPI.Controllers
         }
         /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
-        [HttpGet("GetHoidByName")]
-        public async Task<IActionResult> GetHoidByName(string houseRentName)
+        [HttpGet("GetHouseRentsIdByName")]
+        public async Task<IActionResult> GetHouseRentsIdByName(string houseRentName)
         {
             return Ok(houseRentRepository.GetHoidByName(houseRentName));
         }
