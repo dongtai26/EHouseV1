@@ -69,5 +69,19 @@ namespace DataAccess
             }
             return lessee;
         }
+        public Lessee GetLesseeByLesseeId(int id)
+        {
+            Lessee lessee = new Lessee();
+            try
+            {
+                var db = new AppDbContext();
+                lessee = db.Lessees.SingleOrDefault(x => x.LesId == id);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return lessee;
+        }
     }
 }

@@ -91,33 +91,54 @@ namespace EHouseAPI.Controllers
         {
             return Ok(lesseeRepository.GetLesseeById(id));
         }
-        [AuthorizationFilter]
-        /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
-        [HttpGet("GetAdmins")]
-        public async Task<IActionResult> GetAdmins()
-        {
-            return Ok(userRepository.GetUsersByRoleId(1));
-        }
-        [AuthorizationFilter]
-        /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
-        [HttpGet("GetLessors")]
-        public async Task<IActionResult> GetLessors()
-        {
-            return Ok(userRepository.GetUsersByRoleId(2));
-        }
-        [AuthorizationFilter]
-        /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
-        [HttpGet("GetLesseees")]
-        public async Task<IActionResult> GetLesseees()
-        {
-            return Ok(userRepository.GetUsersByRoleId(3));
-        }
         /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("GetUserByRoleId/{id}")]
         public async Task<IActionResult> GetUserByRoleId(int id)
         {
             return Ok(userRepository.GetUsersByRoleId(id));
+        }
+        /*[AuthorizationFilter]*/
+        /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
+        [HttpGet("GetAdminByAdminId/{id}")]
+        public async Task<IActionResult> GetAdminByAdminId(int id)
+        {
+            return Ok(adminRepository.GetAdminByAdminId(id));
+        }
+        /*[AuthorizationFilter]*/
+        /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
+        [HttpGet("GetLessorByLessorId/{id}")]
+        public async Task<IActionResult> GetLessorByLessorId(int id)
+        {
+            return Ok(lessorRepository.GetLessorByLessorId(id));
+        }
+        /*[AuthorizationFilter]*/
+        /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
+        [HttpGet("GetLesseeByLesseeId/{id}")]
+        public async Task<IActionResult> GetLesseeByLesseeId(int id)
+        {
+            return Ok(lesseeRepository.GetLesseeByLesseeId(id));
+        }
+        /*[AuthorizationFilter]*/
+        /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
+        [HttpGet("GetAdmins")]
+        public async Task<IActionResult> GetAdmins()
+        {
+            return Ok(userRepository.GetUsersByRoleId(1));
+        }
+        /*[AuthorizationFilter]*/
+        /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
+        [HttpGet("GetLessors")]
+        public async Task<IActionResult> GetLessors()
+        {
+            return Ok(userRepository.GetUsersByRoleId(2));
+        }
+        /*[AuthorizationFilter]*/
+        /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
+        [HttpGet("GetLesseees")]
+        public async Task<IActionResult> GetLesseees()
+        {
+            return Ok(userRepository.GetUsersByRoleId(3));
         }
         [HttpPost("Register")]
         public async Task<IActionResult> Register(UserDTO user)
