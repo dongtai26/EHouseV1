@@ -103,21 +103,27 @@ namespace EHouseAPI.Controllers
         [HttpGet("GetAdminByAdminId/{id}")]
         public async Task<IActionResult> GetAdminByAdminId(int id)
         {
-            return Ok(adminRepository.GetAdminByAdminId(id));
+            AdminDTO adminDTO = adminRepository.GetAdminByAdminId(id);
+            UserDTO userDTO = userRepository.GetUserById(adminDTO.UId);
+            return Ok(userDTO);
         }
         /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("GetLessorByLessorId/{id}")]
         public async Task<IActionResult> GetLessorByLessorId(int id)
         {
-            return Ok(lessorRepository.GetLessorByLessorId(id));
+            LessorDTO lessorDTO = lessorRepository.GetLessorByLessorId(id);
+            UserDTO userDTO = userRepository.GetUserById(lessorDTO.UId);
+            return Ok(userDTO);
         }
         /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("GetLesseeByLesseeId/{id}")]
         public async Task<IActionResult> GetLesseeByLesseeId(int id)
         {
-            return Ok(lesseeRepository.GetLesseeByLesseeId(id));
+            LesseeDTO lesseeDTO = lesseeRepository.GetLesseeByLesseeId(id);
+            UserDTO userDTO = userRepository.GetUserById(lesseeDTO.UId);
+            return Ok(userDTO);
         }
         /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
