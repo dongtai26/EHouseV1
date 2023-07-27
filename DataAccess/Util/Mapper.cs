@@ -206,7 +206,8 @@ namespace DataAccess.Util
             {
                 HouseRentIdDTO houseRentDTO = new HouseRentIdDTO
                 {
-                    HoId = houseRent.HoId 
+                    HoId = houseRent.HoId,
+                    HouseRentName = houseRent.HouseRentName
                 };
                 return houseRentDTO;
             }

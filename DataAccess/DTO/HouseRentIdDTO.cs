@@ -9,5 +9,6 @@ namespace DataAccess.DTO
     public class HouseRentIdDTO
     {
         public int HoId { get; set; }
+        public string HouseRentName { get; set; }
     }
 }
