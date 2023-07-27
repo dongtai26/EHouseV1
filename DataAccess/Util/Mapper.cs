@@ -200,6 +200,21 @@ namespace DataAccess.Util
                 return null;
             }
         }
+        public static HouseRentIdDTO mapToDTOHoid(HouseRent houseRent)
+        {
+            if (houseRent != null)
+            {
+                HouseRentIdDTO houseRentDTO = new HouseRentIdDTO
+                {
+                    HoId = houseRent.HoId 
+                };
+                return houseRentDTO;
+            }
+            else
+            {
+                return null;
+            }
+        }
         public static HouseRent mapToEntity(HouseRentDTO houseRentDTO)
         {
             HouseRent houseRent = new HouseRent

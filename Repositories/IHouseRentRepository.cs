@@ -10,6 +10,7 @@ namespace Repositories
     public interface IHouseRentRepository
     {
         List<HouseRentDTO> GetHouseRentsByName(string houseRentName);
+        List<HouseRentIdDTO> GetHoidByName(string houseRentName);
         List<HouseRentDTO> GetHouseRentsByDetail(string detail);
         List<HouseRentDTO> GetHouseRents();
         List<HouseRentDTO> GetHouseRentsByLessorId(int id);
