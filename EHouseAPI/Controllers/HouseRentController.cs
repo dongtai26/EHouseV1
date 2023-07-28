@@ -48,6 +48,13 @@ namespace EHouseAPI.Controllers
         }
         /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
+        [HttpGet("GetHouseRentsIdByName")]
+        public async Task<IActionResult> GetHouseRentsIdByName(string houseRentName)
+        {
+            return Ok(houseRentRepository.GetHoidByName(houseRentName));
+        }
+        /*[AuthorizationFilter]*/
+        /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("SearchHouseRentsDetail")]
         public async Task<IActionResult> SearchHouseRentsDetail(string detail)
         {
@@ -165,7 +172,7 @@ namespace EHouseAPI.Controllers
             {
                 houseRentRepository.AddHouseRent(houseRent);
                 return Ok("SUCCESS");
-            }
+            } 
             catch (Exception e)
             {
                 return BadRequest(e.Message);

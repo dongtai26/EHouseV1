@@ -100,6 +100,10 @@ namespace Repositories
         {
             return Mapper.mapToDTO(HouseRentDAO.GetHouseRentById(id));
         }
+        public HouseRentIdDTO GetHoidByName(string houseRentName)
+        {
+            return Mapper.mapToDTOHoid(HouseRentDAO.GetHouseRentsIdByName(houseRentName));
+        }
 
         public List<HouseRentAddressDTO> GetAddress()
         {

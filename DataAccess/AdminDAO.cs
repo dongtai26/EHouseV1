@@ -69,5 +69,19 @@ namespace DataAccess
             }
             return admin;
         }
+        public Admin GetAdminByAdminId(int id)
+        {
+            Admin admin = new Admin();
+            try
+            {
+                var db = new AppDbContext();
+                admin = db.Admins.SingleOrDefault(x => x.AdId == id);
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return admin;
+        }
     }
 }

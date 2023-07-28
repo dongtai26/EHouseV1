@@ -13,5 +13,6 @@ namespace Repositories
         void AddLessee(LesseeDTO lesseeDTO);
         void DeleteLessee(int id);
         LesseeDTO GetLesseeById(int id);
+        LesseeDTO GetLesseeByLesseeId(int id);
     }
 }
