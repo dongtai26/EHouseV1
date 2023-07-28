@@ -25,10 +25,13 @@ namespace Repositories
         {
             lesseeDAO.DeleteLessee(id);
         }
-
         public LesseeDTO GetLesseeById(int id)
         {
             return Mapper.mapToDTO(lesseeDAO.GetLesseeByUserId(id));
+        }
+        public LesseeDTO GetLesseeByLesseeId(int id)
+        {
+            return Mapper.mapToDTO(lesseeDAO.GetLesseeByLesseeId(id));
         }
     }
 }

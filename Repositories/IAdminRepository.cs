@@ -13,5 +13,6 @@ namespace Repositories
         void AddAdmin(AdminDTO adminDTO);
         void DeleteAdmin(int id);
         AdminDTO GetAdminById(int id);
+        AdminDTO GetAdminByAdminId(int id);
     }
 }

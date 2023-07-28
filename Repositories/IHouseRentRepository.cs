@@ -26,6 +26,7 @@ namespace Repositories
         List<HouseRentDTO> GetHouseRentsByBed(int bed);
         List<HouseRentDTO> GetHouseRentsByRestroom(int restroom);
         List<HouseRentAddressDTO> GetAddress();
+        HouseRentIdDTO GetHoidByName(string houseRentName);
         HouseRentAddressDTO GetAddressHouseRentById(int id);
         HouseRentDTO GetHouseRentById(int id);
         void AddHouseRent(HouseRentDTO houseRentDTO);
