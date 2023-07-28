@@ -27,7 +27,6 @@ namespace BusinessObjects.Models
         [ForeignKey("RId")]
         public virtual Role Role { get; set; }
         public virtual ICollection<Comment> Comments { get; set; }
-        public virtual ICollection<History> Histories { get; set; }
         public virtual ICollection<Notification> Notifications { get; set; }
         public virtual ICollection<Post> Posts { get; set; }
     }
