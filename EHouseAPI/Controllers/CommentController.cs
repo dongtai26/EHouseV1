@@ -49,7 +49,7 @@ namespace EHouseAPI.Controllers
         {
             return Ok(commentRepository.GetLastComment());
         }
-        /*[AuthorizationFilter]*/
+        [AuthorizationFilter]
         /*[Authorize(Roles = "Admin")]*/
         [HttpPost("CreateComment")]
         public async Task<IActionResult> CreateComment (CommentDTO comment)
