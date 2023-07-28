@@ -1,4 +1,6 @@
 ﻿using DataAccess.DTO;
+using EHouseAPI.Filter;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repositories;
 
@@ -16,14 +18,21 @@ namespace EHouseAPI.Controllers
             this.postImageRepository = postImageRepository;
         }
         /*[AuthorizationFilter]
-        [Authorize(PostImages = "Lessor, Admin, Lessee")]*/
+        [Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("GetPostImages")]
         public async Task<IActionResult> GetPostImages()
         {
             return Ok(postImageRepository.GetPostImages());
         }
-        /*[AuthorizationFilter]
-        [Authorize(PostImages = "Admin")]*/
+        /*[AuthorizationFilter]*/
+        /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
+        [HttpGet("GetHouseImageByPostId/{id}")]
+        public async Task<IActionResult> GetHouseImageByPostId(int id)
+        {
+            return Ok(postImageRepository.GetHouseImageByPostId(id));
+        }
+        [AuthorizationFilter]
+       /* [Authorize(Roles = "Admin")]*/
         [HttpPost("AddPostImage")]
         public async Task<IActionResult> AddPostImage(PostImageDTO postImage)
         {
@@ -37,8 +46,8 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
-        /*[AuthorizationFilter]
-        [Authorize(PostImages = "Admin")]*/
+        [AuthorizationFilter]
+       /* [Authorize(Roles = "Admin")]*/
         [HttpPut("UpdatePostImage")]
         public async Task<IActionResult> UpdatePostImage(PostImageDTO postImage)
         {
@@ -52,8 +61,8 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
-        /*[AuthorizationFilter]
-        [Authorize(PostImages = "Admin")]*/
+        [AuthorizationFilter]
+        /*[Authorize(Roles = "Admin")]*/
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeletePostImage(int id)
         {

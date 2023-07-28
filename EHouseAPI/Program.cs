@@ -15,13 +15,16 @@ builder.Services.AddScoped<IRoleRepository, RoleRepository>();
 builder.Services.AddScoped<ILesseeRepository, LesseeRepository>();
 builder.Services.AddScoped<ILessorRepository, LessorRepository>();
 builder.Services.AddScoped<IAdminRepository, AdminRepository>();
-builder.Services.AddScoped<ILocationRepository, LocationReponsitory>();
+/*builder.Services.AddScoped<ILocationRepository, LocationReponsitory>();*/
 builder.Services.AddScoped<IHouseRentRepository, HouseRentRepository>();
-builder.Services.AddScoped<IHouseAddressRepository, HouseAddressRepository>();
+/*builder.Services.AddScoped<IHouseAddressRepository, HouseAddressRepository>();*/
 builder.Services.AddScoped<IContractRepository, ContractRepository>();
 builder.Services.AddScoped<IStorageService, StorageService>();
 builder.Services.AddScoped<IHouseImageRepository, HouseImageRepository>();
 builder.Services.AddScoped<IPostImageRepository, PostImageRepository>();
+builder.Services.AddScoped<IPostRepository, PostRepository>();
+builder.Services.AddScoped<ICommentRepository, CommentRepository>();
+builder.Services.AddScoped<INotificationRepository, NotificationRepository>();
 builder.Services.AddTransient<ITokenManager, TokenManager>();
 
 builder.Services.AddAuthentication(o =>

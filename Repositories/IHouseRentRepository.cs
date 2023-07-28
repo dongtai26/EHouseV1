@@ -25,9 +25,12 @@ namespace Repositories
         List<HouseRentDTO> GetHouseRentsByHouseStatus(bool houseStatus);
         List<HouseRentDTO> GetHouseRentsByBed(int bed);
         List<HouseRentDTO> GetHouseRentsByRestroom(int restroom);
+        List<HouseRentAddressDTO> GetAddress();
+        HouseRentAddressDTO GetAddressHouseRentById(int id);
         HouseRentDTO GetHouseRentById(int id);
         void AddHouseRent(HouseRentDTO houseRentDTO);
         void UpdateHouseRent(HouseRentDTO houseRentDTO);
+        void UpdateAddress(HouseRentAddressDTO houseRentAddressDTO);
         void DeleteHouseRent(int id);
     }
 }

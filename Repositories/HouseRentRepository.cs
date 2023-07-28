@@ -32,9 +32,9 @@ namespace Repositories
         {
             return HouseRentDAO.GetHouseRentsByAreaRange(minArea, maxArea).Select(m => Mapper.mapToDTO(m)).ToList();
         }
-        public List<HouseRentDTO> GetHouseRentsByRentPriceRange(float minRentPrice, float maxPrice)
+        public List<HouseRentDTO> GetHouseRentsByRentPriceRange(float minRentPrice, float maxRentPrice)
         {
-            return HouseRentDAO.GetHouseRentsByRentPriceRange(minRentPrice, maxPrice).Select(m => Mapper.mapToDTO(m)).ToList();
+            return HouseRentDAO.GetHouseRentsByRentPriceRange(minRentPrice, maxRentPrice).Select(m => Mapper.mapToDTO(m)).ToList();
         }
         public List<HouseRentDTO> GetHouseRentsByAirConditioning(bool airConditioning)
         {
@@ -88,9 +88,23 @@ namespace Repositories
         {
             HouseRentDAO.UpdateHouseRent(Mapper.mapToEntity(houseRentDTO));
         }
+        public void UpdateAddress(HouseRentAddressDTO houseRentAddressDTO)
+        {
+            HouseRentDAO.UpdateHouseRent(Mapper.mapToEntityAddress(houseRentAddressDTO));
+        }
         public HouseRentDTO GetHouseRentById(int id)
         {
             return Mapper.mapToDTO(HouseRentDAO.GetHouseRentById(id));
+        }
+
+        public List<HouseRentAddressDTO> GetAddress()
+        {
+            return HouseRentDAO.GetAddress().Select(m => Mapper.mapToDTOAddress(m)).ToList();
+        }
+
+        public HouseRentAddressDTO GetAddressHouseRentById(int id)
+        {
+            return Mapper.mapToDTOAddress(HouseRentDAO.GetAddressHouseRentById(id));
         }
     }
 }

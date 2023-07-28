@@ -1,5 +1,6 @@
 ﻿using DataAccess.DTO;
 using EHouseAPI.Filter;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Repositories;
 
@@ -21,29 +22,35 @@ namespace EHouseAPI.Controllers
             this.userRepository = userRepository;
         }
         /*[AuthorizationFilter]*/
+        /*[Authorize(Roles = "Admin")]*/
         [HttpGet("GetComments")]
         public async Task<IActionResult> GetComments()
         {
             return Ok(commentRepository.GetComments());
         }
         /*[AuthorizationFilter]*/
+        /*[Authorize(Roles = "Admin")]*/
         [HttpGet("GetCommentById/{id}")]
         public async Task<IActionResult> getCommentById(int id)
         {
             return Ok(commentRepository.GetCommentById(id));
         }
-        /*[AuthorizationFilter]*/
+        [AuthorizationFilter]
+        /*[Authorize(Roles = "Admin")]*//*[AuthorizationFilter]*/
         [HttpGet("GetCommentByPostId/{id}")]
         public async Task<IActionResult> GetCommentByPostId(int id)
         {
             return Ok(commentRepository.GetCommentByPostId(id));
         }
+        [AuthorizationFilter]
+        /*[Authorize(Roles = "Admin")]*/
         [HttpGet("GetLastComment")]
         public async Task<IActionResult> GetLastComment()
         {
             return Ok(commentRepository.GetLastComment());
         }
-        /*[AuthorizationFilter]*/
+        [AuthorizationFilter]
+        /*[Authorize(Roles = "Admin")]*/
         [HttpPost("CreateComment")]
         public async Task<IActionResult> CreateComment (CommentDTO comment)
         {
@@ -69,7 +76,8 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
-        /*[AuthorizationFilter]*/
+        [AuthorizationFilter]
+        /*[Authorize(Roles = "Admin")]*/
         [HttpPut("EditComment")]
         public async Task<IActionResult> EditComment(CommentDTO comment)
         {
@@ -83,8 +91,8 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
-        /*[AuthorizationFilter]
-        [Authorize(Roles = "Admin")]*/
+        [AuthorizationFilter]
+        /*[Authorize(Roles = "Admin")]*/
         [HttpDelete("DeleteCommnet/{id}")]
         public async Task<IActionResult> DeleteComment (int id)
         {

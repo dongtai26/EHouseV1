@@ -22,6 +22,11 @@ namespace Repositories
             houseImageDAO.DeleteHouseImage(id);
         }
 
+        public List<HouseImageDTO> GetHouseImageByHoId(int id)
+        {
+            return houseImageDAO.GetHouseImageByHoId(id).Select(m => Mapper.mapToDTO(m)).ToList();
+        }
+
         public List<HouseImageDTO> GetHouseImages()
         {
             return houseImageDAO.GetHouseImages().Select(m => Mapper.mapToDTO(m)).ToList();

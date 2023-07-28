@@ -56,6 +56,15 @@ namespace DataAccess.Util
             };
             return user;
         }
+        public static User mapToEntityAvatar(UserDTO userDTO)
+        {
+            User user = new User
+            {
+                UId = userDTO.UId,
+                Avatar = userDTO.Avatar,
+            };
+            return user;
+        }
         public static RoleDTO mapToDTO(Role role)
         {
             if (role != null)
@@ -179,6 +188,9 @@ namespace DataAccess.Util
                     RentPrice = houseRent.RentPrice,
                     HouseStatus = houseRent.HouseStatus,
                     Detail = houseRent.Detail,
+                    Longitude = houseRent.Longitude,
+                    Latitude = houseRent.Latitude,
+                    Address = houseRent.Address,
                     LeId = houseRent.LeId
                 };
                 return houseRentDTO;
@@ -209,65 +221,41 @@ namespace DataAccess.Util
                 RentPrice = houseRentDTO.RentPrice,
                 HouseStatus = houseRentDTO.HouseStatus,
                 Detail = houseRentDTO.Detail,
+                Longitude = houseRentDTO.Longitude,
+                Latitude = houseRentDTO.Latitude,
+                Address = houseRentDTO.Address,
                 LeId = houseRentDTO.LeId
             };
             return houseRent;
         }
-        public static LocationDTO mapToDTO(Location location)
+        public static HouseRentAddressDTO mapToDTOAddress(HouseRent houseRent)
         {
-            if (location != null)
+            if (houseRent != null)
             {
-                LocationDTO locationDTO = new LocationDTO
+                HouseRentAddressDTO houseRentDTO = new HouseRentAddressDTO
                 {
-                    LId = location.LId,
-                    Longitude = location.Longitude,
-                    Latitude = location.Latitude,
-                    Address = location.Address
+                    HoId = houseRent.HoId,
+                    Longitude = houseRent.Longitude,
+                    Latitude = houseRent.Latitude,
+                    Address = houseRent.Address
                 };
-                return locationDTO;
-            }
-            else
-            {
-                return null;
-            } 
-        }
-        public static Location mapToEntity(LocationDTO locationDTO)
-        {
-            Location location = new Location
-            {
-                LId = locationDTO.LId,
-                Latitude = locationDTO.Latitude,
-                Longitude = locationDTO.Longitude,
-                Address = locationDTO.Address
-            };
-            return location;
-        }
-        public static HouseAddressDTO mapToDTO(HouseAddress houseAddress)
-        {
-            if (houseAddress != null)
-            {
-                HouseAddressDTO houseAddressDTO = new HouseAddressDTO
-                {
-                    HouseAddressId = houseAddress.HouseAddressId,
-                    House_Id = houseAddress.House_Id,
-                    Location_Id = houseAddress.Location_Id,
-                };
-                return houseAddressDTO;
+                return houseRentDTO;
             }
             else
             {
                 return null;
             }
         }
-        public static HouseAddress mapToEntity(HouseAddressDTO houseAddressDTO)
+        public static HouseRent mapToEntityAddress(HouseRentAddressDTO houseRentAddressDTO)
         {
-            HouseAddress houseAddress = new HouseAddress
+            HouseRent houseRent = new HouseRent
             {
-                HouseAddressId = houseAddressDTO.HouseAddressId,
-                House_Id = houseAddressDTO.House_Id,
-                Location_Id = houseAddressDTO.Location_Id,
+                HoId = houseRentAddressDTO.HoId,
+                Longitude = houseRentAddressDTO.Longitude,
+                Latitude = houseRentAddressDTO.Latitude,
+                Address = houseRentAddressDTO.Address
             };
-            return houseAddress;
+            return houseRent;
         }
         public static ContractDTO mapToDTO(Contract contract)
         {
@@ -280,8 +268,12 @@ namespace DataAccess.Util
                     ContractContent = contract.ContractContent,
                     ContractCreatedDay = contract.ContractCreatedDay,
                     HoId = contract.HoId,
+                    HouseRentName = contract.HouseRentName,
+                    RentPrice = contract.RentPrice,
                     AdId = contract.AdId,
+                    StatusAdminId = contract.StatusAdminId,
                     LeId = contract.LeId,
+                    StatusLessorId = contract.StatusLessorId,
                     LesId = contract.LesId
                 };
                 return contractDTO;
@@ -300,8 +292,12 @@ namespace DataAccess.Util
                 ContractContent = contractDTO.ContractContent,
                 ContractCreatedDay = contractDTO.ContractCreatedDay,
                 HoId = contractDTO.HoId,
+                HouseRentName = contractDTO.HouseRentName,
+                RentPrice = contractDTO.RentPrice,
                 AdId = contractDTO.AdId,
+                StatusAdminId = contractDTO.StatusAdminId,
                 LeId = contractDTO.LeId,
+                StatusLessorId = contractDTO.StatusLessorId,
                 LesId = contractDTO.LesId
             };
             return contract;
@@ -340,7 +336,7 @@ namespace DataAccess.Util
                 PostImageDTO postImageDTO = new PostImageDTO
                 {
                     PIId = postImage.PIId,
-                    PostImageCode = postImage.PostImageCode,
+                    PostImageUrl = postImage.PostImageUrl,
                     PostImageName = postImage.PostImageName,
                     PostImageContent = postImage.PostImageContent,
                     PId = postImage.PId
@@ -357,7 +353,7 @@ namespace DataAccess.Util
             PostImage postImage = new PostImage
             {
                 PIId = postImageDTO.PIId,
-                PostImageCode = postImageDTO.PostImageCode,
+                PostImageUrl = postImageDTO.PostImageUrl,
                 PostImageName = postImageDTO.PostImageName,
                 PostImageContent = postImageDTO.PostImageContent,
                 PId = postImageDTO.PId

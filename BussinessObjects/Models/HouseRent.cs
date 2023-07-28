@@ -29,6 +29,9 @@ namespace BusinessObjects.Models
         public float RentPrice { get; set; }
         public bool HouseStatus { get; set; }
         public string Detail { get; set; }
+        public float Longitude { get; set; }
+        public float Latitude { get; set; }
+        public string Address { get; set; }
         public int LeId { get; set; }
         [ForeignKey("LeId")]
         public virtual Lessor Lessor { get; set; }

@@ -24,7 +24,6 @@ namespace BusinessObjects.Models
         [ForeignKey("UId")]
         public virtual User User { get; set; }
         public virtual ICollection<Comment> Comment { get; set; }
-        public virtual ICollection<History> Histories { get; set; }
         public virtual ICollection<PostImage> PostImages { get; set; }
         public virtual ICollection<Notification> Notifications { get; set; }
 

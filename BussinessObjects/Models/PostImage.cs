@@ -13,9 +13,9 @@ namespace BusinessObjects.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int PIId { get; set; }
-        public string PostImageCode { get; set; }
+        public string PostImageUrl { get; set; }
         public string? PostImageName { get; set; }
-        public string PostImageContent { get; set; }
+        public string? PostImageContent { get; set; }
         public int PId { get; set; }
         [ForeignKey("PId")]
         public virtual Post Post { get; set; }

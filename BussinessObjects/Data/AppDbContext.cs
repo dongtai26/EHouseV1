@@ -25,7 +25,6 @@ namespace BusinessObjects.Data
 
         public virtual DbSet<Comment>? Comments { get; set; }
         public virtual DbSet<Contract>? Contracts { get; set; }
-        public virtual DbSet<History>? Histories { get; set; }
         public virtual DbSet<PostImage>? PostImages { get; set; }
         public virtual DbSet<Notification>? Notifications { get; set; }
         public virtual DbSet<Post>? Posts { get; set; }
@@ -35,8 +34,8 @@ namespace BusinessObjects.Data
         public virtual DbSet<Lessee>? Lessees { get; set; }
         public virtual DbSet<Lessor>? Lessors { get; set; }
         public virtual DbSet<UserToken>? UserTokens { get; set; }
-        public virtual DbSet<Location>? Locations { get; set; }
-        public virtual DbSet<HouseAddress>? HouseAddresses { get; set; }
+/*        public virtual DbSet<Location>? Locations { get; set; }
+        public virtual DbSet<HouseAddress>? HouseAddresses { get; set; }*/
         public virtual DbSet<HouseImage>? HouseImages { get; set; }
         public virtual DbSet<HouseRent>? HouseRents { get; set; }
 

@@ -10,6 +10,7 @@ namespace Repositories
     public interface IHouseImageRepository
     {
         List<HouseImageDTO> GetHouseImages();
+        List<HouseImageDTO> GetHouseImageByHoId(int id);
         void AddHouseImage(HouseImageDTO houseImageDTO);
         void UpdateHouseImage(HouseImageDTO houseImageDTO);
         void DeleteHouseImage(int id);

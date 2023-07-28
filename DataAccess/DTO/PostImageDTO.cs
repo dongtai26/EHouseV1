@@ -9,9 +9,9 @@ namespace DataAccess.DTO
     public class PostImageDTO
     {
         public int PIId { get; set; }
-        public string PostImageCode { get; set; }
+        public string PostImageUrl { get; set; }
         public string? PostImageName { get; set; }
-        public string PostImageContent { get; set; }
+        public string? PostImageContent { get; set; }
         public int PId { get; set; }
     }
 }

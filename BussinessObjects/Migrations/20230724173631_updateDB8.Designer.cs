@@ -4,6 +4,7 @@ using BusinessObjects.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,10 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObjects.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    partial class AppDbContextModelSnapshot : ModelSnapshot
+    [Migration("20230724173631_updateDB8")]
+    partial class updateDB8
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -107,10 +109,10 @@ namespace BusinessObjects.Migrations
                     b.Property<float>("RentPrice")
                         .HasColumnType("real");
 
-                    b.Property<bool?>("StatusAdminId")
+                    b.Property<bool>("StatusAdminId")
                         .HasColumnType("bit");
 
-                    b.Property<bool?>("StatusLessorId")
+                    b.Property<bool>("StatusLessorId")
                         .HasColumnType("bit");
 
                     b.HasKey("ConId");
@@ -124,6 +126,60 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("LesId");
 
                     b.ToTable("Contracts");
+                });
+
+            modelBuilder.Entity("BusinessObjects.Models.History", b =>
+                {
+                    b.Property<int>("Hid")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Hid"), 1L, 1);
+
+                    b.Property<int>("ConId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("ModifiedDay")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("PId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("UId")
+                        .HasColumnType("int");
+
+                    b.HasKey("Hid");
+
+                    b.HasIndex("ConId");
+
+                    b.HasIndex("PId");
+
+                    b.HasIndex("UId");
+
+                    b.ToTable("Histories");
+                });
+
+            modelBuilder.Entity("BusinessObjects.Models.HouseAddress", b =>
+                {
+                    b.Property<int>("HouseAddressId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HouseAddressId"), 1L, 1);
+
+                    b.Property<int>("House_Id")
+                        .HasColumnType("int");
+
+                    b.Property<int>("Location_Id")
+                        .HasColumnType("int");
+
+                    b.HasKey("HouseAddressId");
+
+                    b.HasIndex("House_Id");
+
+                    b.HasIndex("Location_Id");
+
+                    b.ToTable("HouseAddresses");
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.HouseImage", b =>
@@ -156,10 +212,6 @@ namespace BusinessObjects.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("HoId"), 1L, 1);
 
-                    b.Property<string>("Address")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
                     b.Property<bool>("AirConditioning")
                         .HasColumnType("bit");
 
@@ -186,14 +238,8 @@ namespace BusinessObjects.Migrations
                     b.Property<bool>("Kitchen")
                         .HasColumnType("bit");
 
-                    b.Property<float>("Latitude")
-                        .HasColumnType("real");
-
                     b.Property<int>("LeId")
                         .HasColumnType("int");
-
-                    b.Property<float>("Longitude")
-                        .HasColumnType("real");
 
                     b.Property<bool>("Parking")
                         .HasColumnType("bit");
@@ -260,6 +306,29 @@ namespace BusinessObjects.Migrations
                     b.HasIndex("UId");
 
                     b.ToTable("Lessors");
+                });
+
+            modelBuilder.Entity("BusinessObjects.Models.Location", b =>
+                {
+                    b.Property<int>("LId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("LId"), 1L, 1);
+
+                    b.Property<string>("Address")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("Latitude")
+                        .HasColumnType("real");
+
+                    b.Property<float>("Longitude")
+                        .HasColumnType("real");
+
+                    b.HasKey("LId");
+
+                    b.ToTable("Locations");
                 });
 
             modelBuilder.Entity("BusinessObjects.Models.Notification", b =>
@@ -517,6 +586,52 @@ namespace BusinessObjects.Migrations
                     b.Navigation("Lessor");
                 });
 
+            modelBuilder.Entity("BusinessObjects.Models.History", b =>
+                {
+                    b.HasOne("BusinessObjects.Models.Contract", "Contract")
+                        .WithMany("Histories")
+                        .HasForeignKey("ConId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BusinessObjects.Models.Post", "Post")
+                        .WithMany("Histories")
+                        .HasForeignKey("PId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BusinessObjects.Models.User", "User")
+                        .WithMany("Histories")
+                        .HasForeignKey("UId")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("Contract");
+
+                    b.Navigation("Post");
+
+                    b.Navigation("User");
+                });
+
+            modelBuilder.Entity("BusinessObjects.Models.HouseAddress", b =>
+                {
+                    b.HasOne("BusinessObjects.Models.HouseRent", "HouseRent")
+                        .WithMany()
+                        .HasForeignKey("House_Id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("BusinessObjects.Models.Location", "Location")
+                        .WithMany()
+                        .HasForeignKey("Location_Id")
+                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.Navigation("HouseRent");
+
+                    b.Navigation("Location");
+                });
+
             modelBuilder.Entity("BusinessObjects.Models.HouseImage", b =>
                 {
                     b.HasOne("BusinessObjects.Models.HouseRent", "HouseRent")
@@ -651,6 +766,11 @@ namespace BusinessObjects.Migrations
                     b.Navigation("Notifications");
                 });
 
+            modelBuilder.Entity("BusinessObjects.Models.Contract", b =>
+                {
+                    b.Navigation("Histories");
+                });
+
             modelBuilder.Entity("BusinessObjects.Models.Lessee", b =>
                 {
                     b.Navigation("Contracts");
@@ -667,6 +787,8 @@ namespace BusinessObjects.Migrations
                 {
                     b.Navigation("Comment");
 
+                    b.Navigation("Histories");
+
                     b.Navigation("Notifications");
 
                     b.Navigation("PostImages");
@@ -675,6 +797,8 @@ namespace BusinessObjects.Migrations
             modelBuilder.Entity("BusinessObjects.Models.User", b =>
                 {
                     b.Navigation("Comments");
+
+                    b.Navigation("Histories");
 
                     b.Navigation("Notifications");
 
