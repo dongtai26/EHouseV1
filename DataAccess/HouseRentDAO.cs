@@ -106,6 +106,22 @@ namespace DataAccess
             }
             return ListHouse;
         }
+        public List<HouseRent> FilterHouseRent(float minArea, float maxArea, float minRentPrice, float maxRentPrice, bool airConditioning, bool waterHeater, bool wifi, bool washingMachine, bool parking, bool refrigerator, bool kitchen, bool houseStatus)
+        {
+            var ListHouse = new List<HouseRent>();
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    ListHouse = context.HouseRents.Where(x => minRentPrice <= x.RentPrice && x.RentPrice <= maxRentPrice && minRentPrice <= x.RentPrice && x.RentPrice <= maxRentPrice && x.AirConditioning == airConditioning && x.WaterHeater == waterHeater && x.Wifi == wifi && x.WashingMachine == washingMachine && x.Parking == parking && x.Refrigerator == refrigerator && x.Kitchen == kitchen && x.HouseStatus == houseStatus).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return ListHouse;
+        }
         public List<HouseRent> GetHouseRentsByAirConditioning(bool airConditioning)
         {
             var ListHouse = new List<HouseRent>();
