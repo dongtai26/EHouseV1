@@ -76,6 +76,10 @@ namespace Repositories
         {
             return HouseRentDAO.GetHouseRentsByRestroom(restroom).Select(m => Mapper.mapToDTO(m)).ToList();
         }
+        public List<HouseRentDTO> FilterHouseRent(float minArea, float maxArea, float minRentPrice, float maxRentPrice, bool airConditioning, bool waterHeater, bool wifi, bool washingMachine, bool parking, bool refrigerator, bool kitchen, bool houseStatus)
+        {
+            return HouseRentDAO.FilterHouseRent(minArea, maxArea, minRentPrice, maxRentPrice, airConditioning, waterHeater, wifi, washingMachine, parking, refrigerator, kitchen, houseStatus).Select(m => Mapper.mapToDTO(m)).ToList();
+        }
         public List<HouseRentDTO> GetHouseRents()
         {
             return HouseRentDAO.GetHouseRents().Select(m => Mapper.mapToDTO(m)).ToList();

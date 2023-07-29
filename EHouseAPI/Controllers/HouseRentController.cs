@@ -158,6 +158,11 @@ namespace EHouseAPI.Controllers
         {
             return Ok(houseRentRepository.GetHouseRentsByRestroom(restroom));
         }
+        [HttpGet("FilterHouseRent")]
+        public async Task<IActionResult> FilterHouseRent(float minArea, float maxArea, float minRentPrice, float maxRentPrice, bool airConditioning, bool waterHeater, bool wifi, bool washingMachine, bool parking, bool refrigerator, bool kitchen, bool houseStatus)
+        {
+            return Ok(houseRentRepository.FilterHouseRent(minArea, maxArea, minRentPrice, maxRentPrice, airConditioning, waterHeater, wifi, washingMachine, parking, refrigerator, kitchen, houseStatus));
+        }
         /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpPost("AddHouseRent")]

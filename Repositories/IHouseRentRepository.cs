@@ -25,6 +25,7 @@ namespace Repositories
         List<HouseRentDTO> GetHouseRentsByHouseStatus(bool houseStatus);
         List<HouseRentDTO> GetHouseRentsByBed(int bed);
         List<HouseRentDTO> GetHouseRentsByRestroom(int restroom);
+        List<HouseRentDTO> FilterHouseRent(float minArea, float maxArea, float minRentPrice, float maxRentPrice, bool airConditioning, bool waterHeater, bool wifi, bool washingMachine, bool parking, bool refrigerator, bool kitchen, bool houseStatus);
         List<HouseRentAddressDTO> GetAddress();
         HouseRentIdDTO GetHoidByName(string houseRentName);
         HouseRentAddressDTO GetAddressHouseRentById(int id);
