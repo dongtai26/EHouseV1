@@ -56,12 +56,11 @@ namespace DataAccess.Util
             };
             return user;
         }
-        public static User mapToEntityAvatar(UserDTO userDTO)
+        public static User mapToEntityAvatar(UserAvatarDTO userAvatarDTO)
         {
             User user = new User
             {
-                UId = userDTO.UId,
-                Avatar = userDTO.Avatar,
+                Avatar = userAvatarDTO.Avatar,
             };
             return user;
         }
@@ -262,14 +261,22 @@ namespace DataAccess.Util
                 return null;
             }
         }
-        public static HouseRent mapToEntityAddress(HouseRentAddressDTO houseRentAddressDTO)
+        public static HouseRent mapToEntityAddress(HouseRentAddressDTO houseRentDTO)
         {
             HouseRent houseRent = new HouseRent
             {
-                HoId = houseRentAddressDTO.HoId,
-                Longitude = houseRentAddressDTO.Longitude,
-                Latitude = houseRentAddressDTO.Latitude,
-                Address = houseRentAddressDTO.Address
+                Longitude = houseRentDTO.Longitude,
+                Latitude = houseRentDTO.Latitude,
+                Address = houseRentDTO.Address
+            };
+            return houseRent;
+        }
+        public static HouseRent mapToEntityStasus(HouseStatusDTO houseStatussDTO)
+        {
+            HouseRent houseRent = new HouseRent
+            {
+                /*HoId = houseStatussDTO.HoId,*/
+                HouseStatus = houseStatussDTO.HouseStatus
             };
             return houseRent;
         }

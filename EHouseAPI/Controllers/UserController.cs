@@ -265,12 +265,12 @@ namespace EHouseAPI.Controllers
         }
         [AuthorizationFilter]
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
-        [HttpPut("UpdateAvatar")]
-        public async Task<IActionResult> UpdateAvatar(UserDTO user)
+        [HttpPut("UpdateAvatar/{id}")]
+        public async Task<IActionResult> UpdateAvatar(int id, UserAvatarDTO userAvatarDTO)
         {
             try
             {
-                userRepository.UpdateAvatarForUser(user);
+                userRepository.UpdateAvatarForUser(id, userAvatarDTO);
                 return Ok("SUCCESS");
             }
             catch (Exception e)
