@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BusinessObjects.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20230725174122_updateDB12")]
+    [Migration("20230731140018_updateDB12")]
     partial class updateDB12
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -114,6 +114,10 @@ namespace BusinessObjects.Migrations
 
                     b.Property<bool?>("StatusLessorId")
                         .HasColumnType("bit");
+
+                    b.Property<string>("TenancyPeriod")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.HasKey("ConId");
 

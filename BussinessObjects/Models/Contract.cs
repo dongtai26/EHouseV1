@@ -14,6 +14,7 @@ namespace BusinessObjects.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ConId { get; set; }
         public DateTime ContractCreatedDay { get; set; }
+        public string TenancyPeriod { get; set; }
         public string ContractContent { get; set; }
         public DateTime ContractApproveDay { get; set; }
         public int HoId { get; set; }

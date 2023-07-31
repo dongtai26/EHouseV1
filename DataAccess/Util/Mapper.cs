@@ -288,6 +288,7 @@ namespace DataAccess.Util
                 {
                     ConId = contract.ConId,
                     ContractApproveDay = contract.ContractApproveDay,
+                    TenancyPeriod = contract.TenancyPeriod,
                     ContractContent = contract.ContractContent,
                     ContractCreatedDay = contract.ContractCreatedDay,
                     HoId = contract.HoId,
@@ -312,6 +313,7 @@ namespace DataAccess.Util
             {
                 ConId = contractDTO.ConId,
                 ContractApproveDay = contractDTO.ContractApproveDay,
+                TenancyPeriod = contractDTO.TenancyPeriod,
                 ContractContent = contractDTO.ContractContent,
                 ContractCreatedDay = contractDTO.ContractCreatedDay,
                 HoId = contractDTO.HoId,
