@@ -358,6 +358,46 @@ namespace DataAccess
                 throw new Exception(e.Message);
             }
         }
+        public void UpdateHouseRentAddress(int id, HouseRent houseRent)
+        {
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    var findHouseRent = context.HouseRents.SingleOrDefault(x => x.HoId == id);
+                    if (findHouseRent is HouseRent found)
+                    {
+                        found.Latitude = houseRent.Latitude;
+                        found.Longitude = houseRent.Longitude;
+                        found.Address = houseRent.Address;
+                    }
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
+        public void UpdateHouseRentStatus(int id, HouseRent houseRent)
+        {
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    var findHouseRent = context.HouseRents.SingleOrDefault(x => x.HoId == id);
+                    if(findHouseRent is HouseRent found)
+                    {
+                        found.HouseStatus = houseRent.HouseStatus;
+                    }
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
         public void DeleteHouseRent(int id)
         {
             try

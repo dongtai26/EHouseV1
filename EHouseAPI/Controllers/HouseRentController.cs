@@ -195,12 +195,27 @@ namespace EHouseAPI.Controllers
         }
         [AuthorizationFilter]
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
-        [HttpPut("UpdateAddress")]
-        public async Task<IActionResult> UpdateAddress(HouseRentAddressDTO houseRentAddress)
+        [HttpPut("UpdateHouseStatus/{id}")]
+        public async Task<IActionResult> UpdateStatus(int id, HouseStatusDTO houseStatussDTO)
         {
             try
             {
-                houseRentRepository.UpdateAddress(houseRentAddress);
+                houseRentRepository.UpdateStatus(id, houseStatussDTO);
+                return Ok("SUCCESS");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [AuthorizationFilter]
+        /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
+        [HttpPut("UpdateHouseAddress/{id}")]
+        public async Task<IActionResult> UpdateHouseAddress(int id, HouseRentAddressDTO houseRentAddressDTO)
+        {
+            try
+            {
+                houseRentRepository.UpdateHouseAddress(id, houseRentAddressDTO);
                 return Ok("SUCCESS");
             }
             catch (Exception e)

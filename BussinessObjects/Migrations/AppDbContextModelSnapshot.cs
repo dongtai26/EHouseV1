@@ -113,6 +113,10 @@ namespace BusinessObjects.Migrations
                     b.Property<bool?>("StatusLessorId")
                         .HasColumnType("bit");
 
+                    b.Property<string>("TenancyPeriod")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("ConId");
 
                     b.HasIndex("AdId");

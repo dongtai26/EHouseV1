@@ -6,8 +6,9 @@ using System.Threading.Tasks;
 
 namespace DataAccess.DTO
 {
-    public class UserAvatarDTO
+    public class HouseStatusDTO
     {
-        public string Avatar { get; set; }
+/*        public int HoId { get; set; }*/
+        public bool HouseStatus { get; set; }
     }
 }

@@ -32,7 +32,8 @@ namespace Repositories
         HouseRentDTO GetHouseRentById(int id);
         void AddHouseRent(HouseRentDTO houseRentDTO);
         void UpdateHouseRent(HouseRentDTO houseRentDTO);
-        void UpdateAddress(HouseRentAddressDTO houseRentAddressDTO);
+        void UpdateStatus(int id, HouseStatusDTO houseStatussDTO);
+        void UpdateHouseAddress(int id, HouseRentAddressDTO houseRentAddressDTO);
         void DeleteHouseRent(int id);
     }
 }
