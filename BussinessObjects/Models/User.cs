@@ -14,7 +14,7 @@ namespace BusinessObjects.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int UId { get; set; }
         public string FullName { get; set; }
-        public DateTime Dateofbirth { get; set; }
+        public string Dateofbirth { get; set; }
         public string Address { get; set; }
         public string CitizenIdentification { get; set; }
         public string PhoneNumber { get; set; }

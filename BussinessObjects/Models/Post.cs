@@ -18,7 +18,7 @@ namespace BusinessObjects.Models
         [ForeignKey("AdId")]
         public virtual Admin Admin { get; set; }
         public string PostContent { get; set; }
-        public DateTime PostCreatedDay { get; set; }
+        public string PostCreatedDay { get; set; }
         public string PostTitle { get; set; }
         public int UId { get; set; }
         [ForeignKey("UId")]

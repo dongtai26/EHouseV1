@@ -13,10 +13,10 @@ namespace BusinessObjects.Models
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int ConId { get; set; }
-        public DateTime ContractCreatedDay { get; set; }
+        public string ContractCreatedDay { get; set; }
         public string TenancyPeriod { get; set; }
         public string ContractContent { get; set; }
-        public DateTime ContractApproveDay { get; set; }
+        public string ContractApproveDay { get; set; }
         public int HoId { get; set; }
         [ForeignKey("HoId")]
         public virtual HouseRent HouseRent { get; set; }

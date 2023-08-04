@@ -10,7 +10,7 @@ namespace DataAccess.DTO
     {
         public int CId { get; set; }
         public string CommentContent { get; set; }
-        public DateTime LastTimeModified { get; set; }
+        public string LastTimeModified { get; set; }
         public int PId { get; set; }
         public int UId { get; set; }
     }

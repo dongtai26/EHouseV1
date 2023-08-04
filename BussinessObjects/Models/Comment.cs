@@ -14,7 +14,7 @@ namespace BusinessObjects.Models
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int CId { get; set; }
         public string CommentContent { get; set; }
-        public DateTime LastTimeModified { get; set; }
+        public string LastTimeModified { get; set; }
         public int PId { get; set; }
         [ForeignKey("PId")]
         public virtual Post Post { get; set; }

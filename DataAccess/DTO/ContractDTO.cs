@@ -9,10 +9,10 @@ namespace DataAccess.DTO
     public class ContractDTO
     {
         public int ConId { get; set; }
-        public DateTime ContractCreatedDay { get; set; }
+        public string ContractCreatedDay { get; set; }
         public string TenancyPeriod { get; set; }
         public string ContractContent { get; set; }
-        public DateTime ContractApproveDay { get; set; }
+        public string ContractApproveDay { get; set; }
         public int HoId { get; set; }
         public string HouseRentName { get; set; }
         public float RentPrice { get; set; }
