@@ -34,14 +34,21 @@ namespace EHouseAPI.Controllers
         }
         /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
-        [HttpGet("GetAddressHouseRentById")]
+        [HttpGet("GetAddressHouseRentById/{id}")]
         public async Task<IActionResult> GetAddressHouseRentById(int id)
         {
             return Ok(houseRentRepository.GetAddressHouseRentById(id));
         }
         /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
-        [HttpGet("SearchHouseRents")]
+        [HttpGet("GetHouseRentsByLessorIdAndHouseStatus/{id}")]
+        public async Task<IActionResult> GetHouseRentsByLessorIdAndHouseStatus(int id, bool houseStatus)
+        {
+            return Ok(houseRentRepository.GetHouseRentsByLessorIdAndHouseStatus(id, houseStatus));
+        }
+        /*[AuthorizationFilter]*/
+        /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
+        [HttpGet("SearchHouseRents/{houseRentName}")]
         public async Task<IActionResult> SearchHouseRents(string houseRentName)
         {
             return Ok(houseRentRepository.GetHouseRentsByName(houseRentName));

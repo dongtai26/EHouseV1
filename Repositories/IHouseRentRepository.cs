@@ -13,6 +13,7 @@ namespace Repositories
         List<HouseRentDTO> GetHouseRentsByDetail(string detail);
         List<HouseRentDTO> GetHouseRents();
         List<HouseRentDTO> GetHouseRentsByLessorId(int id);
+        List<HouseRentDTO> GetHouseRentsByLessorIdAndHouseStatus(int id, bool houseStatus);
         List<HouseRentDTO> GetHouseRentsByAreaRange(float minArea, float maxArea);
         List<HouseRentDTO> GetHouseRentsByRentPriceRange(float minRentPrice, float maxRentPrice);
         List<HouseRentDTO> GetHouseRentsByAirConditioning(bool airConditioning);

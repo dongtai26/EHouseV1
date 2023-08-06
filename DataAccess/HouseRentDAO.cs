@@ -42,6 +42,22 @@ namespace DataAccess
             }
             return ListHouse;
         }
+        public List<HouseRent> GetHouseRentsByLessorIdAndHouseStatus(int id, bool houseStatus)
+        {
+            var ListHouse = new List<HouseRent>();
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    ListHouse = context.HouseRents.Where(x => x.LeId == id && x.HouseStatus == houseStatus).ToList();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return ListHouse;
+        }
         public List<HouseRent> GetHouseRentsByName(string houseRentName)
         {
             var ListHouse = new List<HouseRent>();

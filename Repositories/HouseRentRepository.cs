@@ -118,5 +118,10 @@ namespace Repositories
         {
             return Mapper.mapToDTOAddress(HouseRentDAO.GetAddressHouseRentById(id));
         }
+
+        public List<HouseRentDTO> GetHouseRentsByLessorIdAndHouseStatus(int id, bool houseStatus)
+        {
+            return HouseRentDAO.GetHouseRentsByLessorIdAndHouseStatus(id, houseStatus).Select(m => Mapper.mapToDTO(m)).ToList();
+        }
     }
 }
