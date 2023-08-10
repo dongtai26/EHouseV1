@@ -104,6 +104,25 @@ namespace DataAccess
                 throw new Exception(e.Message);
             }
         }
+        public void UpdateUserAvatar(int id, User user)
+        {
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    var findUser = context.Users.SingleOrDefault(x => x.UId == id);
+                    if(findUser is User found)
+                    {
+                        found.Avatar = user.Avatar;
+                    }
+                    context.SaveChanges();
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+        }
         public void DeleteUser(int id)
         {
             try

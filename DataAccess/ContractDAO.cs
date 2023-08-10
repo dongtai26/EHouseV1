@@ -84,47 +84,47 @@ namespace DataAccess
             }
             return contract;
         }
-        public Contract GetContractByLesseeId(int id)
+        public List<Contract> GetContractByLesseeId(int id)
         {
-            Contract contract = new Contract();
+            var listContract = new List<Contract>();
             try
             {
                 var db = new AppDbContext();
-                contract = db.Contracts.SingleOrDefault(x => x.LesId == id);
+                listContract = db.Contracts.Where(x => x.LesId == id).ToList();
             }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
-            return contract;
+            return listContract;
         }
-        public Contract GetContractByLessorId(int id)
+        public List<Contract> GetContractByLessorId(int id)
         {
-            Contract contract = new Contract();
+            var listContract = new List<Contract>();
             try
             {
                 var db = new AppDbContext();
-                contract = db.Contracts.SingleOrDefault(x => x.LeId == id);
+                listContract = db.Contracts.Where(x => x.LeId == id).ToList();
             }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
-            return contract;
+            return listContract;
         }
-        public Contract GetContractByAdminId(int id)
+        public List<Contract> GetContractByAdminId(int id)
         {
-            Contract contract = new Contract();
+            var listContract = new List<Contract>();
             try
             {
                 var db = new AppDbContext();
-                contract = db.Contracts.SingleOrDefault(x => x.AdId == id);
+                listContract = db.Contracts.Where(x => x.AdId == id).ToList();
             }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
-            return contract;
+            return listContract;
         }
         public List<Contract> GetContractByStatusAdminId(bool statusAdminId)
         {

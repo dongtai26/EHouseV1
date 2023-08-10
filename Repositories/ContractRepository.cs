@@ -32,17 +32,17 @@ namespace Repositories
         {
             return Mapper.mapToDTO(contractDAO.GetContactById(id));
         }
-        public ContractDTO GetContractByLesseeId(int id)
+        public List<ContractDTO> GetContractByLesseeId(int id)
         {
-            return Mapper.mapToDTO(contractDAO.GetContractByLesseeId(id));
+            return contractDAO.GetContractByLesseeId(id).Select(m => Mapper.mapToDTO(m)).ToList();
         }
-        public ContractDTO GetContractByLessorId(int id)
+        public List<ContractDTO> GetContractByLessorId(int id)
         {
-            return Mapper.mapToDTO(contractDAO.GetContractByLessorId(id));
+            return contractDAO.GetContractByLessorId(id).Select(m => Mapper.mapToDTO(m)).ToList();
         }
-        public ContractDTO GetContractByAdminId(int id)
+        public List<ContractDTO> GetContractByAdminId(int id)
         {
-            return Mapper.mapToDTO(contractDAO.GetContractByAdminId(id));
+            return contractDAO.GetContractByAdminId(id).Select(m => Mapper.mapToDTO(m)).ToList();
         }
         public List<ContractDTO> GetContractByStatusAdminId(bool StatusAdminId)
         {

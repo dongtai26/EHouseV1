@@ -34,14 +34,21 @@ namespace EHouseAPI.Controllers
         }
         /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
-        [HttpGet("GetAddressHouseRentById")]
+        [HttpGet("GetAddressHouseRentById/{id}")]
         public async Task<IActionResult> GetAddressHouseRentById(int id)
         {
             return Ok(houseRentRepository.GetAddressHouseRentById(id));
         }
         /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
-        [HttpGet("SearchHouseRents")]
+        [HttpGet("GetHouseRentsByLessorIdAndHouseStatus/{id}")]
+        public async Task<IActionResult> GetHouseRentsByLessorIdAndHouseStatus(int id, bool houseStatus)
+        {
+            return Ok(houseRentRepository.GetHouseRentsByLessorIdAndHouseStatus(id, houseStatus));
+        }
+        /*[AuthorizationFilter]*/
+        /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
+        [HttpGet("SearchHouseRents/{houseRentName}")]
         public async Task<IActionResult> SearchHouseRents(string houseRentName)
         {
             return Ok(houseRentRepository.GetHouseRentsByName(houseRentName));
@@ -195,12 +202,27 @@ namespace EHouseAPI.Controllers
         }
         [AuthorizationFilter]
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
-        [HttpPut("UpdateAddress")]
-        public async Task<IActionResult> UpdateAddress(HouseRentAddressDTO houseRentAddress)
+        [HttpPut("UpdateHouseStatus/{id}")]
+        public async Task<IActionResult> UpdateStatus(int id, HouseStatusDTO houseStatussDTO)
         {
             try
             {
-                houseRentRepository.UpdateAddress(houseRentAddress);
+                houseRentRepository.UpdateStatus(id, houseStatussDTO);
+                return Ok("SUCCESS");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [AuthorizationFilter]
+        /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
+        [HttpPut("UpdateHouseAddress/{id}")]
+        public async Task<IActionResult> UpdateHouseAddress(int id, HouseRentAddressDTO houseRentAddressDTO)
+        {
+            try
+            {
+                houseRentRepository.UpdateHouseAddress(id, houseRentAddressDTO);
                 return Ok("SUCCESS");
             }
             catch (Exception e)

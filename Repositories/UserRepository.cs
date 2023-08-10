@@ -47,9 +47,9 @@ namespace Repositories
         {
             userDAO.UpdateUser(Mapper.mapToEntity(userDTO));
         }
-        public void UpdateAvatarForUser(UserDTO userDTO)
+        public void UpdateAvatarForUser(int id, UserAvatarDTO userAvatarDTO)
         {
-            userDAO.UpdateUser(Mapper.mapToEntityAvatar(userDTO));
+            userDAO.UpdateUserAvatar(id, Mapper.mapToEntityAvatar(userAvatarDTO));
         }
         public UserDTO Login(string username, string password)
         {

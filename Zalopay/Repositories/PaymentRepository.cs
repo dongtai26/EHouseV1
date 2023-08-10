@@ -37,12 +37,12 @@ namespace Zalopay.Repositories
             param.Add("mac", HmacHelper.Compute(ZaloPayHMAC.HMACSHA256, key1, data));
             var result = await HttpHelper.PostFormAsync(create_order_url, param);
             createOrderResponse.ReturnCode = Int32.Parse($"{result.ElementAt(0).Value}");
-            createOrderResponse.ReturnMessage = $"{result.ElementAt(1).Value}";
-/*            createOrderResponse.SubReturnCode = Int32.Parse($"{result.ElementAt(2).Value}");
-            createOrderResponse.SubReturnMessage = $"{result.ElementAt(3).Value}";*/
-            createOrderResponse.ZPTransToken = $"{result.ElementAt(4).Value}";
+            /*createOrderResponse.ReturnMessage = $"{result.ElementAt(1).Value}";
+            createOrderResponse.SubReturnCode = Int32.Parse($"{result.ElementAt(2).Value}");
+            createOrderResponse.SubReturnMessage = $"{result.ElementAt(3).Value}";
+            createOrderResponse.ZPTransToken = $"{result.ElementAt(4).Value}";*/
             createOrderResponse.OrderUrl = $"{result.ElementAt(5).Value}";
-            createOrderResponse.OrderToken = $"{result.ElementAt(6).Value}";
+            /*createOrderResponse.OrderToken = $"{result.ElementAt(6).Value}";*/
             createOrderResponse.AppTransId = DateTime.Now.ToString("yyMMdd") + "_" + app_trans_id;
             return createOrderResponse;
         }
@@ -60,9 +60,9 @@ namespace Zalopay.Repositories
             var result = await HttpHelper.PostFormAsync(query_order_url, param);
             checkOrderResponse.ReturnCode = Int32.Parse($"{result.ElementAt(0).Value}");
             checkOrderResponse.ReturnMessage = $"{result.ElementAt(1).Value}";
-            /*            checkOrderResponse.SubReturnCode = Int32.Parse($"{result.ElementAt(2).Value}");
-                        checkOrderResponse.SubReturnMessage = $"{result.ElementAt(3).Value}";*/
-            checkOrderResponse.IsProcessing = bool.Parse($"{result.ElementAt(4).Value}");
+            /*checkOrderResponse.SubReturnCode = Int32.Parse($"{result.ElementAt(2).Value}");
+            checkOrderResponse.SubReturnMessage = $"{result.ElementAt(3).Value}";
+            checkOrderResponse.IsProcessing = bool.Parse($"{result.ElementAt(4).Value}");*/
             checkOrderResponse.Amount = long.Parse($"{result.ElementAt(5).Value}");
             checkOrderResponse.ZPTransId = long.Parse($"{result.ElementAt(6).Value}");
             return checkOrderResponse;

@@ -13,6 +13,7 @@ namespace Repositories
         List<HouseRentDTO> GetHouseRentsByDetail(string detail);
         List<HouseRentDTO> GetHouseRents();
         List<HouseRentDTO> GetHouseRentsByLessorId(int id);
+        List<HouseRentDTO> GetHouseRentsByLessorIdAndHouseStatus(int id, bool houseStatus);
         List<HouseRentDTO> GetHouseRentsByAreaRange(float minArea, float maxArea);
         List<HouseRentDTO> GetHouseRentsByRentPriceRange(float minRentPrice, float maxRentPrice);
         List<HouseRentDTO> GetHouseRentsByAirConditioning(bool airConditioning);
@@ -32,7 +33,8 @@ namespace Repositories
         HouseRentDTO GetHouseRentById(int id);
         void AddHouseRent(HouseRentDTO houseRentDTO);
         void UpdateHouseRent(HouseRentDTO houseRentDTO);
-        void UpdateAddress(HouseRentAddressDTO houseRentAddressDTO);
+        void UpdateStatus(int id, HouseStatusDTO houseStatussDTO);
+        void UpdateHouseAddress(int id, HouseRentAddressDTO houseRentAddressDTO);
         void DeleteHouseRent(int id);
     }
 }

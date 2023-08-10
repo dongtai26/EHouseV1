@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using EHouseAPI.Filter;
+using Microsoft.AspNetCore.Mvc;
 using Newtonsoft.Json;
 using Repositories;
 using Zalopay.Healper;
@@ -19,17 +20,19 @@ namespace EHouseAPI.Controllers
         {
             this.paymentRepository = paymentRepository;
         }
+        [AuthorizationFilter]
         [HttpPost("CreateOrder")]
         public async Task<CreateOrderResponse> CreateOrder(CreateOrderRequest request)
         {
             return await paymentRepository.CreateOrder(request);
         }
+        [AuthorizationFilter]
         [HttpPost("CheckOrder")]
         public async Task<CheckOrderResponse> CheckOrder(CheckOrderRequest request)
         {
             return await paymentRepository.CheckOrder(request);
         }
-        [HttpPost("CallBack")]
+        /*[HttpPost("CallBack")]
         public IActionResult Post([FromBody] dynamic cbdata)
         {
             var result = new Dictionary<string, object>();
@@ -69,6 +72,6 @@ namespace EHouseAPI.Controllers
 
             // thông báo kết quả cho ZaloPay server
             return Ok(result);
-        }
+        }*/
     }
 }
