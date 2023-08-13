@@ -246,7 +246,7 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("StatisticHouseRent")]
         public async Task<IActionResult> StatisticHouseRent()

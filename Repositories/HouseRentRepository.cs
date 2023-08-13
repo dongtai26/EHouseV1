@@ -106,6 +106,10 @@ namespace Repositories
         {
             return Mapper.mapToDTOAddress(HouseRentDAO.GetAddressHouseRentById(id));
         }
+        public List<HouseRentDTO> GetHouseRentsByLessorIdAndHouseStatus(int id, bool houseStatus)
+        {
+            return HouseRentDAO.GetHouseRentsByLessorIdAndHouseStatus(id, houseStatus).Select(m => Mapper.mapToDTO(m)).ToList();
+        }
         public int CountTotalHouseRent()
         {
             return HouseRentDAO.CountTotalHouseRent();
@@ -117,6 +121,27 @@ namespace Repositories
         public int CountTotalHouseRentByStatusAreFalse()
         {
             return HouseRentDAO.CountTotalHouseRentByStatusAreFalse();
+        }
+
+
+        public List<HouseRentDTO> FilterHouseRent(float minArea, float maxArea, float minRentPrice, float maxRentPrice, bool airConditioning, bool waterHeater, bool wifi, bool washingMachine, bool parking, bool refrigerator, bool kitchen, bool houseStatus)
+        {
+            throw new NotImplementedException();
+        }
+
+        public HouseRentIdDTO GetHoidByName(string houseRentName)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateStatus(int id, HouseStatusDTO houseStatussDTO)
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateHouseAddress(int id, HouseRentAddressDTO houseRentAddressDTO)
+        {
+            throw new NotImplementedException();
         }
     }
 }

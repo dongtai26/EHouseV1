@@ -30,6 +30,10 @@ namespace Repositories
         {
             return Mapper.mapToDTO(lesseeDAO.GetLesseeByUserId(id));
         }
+        public LesseeDTO GetLesseeByLesseeId(int id)
+        {
+            return Mapper.mapToDTO(lesseeDAO.GetLesseeByLesseeId(id));
+        }
         public int CountTotalLessee()
         {
             return lesseeDAO.CountTotalLessee();
