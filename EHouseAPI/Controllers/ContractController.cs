@@ -12,9 +12,17 @@ namespace EHouseAPI.Controllers
     public class ContractController : Controller
     {
         private readonly IContractRepository contractRepository;
-        public ContractController(IContractRepository contractRepository)
+        private readonly IHouseRentRepository houseRentRepository;
+        private readonly IUserRepository userRepository;
+        private readonly ILesseeRepository lesseeRepository;
+        private readonly ILessorRepository lessorRepository;
+        public ContractController(IContractRepository contractRepository, IHouseRentRepository houseRentRepository, IUserRepository userRepository, ILesseeRepository lesseeRepository, ILessorRepository lessorRepository)
         {
             this.contractRepository = contractRepository;
+            this.houseRentRepository = houseRentRepository;
+            this.userRepository = userRepository;
+            this.lesseeRepository = lesseeRepository;
+            this.lessorRepository = lessorRepository;
         }
         /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Admin")]*/
@@ -29,6 +37,31 @@ namespace EHouseAPI.Controllers
         public async Task<IActionResult> GetContractsById(int id)
         {
             return Ok(contractRepository.GetContractById(id));
+        }
+        [AuthorizationFilter]
+        /*[Authorize(Roles = "Admin")]*/
+        [HttpGet("GetInformationContractById/{id}")]
+        public async Task<IActionResult> GetInformationContractById(int id)
+        {
+            ContractDTO contractDTO = contractRepository.GetContractById(id);
+            HouseRentDTO houseRentDTO = houseRentRepository.GetHouseRentById(contractDTO.HoId);
+            LesseeDTO lesseeDTO = lesseeRepository.GetLesseeByLesseeId(contractDTO.LesId);
+            LessorDTO lessorDTO = lessorRepository.GetLessorByLessorId(contractDTO.LeId);
+            UserDTO userDTO1 = userRepository.GetUserById(lesseeDTO.UId);
+            UserDTO userDTO2 = userRepository.GetUserById(lessorDTO.UId);
+            ContractInfomationDTO contractInfomationDTO = new ContractInfomationDTO
+            {
+                ConId = id,
+                HoId = houseRentDTO.HoId,
+                Area = houseRentDTO.Area,
+                LeId = contractDTO.LeId,
+                FullName1 = userDTO2.FullName,
+                CitizenIdentification1 = userDTO2.CitizenIdentification,
+                LesId = contractDTO.LesId,
+                FullName2 = userDTO1.FullName,
+                CitizenIdentification2 = userDTO1.CitizenIdentification,
+            };
+            return Ok(contractInfomationDTO);
         }
         [AuthorizationFilter]
         /*[Authorize(Roles = "Admin")]*/

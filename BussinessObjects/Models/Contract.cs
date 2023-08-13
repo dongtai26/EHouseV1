@@ -26,11 +26,11 @@ namespace BusinessObjects.Models
         [ForeignKey("AdId")]
         public virtual Admin Admin { get; set; }
         public bool? StatusAdminId { get; set; }
-        public int? LeId { get; set; }
+        public int LeId { get; set; }
         [ForeignKey("LeId")]
         public virtual Lessor Lessor { get; set; }
         public bool? StatusLessorId { get; set; }
-        public int? LesId { get; set; }
+        public int LesId { get; set; }
         [ForeignKey("LesId")]
         public virtual Lessee Lessee { get; set; }
     }

@@ -52,15 +52,17 @@ namespace Repositories
         {
             return contractDAO.GetContractByStatusLessorId(StatusLessorId).Select(m => Mapper.mapToDTO(m)).ToList();
         }
-
         public List<ContractDTO> GetContractsByLessorIdAndStutasLessorId(int id, bool StatusLessorId)
         {
             return contractDAO.GetContractsByLessorIdAndStutasLessorId(id, StatusLessorId).Select(m => Mapper.mapToDTO(m)).ToList();
         }
-
         public ContractDTO GetContractByLessorIdAndStutasLessorId(int id, bool StatusLessorId)
         {
             return Mapper.mapToDTO(contractDAO.GetContractByLessorIdAndStutasLessorId(id, StatusLessorId));
+        }
+        public ContractInfomationDTO GetInformationContractById(int id)
+        {
+            return Mapper.mapToDTOUInfomation(contractDAO.GetContactById(id));
         }
     }
 }

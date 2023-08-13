@@ -443,5 +443,10 @@ namespace EHouseAPI.Controllers
             countUserDTO.totalLessor = lessorRepository.CountTotalLessor();
             return Ok(countUserDTO);
         }
+/*        [HttpGet("GetFuleNameAndCccd")]
+        public async Task<IActionResult> GetFuleNameAndCccd(int id)
+        {
+            return Ok(userRepository.GetFuleNameAndCccd(id));
+        }*/
     }
 }

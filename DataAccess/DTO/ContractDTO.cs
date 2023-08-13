@@ -18,8 +18,8 @@ namespace DataAccess.DTO
         public float RentPrice { get; set; }
         public int? AdId { get; set; }
         public bool? StatusAdminId { get; set; }
-        public int? LeId { get; set; }
+        public int LeId { get; set; }
         public bool? StatusLessorId { get; set; }
-        public int? LesId { get; set; }
+        public int LesId { get; set; }
     }
 }

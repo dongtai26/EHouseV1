@@ -15,6 +15,7 @@ namespace Repositories
         List<ContractDTO> GetContractsByLessorIdAndStutasLessorId(int id, bool StatusLessorId);
         ContractDTO GetContractByLessorIdAndStutasLessorId(int id, bool StatusLessorId);
         ContractDTO GetContractById(int id);
+        ContractInfomationDTO GetInformationContractById(int id);
         List<ContractDTO> GetContractByLesseeId(int id);
         List<ContractDTO> GetContractByLessorId(int id);
         List<ContractDTO> GetContractByAdminId(int id);

@@ -37,6 +37,23 @@ namespace DataAccess.Util
                 return null;
             }
         }
+        public static UserFullNameAndCccdDTO mapToDTOIdNameAndCccd(User user)
+        {
+            if (user != null)
+            {
+                UserFullNameAndCccdDTO userDTO = new UserFullNameAndCccdDTO
+                {
+                    UId = user.UId,
+                    FullName = user.FullName,
+                    CitizenIdentification = user.CitizenIdentification
+                };
+                return userDTO;
+            }
+            else
+            {
+                return null;
+            }
+        }
         public static User mapToEntity(UserDTO userDTO)
         {
             User user = new User
@@ -299,6 +316,31 @@ namespace DataAccess.Util
                     LeId = contract.LeId,
                     StatusLessorId = contract.StatusLessorId,
                     LesId = contract.LesId
+                };
+                return contractDTO;
+            }
+            else
+            {
+                return null;
+            }
+        }
+        public static ContractInfomationDTO mapToDTOUInfomation(Contract contract)
+        {
+            User user = new User();
+            HouseRent houseRent = new HouseRent();
+            if (contract != null)
+            {
+                ContractInfomationDTO contractDTO = new ContractInfomationDTO
+                {
+                    ConId = contract.ConId,
+                    HoId = contract.HoId,
+                    Area = houseRent.Area,
+                    LeId = contract.LeId,
+                    FullName1 = user.FullName,
+                    CitizenIdentification1 = user.CitizenIdentification,
+                    LesId = contract.LesId,
+                    FullName2 = user.FullName,
+                    CitizenIdentification2 = user.CitizenIdentification
                 };
                 return contractDTO;
             }

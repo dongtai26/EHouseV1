@@ -13,6 +13,7 @@ namespace Repositories
         UserDTO GetUser(UserDTO userDTO);
         UserDTO GetUserById(int id);
         UserDTO GetLastUser();
+        UserFullNameAndCccdDTO GetFuleNameAndCccd(int id);
         List<UserDTO> GetUsers();
         void AddUser(UserDTO userDTO);
         void UpdateUser(UserDTO userDTO);

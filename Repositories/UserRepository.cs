@@ -83,5 +83,10 @@ namespace Repositories
         {
             return userDAO.CheckExistUsername(Mapper.mapToEntity(userDTO));
         }
+
+        public UserFullNameAndCccdDTO GetFuleNameAndCccd(int id)
+        {
+            return Mapper.mapToDTOIdNameAndCccd(userDAO.GetUserById(id));
+        }
     }
 }
