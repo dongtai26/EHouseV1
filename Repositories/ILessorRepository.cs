@@ -13,5 +13,6 @@ namespace Repositories
         void AddLessor(LessorDTO lessorDTO);
         void DeleteLessor(int id);
         LessorDTO GetLessorById(int id);
+        int CountTotalLessor();
     }
 }

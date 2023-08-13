@@ -356,5 +356,47 @@ namespace DataAccess
             }
             return houseRent;
         }
+        public int CountTotalHouseRent()
+        {
+            int n;
+            try
+            {
+                var db = new AppDbContext();
+                n = db.HouseRents.Count();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return n;
+        }
+        public int CountTotalHouseRentByStatusAreTrue()
+        {
+            int n;
+            try
+            {
+                var db = new AppDbContext();
+                n = db.HouseRents.Where(x => x.HouseStatus == true).Count();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return n;
+        }
+        public int CountTotalHouseRentByStatusAreFalse()
+        {
+            int n;
+            try
+            {
+                var db = new AppDbContext();
+                n = db.HouseRents.Where(x => x.HouseStatus == false).Count();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return n;
+        }
     }
 }

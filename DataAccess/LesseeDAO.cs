@@ -69,5 +69,19 @@ namespace DataAccess
             }
             return lessee;
         }
+        public int CountTotalLessee()
+        {
+            int n;
+            try
+            {
+                var db = new AppDbContext();
+                n = db.Lessees.Count();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return n;
+        }
     }
 }

@@ -106,5 +106,17 @@ namespace Repositories
         {
             return Mapper.mapToDTOAddress(HouseRentDAO.GetAddressHouseRentById(id));
         }
+        public int CountTotalHouseRent()
+        {
+            return HouseRentDAO.CountTotalHouseRent();
+        }
+        public int CountTotalHouseRentByStatusAreTrue()
+        {
+            return HouseRentDAO.CountTotalHouseRentByStatusAreTrue();
+        }
+        public int CountTotalHouseRentByStatusAreFalse()
+        {
+            return HouseRentDAO.CountTotalHouseRentByStatusAreFalse();
+        }
     }
 }
