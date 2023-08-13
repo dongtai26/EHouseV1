@@ -20,6 +20,11 @@ namespace Repositories
         void DeleteUser(int id);
         UserDTO Login(string username, string password);
         UserDTO ForgotPassword(string gmail, string username);
-        
+        int CountTotalUser();
+        bool CheckExistCitizenIdentification(UserDTO userDTO);
+        bool CheckExistPhoneNumber(UserDTO userDTO);
+        bool CheckExistGmail(UserDTO userDTO);
+        bool CheckExistUsername(UserDTO userDTO);
+
     }
 }

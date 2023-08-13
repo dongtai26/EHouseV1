@@ -76,10 +76,6 @@ namespace Repositories
         {
             return HouseRentDAO.GetHouseRentsByRestroom(restroom).Select(m => Mapper.mapToDTO(m)).ToList();
         }
-        public List<HouseRentDTO> FilterHouseRent(float minArea, float maxArea, float minRentPrice, float maxRentPrice, bool airConditioning, bool waterHeater, bool wifi, bool washingMachine, bool parking, bool refrigerator, bool kitchen, bool houseStatus)
-        {
-            return HouseRentDAO.FilterHouseRent(minArea, maxArea, minRentPrice, maxRentPrice, airConditioning, waterHeater, wifi, washingMachine, parking, refrigerator, kitchen, houseStatus).Select(m => Mapper.mapToDTO(m)).ToList();
-        }
         public List<HouseRentDTO> GetHouseRents()
         {
             return HouseRentDAO.GetHouseRents().Select(m => Mapper.mapToDTO(m)).ToList();
@@ -92,21 +88,13 @@ namespace Repositories
         {
             HouseRentDAO.UpdateHouseRent(Mapper.mapToEntity(houseRentDTO));
         }
-        public void UpdateStatus(int id, HouseStatusDTO houseStatussDTO)
+        public void UpdateAddress(HouseRentAddressDTO houseRentAddressDTO)
         {
-            HouseRentDAO.UpdateHouseRentStatus(id, Mapper.mapToEntityStasus(houseStatussDTO));
-        }
-        public void UpdateHouseAddress(int id, HouseRentAddressDTO houseRentAddressDTO)
-        {
-            HouseRentDAO.UpdateHouseRentAddress(id, Mapper.mapToEntityAddress(houseRentAddressDTO));
+            HouseRentDAO.UpdateHouseRent(Mapper.mapToEntityAddress(houseRentAddressDTO));
         }
         public HouseRentDTO GetHouseRentById(int id)
         {
             return Mapper.mapToDTO(HouseRentDAO.GetHouseRentById(id));
-        }
-        public HouseRentIdDTO GetHoidByName(string houseRentName)
-        {
-            return Mapper.mapToDTOHoid(HouseRentDAO.GetHouseRentsIdByName(houseRentName));
         }
 
         public List<HouseRentAddressDTO> GetAddress()
@@ -118,10 +106,17 @@ namespace Repositories
         {
             return Mapper.mapToDTOAddress(HouseRentDAO.GetAddressHouseRentById(id));
         }
-
-        public List<HouseRentDTO> GetHouseRentsByLessorIdAndHouseStatus(int id, bool houseStatus)
+        public int CountTotalHouseRent()
         {
-            return HouseRentDAO.GetHouseRentsByLessorIdAndHouseStatus(id, houseStatus).Select(m => Mapper.mapToDTO(m)).ToList();
+            return HouseRentDAO.CountTotalHouseRent();
+        }
+        public int CountTotalHouseRentByStatusAreTrue()
+        {
+            return HouseRentDAO.CountTotalHouseRentByStatusAreTrue();
+        }
+        public int CountTotalHouseRentByStatusAreFalse()
+        {
+            return HouseRentDAO.CountTotalHouseRentByStatusAreFalse();
         }
     }
 }

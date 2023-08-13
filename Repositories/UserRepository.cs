@@ -63,5 +63,25 @@ namespace Repositories
         {
             return Mapper.mapToDTO(userDAO.GetUserByRoleId(roleId));
         }
+        public int CountTotalUser()
+        {
+            return userDAO.CountTotalUser();
+        }
+        public bool CheckExistCitizenIdentification(UserDTO userDTO)
+        {
+            return userDAO.CheckExistCitizenIdentification(Mapper.mapToEntity(userDTO));
+        }
+        public bool CheckExistPhoneNumber(UserDTO userDTO)
+        {
+            return userDAO.CheckExistPhoneNumber(Mapper.mapToEntity(userDTO));
+        }
+        public bool CheckExistGmail(UserDTO userDTO)
+        {
+            return userDAO.CheckExistGmail(Mapper.mapToEntity(userDTO));
+        }
+        public bool CheckExistUsername(UserDTO userDTO)
+        {
+            return userDAO.CheckExistUsername(Mapper.mapToEntity(userDTO));
+        }
     }
 }

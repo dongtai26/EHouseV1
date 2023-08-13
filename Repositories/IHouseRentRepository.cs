@@ -36,5 +36,8 @@ namespace Repositories
         void UpdateStatus(int id, HouseStatusDTO houseStatussDTO);
         void UpdateHouseAddress(int id, HouseRentAddressDTO houseRentAddressDTO);
         void DeleteHouseRent(int id);
+        int CountTotalHouseRentByStatusAreFalse();
+        int CountTotalHouseRentByStatusAreTrue();
+        int CountTotalHouseRent();
     }
 }

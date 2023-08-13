@@ -151,40 +151,64 @@ namespace EHouseAPI.Controllers
         {
             try
             {
-                switch (user.RId)
+                string msg = "";
+                if(userRepository.CheckExistUsername(user))
                 {
-                    case 1:
-                        userRepository.AddUser(user);
-                        UserDTO lastUser = userRepository.GetLastUser();
-                        AdminDTO adminDTO = new AdminDTO
-                        {
-                            AdId = 0,
-                            UId = lastUser.UId
-                        };
-                        adminRepository.AddAdmin(adminDTO);
-                        break;
-                    case 2:
-                        userRepository.AddUser(user);
-                        UserDTO lastUser2 = userRepository.GetLastUser();
-                        LessorDTO lessorDTO = new LessorDTO
-                        {
-                            LeId = 0,
-                            UId = lastUser2.UId
-                        };
-                        lessorRepository.AddLessor(lessorDTO);
-                        break;
-                    case 3:
-                        userRepository.AddUser(user);
-                        UserDTO lastUser3 = userRepository.GetLastUser();
-                        LesseeDTO lesseeDTO = new LesseeDTO
-                        {
-                            LesId = 0,
-                            UId = lastUser3.UId
-                        };
-                        lesseeRepository.AddLessee(lesseeDTO);
-                        break;
+                    msg = "Username already exists\n";
                 }
-                return Ok("SUCCESS");
+                if(userRepository.CheckExistGmail(user))
+                {
+                    msg += "Gmail already exists\n";
+                }
+                if(userRepository.CheckExistPhoneNumber(user))
+                {
+                    msg += "PhoneNumber already exists\n";
+                }
+                if(userRepository.CheckExistCitizenIdentification(user))
+                {
+                    msg += "CitizenIdentification already exists";
+                }
+                if(userRepository.CheckExistUsername(user) == false || userRepository.CheckExistGmail(user) == false || userRepository.CheckExistPhoneNumber(user) == false || userRepository.CheckExistCitizenIdentification(user) == false)
+                {
+                    msg = "SUCCESS";
+                    switch (user.RId)
+                    {
+                        case 1:
+                            userRepository.AddUser(user);
+                            UserDTO lastUser = userRepository.GetLastUser();
+                            AdminDTO adminDTO = new AdminDTO
+                            {
+                                AdId = 0,
+                                UId = lastUser.UId
+                            };
+                            adminRepository.AddAdmin(adminDTO);
+                            break;
+                        case 2:
+                            userRepository.AddUser(user);
+                            UserDTO lastUser2 = userRepository.GetLastUser();
+                            LessorDTO lessorDTO = new LessorDTO
+                            {
+                                LeId = 0,
+                                UId = lastUser2.UId
+                            };
+                            lessorRepository.AddLessor(lessorDTO);
+                            break;
+                        case 3:
+                            userRepository.AddUser(user);
+                            UserDTO lastUser3 = userRepository.GetLastUser();
+                            LesseeDTO lesseeDTO = new LesseeDTO
+                            {
+                                LesId = 0,
+                                UId = lastUser3.UId
+                            };
+                            lesseeRepository.AddLessee(lesseeDTO);
+                            break;
+                    }
+                }
+                else
+                {
+                }
+                return Ok(msg);
             }
             catch (Exception e)
             {
@@ -409,6 +433,15 @@ namespace EHouseAPI.Controllers
             {
                 return BadRequest(e.Message);
             }
+        }
+        [HttpGet("StatisticUser")]
+        public async Task<IActionResult> StatisticUser()
+        {
+            CountUserDTO countUserDTO = new();
+            countUserDTO.totalUser = userRepository.CountTotalUser();
+            countUserDTO.totalLessee = lesseeRepository.CountTotalLessee();
+            countUserDTO.totalLessor = lessorRepository.CountTotalLessor();
+            return Ok(countUserDTO);
         }
     }
 }

@@ -193,5 +193,87 @@ namespace DataAccess
             }
             return user;
         }
+        public int CountTotalUser()
+        {
+            int n;
+            try
+            {
+                var db = new AppDbContext();
+                n = db.Lessees.Count() + db.Lessors.Count();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return n;
+        }
+        public bool CheckExistCitizenIdentification(User user)
+        {
+            bool flag = false;
+            try
+            {
+                var db = new AppDbContext();
+                if(db.Users.Where(x => x.CitizenIdentification == user.CitizenIdentification).Any())
+                {
+                    flag = true;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return flag;
+        }
+        public bool CheckExistPhoneNumber(User user)
+        {
+            bool flag = false;
+            try
+            {
+                var db = new AppDbContext();
+                if (db.Users.Where(x => x.PhoneNumber == user.PhoneNumber).Any())
+                {
+                    flag = true;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return flag;
+        }
+        public bool CheckExistGmail(User user)
+        {
+            bool flag = false;
+            try
+            {
+                var db = new AppDbContext();
+                if (db.Users.Where(x => x.Gmail == user.Gmail).Any())
+                {
+                    flag = true;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return flag;
+        }
+        public bool CheckExistUsername(User user)
+        {
+            bool flag = false;
+            try
+            {
+                var db = new AppDbContext();
+                if (db.Users.Where(x => x.Username == user.Username).Any())
+                {
+                    flag = true;
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return flag;
+        }
     }
 }

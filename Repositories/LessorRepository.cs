@@ -30,9 +30,9 @@ namespace Repositories
         {
             return Mapper.mapToDTO(lessorDAO.GetLessorByUserId(id));
         }
-        public LessorDTO GetLessorByLessorId(int id)
+        public int CountTotalLessor()
         {
-            return Mapper.mapToDTO(lessorDAO.GetLessorByLessorId(id));
+            return lessorDAO.CountTotalLessor();
         }
     }
 }

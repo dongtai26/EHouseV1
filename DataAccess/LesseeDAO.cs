@@ -69,19 +69,19 @@ namespace DataAccess
             }
             return lessee;
         }
-        public Lessee GetLesseeByLesseeId(int id)
+        public int CountTotalLessee()
         {
-            Lessee lessee = new Lessee();
+            int n;
             try
             {
                 var db = new AppDbContext();
-                lessee = db.Lessees.SingleOrDefault(x => x.LesId == id);
+                n = db.Lessees.Count();
             }
             catch (Exception e)
             {
                 throw new Exception(e.Message);
             }
-            return lessee;
+            return n;
         }
     }
 }
