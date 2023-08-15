@@ -24,7 +24,7 @@ namespace EHouseAPI.Controllers
             this.lesseeRepository = lesseeRepository;
             this.lessorRepository = lessorRepository;
         }
-        /*[AuthorizationFilter]*/
+        [AuthorizationFilter]
         /*[Authorize(Roles = "Admin")]*/
         [HttpGet("GetContracts")]
         public async Task<IActionResult> GetContracts()
@@ -70,7 +70,7 @@ namespace EHouseAPI.Controllers
         {
             return Ok(contractRepository.GetContractByLesseeId(id));
         }
-       /* [AuthorizationFilter]*/
+        [AuthorizationFilter]
         /*[Authorize(Roles = "Admin")]*/
         [HttpGet("GetContractsByLessorId/{id}")]
         public async Task<IActionResult> GetContractsByLessorId(int id)
@@ -112,7 +112,7 @@ namespace EHouseAPI.Controllers
         {
             return Ok(contractRepository.GetContractByLessorIdAndStutasLessorId(id, StatusLessorId));
         }
-        /*[AuthorizationFilter]*/
+        [AuthorizationFilter]
         /*[Authorize(Roles = "Admin")]*/
         [HttpPost("AddContract")]
         public async Task<IActionResult> AddContract(ContractDTO contract)

@@ -168,7 +168,7 @@ namespace EHouseAPI.Controllers
                 {
                     msg += "CitizenIdentification already exists";
                 }
-                if(userRepository.CheckExistUsername(user) == false || userRepository.CheckExistGmail(user) == false || userRepository.CheckExistPhoneNumber(user) == false || userRepository.CheckExistCitizenIdentification(user) == false)
+                if(userRepository.CheckExistUsername(user) == false && userRepository.CheckExistGmail(user) == false && userRepository.CheckExistPhoneNumber(user) == false && userRepository.CheckExistCitizenIdentification(user) == false)
                 {
                     msg = "SUCCESS";
                     switch (user.RId)

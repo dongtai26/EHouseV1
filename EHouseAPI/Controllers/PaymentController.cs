@@ -20,13 +20,13 @@ namespace EHouseAPI.Controllers
         {
             this.paymentRepository = paymentRepository;
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         [HttpPost("CreateOrder")]
         public async Task<CreateOrderResponse> CreateOrder(CreateOrderRequest request)
         {
             return await paymentRepository.CreateOrder(request);
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         [HttpPost("CheckOrder")]
         public async Task<CheckOrderResponse> CheckOrder(CheckOrderRequest request)
         {
