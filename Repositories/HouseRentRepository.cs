@@ -122,26 +122,24 @@ namespace Repositories
         {
             return HouseRentDAO.CountTotalHouseRentByStatusAreFalse();
         }
-
-
         public List<HouseRentDTO> FilterHouseRent(float minArea, float maxArea, float minRentPrice, float maxRentPrice, bool airConditioning, bool waterHeater, bool wifi, bool washingMachine, bool parking, bool refrigerator, bool kitchen, bool houseStatus)
         {
-            throw new NotImplementedException();
+            return HouseRentDAO.FilterHouseRent(minArea, maxArea, minRentPrice, maxRentPrice, airConditioning, waterHeater, wifi, washingMachine, parking, refrigerator, kitchen, houseStatus).Select(m => Mapper.mapToDTO(m)).ToList();
         }
 
         public HouseRentIdDTO GetHoidByName(string houseRentName)
         {
-            throw new NotImplementedException();
+            return Mapper.mapToDTOHoid(HouseRentDAO.GetHouseRentsIdByName(houseRentName));
         }
 
         public void UpdateStatus(int id, HouseStatusDTO houseStatussDTO)
         {
-            throw new NotImplementedException();
+            HouseRentDAO.UpdateHouseRentStatus(id, Mapper.mapToEntityStasus(houseStatussDTO));
         }
 
         public void UpdateHouseAddress(int id, HouseRentAddressDTO houseRentAddressDTO)
         {
-            throw new NotImplementedException();
+            HouseRentDAO.UpdateHouseRentAddress(id, Mapper.mapToEntityAddress(houseRentAddressDTO));
         }
     }
 }
