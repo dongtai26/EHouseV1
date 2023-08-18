@@ -64,5 +64,9 @@ namespace Repositories
         {
             return Mapper.mapToDTOUInfomation(contractDAO.GetContactById(id));
         }
+        public int CountContractByLessorId(int id)
+        {
+            return contractDAO.CountContractByLessorId(id);
+        }
     }
 }

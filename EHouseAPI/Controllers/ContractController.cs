@@ -158,5 +158,10 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
+        [HttpGet("CountContractByLessorId")]
+        public async Task<IActionResult> CountContractByLessorId(int id)
+        {
+            return Ok(CountContractByLessorId(id));
+        }
     }
 }

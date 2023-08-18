@@ -188,5 +188,19 @@ namespace DataAccess
             }
             return contract;
         }
+        public int CountContractByLessorId(int id)
+        {
+            int n;
+            try
+            {
+                var db = new AppDbContext();
+                n = db.Contracts.Where(x => x.LeId == id).Count();
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return n;
+        }
     }
 }

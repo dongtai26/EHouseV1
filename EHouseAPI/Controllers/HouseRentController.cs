@@ -257,5 +257,10 @@ namespace EHouseAPI.Controllers
             countHouseRentDTO.totalHouseRentAreFalse = houseRentRepository.CountTotalHouseRentByStatusAreFalse();
             return Ok(countHouseRentDTO);
         }
+        [HttpGet("CountHouseRentByLessorId")]
+        public async Task<IActionResult> CountHouseRentByLessorId(int id)
+        {
+            return Ok(CountHouseRentByLessorId(id));
+        }
     }
 }

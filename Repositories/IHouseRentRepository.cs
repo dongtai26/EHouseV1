@@ -39,5 +39,6 @@ namespace Repositories
         int CountTotalHouseRentByStatusAreFalse();
         int CountTotalHouseRentByStatusAreTrue();
         int CountTotalHouseRent();
+        int CountHouseRentByLessorId(int id);
     }
 }
