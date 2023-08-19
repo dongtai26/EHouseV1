@@ -159,6 +159,26 @@ namespace DataAccess
             }
             return p;
         }
+        public User FindUserByUsername(string username)
+        {
+            var p = new User();
+            try
+            {
+                using (var context = new AppDbContext())
+                {
+                    p = context.Users.Include(m => m.Role).SingleOrDefault(x => x.Username == username);
+                    if (p == null)
+                    {
+                        throw new Exception("Username not exist");
+                    }
+                }
+            }
+            catch (Exception e)
+            {
+                throw new Exception(e.Message);
+            }
+            return p;
+        }
         public User FindUserByUsernameAndGmail(string gmail, string username)
         {
             var p = new User();

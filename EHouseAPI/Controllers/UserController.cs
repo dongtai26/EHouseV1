@@ -149,6 +149,7 @@ namespace EHouseAPI.Controllers
         [HttpPost("Register")]
         public async Task<IActionResult> Register(UserDTO user)
         {
+            int costParameter = 12;
             try
             {
                 string msg = "";
@@ -174,6 +175,7 @@ namespace EHouseAPI.Controllers
                     switch (user.RId)
                     {
                         case 1:
+                            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password, costParameter);
                             userRepository.AddUser(user);
                             UserDTO lastUser = userRepository.GetLastUser();
                             AdminDTO adminDTO = new AdminDTO
@@ -184,6 +186,7 @@ namespace EHouseAPI.Controllers
                             adminRepository.AddAdmin(adminDTO);
                             break;
                         case 2:
+                            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password, costParameter);
                             userRepository.AddUser(user);
                             UserDTO lastUser2 = userRepository.GetLastUser();
                             LessorDTO lessorDTO = new LessorDTO
@@ -194,6 +197,7 @@ namespace EHouseAPI.Controllers
                             lessorRepository.AddLessor(lessorDTO);
                             break;
                         case 3:
+                            user.Password = BCrypt.Net.BCrypt.HashPassword(user.Password, costParameter);
                             userRepository.AddUser(user);
                             UserDTO lastUser3 = userRepository.GetLastUser();
                             LesseeDTO lesseeDTO = new LesseeDTO
@@ -347,26 +351,32 @@ namespace EHouseAPI.Controllers
         {
             try
             {
-                UserDTO userDTO = userRepository.Login(user.Username, user.Password);
-                string token = tokenManager.GenerateNewToken(userDTO);
-                if (tokenManager.GetUserValidTokenStorage(userDTO.UId) == null)
+                UserDTO userDTO = userRepository.GetUserByUsername(user.Username);
+                if (BCrypt.Net.BCrypt.Verify(user.Password, userDTO.Password))
                 {
-                    tokenManager.AddUserValidTokenStorage(userDTO.UId);
-                }
-                tokenManager.SaveToken(userDTO.UId, token);
-                HttpContext.Response.Cookies.Append("token", token,
-                    new CookieOptions
+                    string token = tokenManager.GenerateNewToken(userDTO);
+                    if (tokenManager.GetUserValidTokenStorage(userDTO.UId) == null)
                     {
-                        Expires = DateTime.Now.AddDays(1),
-                        Secure = true,
-                        HttpOnly = true,
-                        IsEssential = true,
-                        SameSite = SameSiteMode.None
+                        tokenManager.AddUserValidTokenStorage(userDTO.UId);
+                    }
+                    tokenManager.SaveToken(userDTO.UId, token);
+                    HttpContext.Response.Cookies.Append("token", token,
+                        new CookieOptions
+                        {
+                            Expires = DateTime.Now.AddDays(1),
+                            Secure = true,
+                            HttpOnly = true,
+                            IsEssential = true,
+                            SameSite = SameSiteMode.None
+                        });
+                    return Ok(new
+                    {
+                        token = "bearer " + token
                     });
-                return Ok(new
+                } else
                 {
-                    token = "bearer " + token
-                });
+                    return Ok("Wrong password");
+                }
             }
             catch (Exception e)
             {
@@ -408,13 +418,21 @@ namespace EHouseAPI.Controllers
         [HttpPost("ChangePassword")]
         public async Task<IActionResult> ChangePassword(string username, string password, string newPassword, string confirmNewPassword)
         {
+            int costParameter = 12;
             try
             {
-                UserDTO user = userRepository.Login(username, password);
-                if (!confirmNewPassword.Equals(newPassword)) throw new Exception("Confirm password not match with new password");
-                user.Password = newPassword;
-                userRepository.UpdateUser(user);
-                return Ok(user);
+                UserDTO user = userRepository.GetUserByUsername(username);
+                if (BCrypt.Net.BCrypt.Verify(password, user.Password))
+                {
+                    if (!confirmNewPassword.Equals(newPassword)) throw new Exception("Confirm password not match with new password");
+                    user.Password = BCrypt.Net.BCrypt.HashPassword(newPassword, costParameter); ;
+                    userRepository.UpdateUser(user);
+                    return Ok("Change password success");
+                }
+                else
+                {
+                    return Ok("Wrong password");
+                }
             }
             catch (Exception e)
             {
