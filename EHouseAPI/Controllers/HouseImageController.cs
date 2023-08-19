@@ -89,7 +89,7 @@ namespace EHouseAPI.Controllers
                         return BadRequest(e.Message);
                     }
                 }*/
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor")]*/
         [HttpPut("UpdateHouseImage")]
         public async Task<IActionResult> UpdateHouseImage(HouseImageDTO houseImage)
@@ -104,7 +104,7 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor")]*/
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeleteHouseImage(int id)

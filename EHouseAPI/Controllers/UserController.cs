@@ -287,7 +287,7 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [AuthorizationFilter]
+        /*[AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpPut("UpdateAvatar/{id}")]
         public async Task<IActionResult> UpdateAvatar(int id, UserAvatarDTO userAvatarDTO)
