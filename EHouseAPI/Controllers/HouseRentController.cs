@@ -260,7 +260,9 @@ namespace EHouseAPI.Controllers
         [HttpGet("CountHouseRentByLessorId")]
         public async Task<IActionResult> CountHouseRentByLessorId(int id)
         {
-            return Ok(houseRentRepository.CountHouseRentByLessorId(id));
+            NumDTO numDTO = new NumDTO();
+            numDTO.Num = houseRentRepository.CountHouseRentByLessorId(id);
+            return Ok(numDTO);
         }
     }
 }
