@@ -247,7 +247,7 @@ namespace DataAccess
             try
             {
                 var db = new AppDbContext();
-                if (db.Users.Where(x => x.Gmail == user.Gmail).Any())
+                if (db.Users.Where(x => x.Gmail == user.Gmail || x.Gmail.Contains(",Unverified")).Any())
                 {
                     flag = true;
                 }

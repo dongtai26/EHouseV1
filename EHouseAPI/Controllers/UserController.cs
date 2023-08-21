@@ -1,4 +1,6 @@
-﻿using DataAccess.DTO;
+﻿using Azure;
+using Azure.Communication.Email;
+using DataAccess.DTO;
 using EHouseAPI.Filter;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
@@ -170,7 +172,22 @@ namespace EHouseAPI.Controllers
                 }
                 if(userRepository.CheckExistUsername(user) == false && userRepository.CheckExistGmail(user) == false && userRepository.CheckExistPhoneNumber(user) == false && userRepository.CheckExistCitizenIdentification(user) == false)
                 {
-                    msg = "SUCCESS";
+                    msg = "SUCCESS, plese verify your email";
+                    var key = new AzureKeyCredential("VDBDO5zwKZwoi2fMatge9ErkKZliDS2jd8ofI+C6aIJ+XsXtoriRZ/0Cb3NzxKlD5ARI1ue21qKyCSFQkbHlvw==");
+                    var endpoint = new Uri("https://communicationserviceehouse.unitedstates.communication.azure.com");
+                    var emailClient = new EmailClient(endpoint, key);
+                    var sender = "donotreply@c845cb18-50c4-4a76-90b9-459b2314e925.azurecomm.net";
+                    var recipient = user.Gmail;
+                    var subject = "Verify Email For Ehouse System";
+                    var htmlContent = "Verify Link";
+                    EmailSendOperation emailSendOperation = await emailClient.SendAsync(
+                        Azure.WaitUntil.Completed,
+                        sender,
+                        recipient,
+                        subject,
+                        htmlContent);
+                    EmailSendResult statusMonitor = emailSendOperation.Value;
+                    user.Gmail = user.Gmail.Replace(user.Gmail, $"{user.Gmail},Unverified");
                     switch (user.RId)
                     {
                         case 1:
@@ -348,31 +365,53 @@ namespace EHouseAPI.Controllers
             try
             {
                 UserDTO userDTO = userRepository.Login(user.Username, user.Password);
-                string token = tokenManager.GenerateNewToken(userDTO);
-                if (tokenManager.GetUserValidTokenStorage(userDTO.UId) == null)
-                {
-                    tokenManager.AddUserValidTokenStorage(userDTO.UId);
-                }
-                tokenManager.SaveToken(userDTO.UId, token);
-                HttpContext.Response.Cookies.Append("token", token,
-                    new CookieOptions
+                if(!userDTO.Gmail.Contains(",Unverified")) {
+                    string token = tokenManager.GenerateNewToken(userDTO);
+                    if (tokenManager.GetUserValidTokenStorage(userDTO.UId) == null)
                     {
-                        Expires = DateTime.Now.AddDays(1),
-                        Secure = true,
-                        HttpOnly = true,
-                        IsEssential = true,
-                        SameSite = SameSiteMode.None
+                        tokenManager.AddUserValidTokenStorage(userDTO.UId);
+                    }
+                    tokenManager.SaveToken(userDTO.UId, token);
+                    HttpContext.Response.Cookies.Append("token", token,
+                        new CookieOptions
+                        {
+                            Expires = DateTime.Now.AddDays(1),
+                            Secure = true,
+                            HttpOnly = true,
+                            IsEssential = true,
+                            SameSite = SameSiteMode.None
+                        });
+                    return Ok(new
+                    {
+                        token = "bearer " + token
                     });
-                return Ok(new
+                } else
                 {
-                    token = "bearer " + token
-                });
+                    return Ok("Your account need to verify gmail first");
+                }
             }
             catch (Exception e)
             {
                 return BadRequest(e.Message);
             }   
         }
+        [HttpPost("VerifyEmail")]
+        public async Task<IActionResult> VerifyEmail(int id)
+        {
+            try
+            {
+                UserDTO user = userRepository.GetUserById(id);
+                user.Gmail = user.Gmail.Replace(",Unverified", "");
+                userRepository.UpdateUser(user);
+                return Ok("Verify email success");
+
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+
         [AuthorizationFilter]
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpGet("Logout")]
@@ -421,13 +460,76 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [HttpPost("ForgotPassowrd")]
-        public async Task<IActionResult> ForgotPassowrd(string gmail, string username)
+        [HttpPost("ForgotPasswordRequest")]
+        public async Task<IActionResult> ForgotPasswordRequest(int id)
         {
             try
             {
-                UserDTO user = userRepository.ForgotPassword(gmail, username);
-                return Ok("Your Password is: " +user.Password);
+                UserDTO user = userRepository.GetUserById(id);
+                var key = new AzureKeyCredential("VDBDO5zwKZwoi2fMatge9ErkKZliDS2jd8ofI+C6aIJ+XsXtoriRZ/0Cb3NzxKlD5ARI1ue21qKyCSFQkbHlvw==");
+                var endpoint = new Uri("https://communicationserviceehouse.unitedstates.communication.azure.com");
+                var emailClient = new EmailClient(endpoint, key);
+                var sender = "donotreply@c845cb18-50c4-4a76-90b9-459b2314e925.azurecomm.net";
+                var recipient = user.Gmail;
+                var subject = "Forgot password request From Ehouse System";
+                var htmlContent = "Forgot Password Link";
+                EmailSendOperation emailSendOperation = await emailClient.SendAsync(
+                    Azure.WaitUntil.Completed,
+                    sender,
+                    recipient,
+                    subject,
+                    htmlContent);
+                EmailSendResult statusMonitor = emailSendOperation.Value;
+                return Ok("Forgot password request success, go to your gmail to change your password");
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpPost("ForgotPassword")]
+        public async Task<IActionResult> ChangePassword(int id, string newPassword, string confirmNewPassword)
+        {
+            try
+            {
+                UserDTO user = userRepository.GetUserById(id);
+                if(newPassword != confirmNewPassword)
+                {
+                    return Ok("New password not match with confirm new password");
+                }
+                else
+                {
+                    user.Password = newPassword;
+                    userRepository.UpdateUser(user);
+                    return Ok("Forgot password success");
+                }
+            }
+            catch (Exception e)
+            {
+                return BadRequest(e.Message);
+            }
+        }
+        [HttpPost("SendEmail")]
+        public async Task<IActionResult> SendEmail(string subject, string htmlContent, string recipient)
+        {
+            try
+            {
+                var key = new AzureKeyCredential("VDBDO5zwKZwoi2fMatge9ErkKZliDS2jd8ofI+C6aIJ+XsXtoriRZ/0Cb3NzxKlD5ARI1ue21qKyCSFQkbHlvw==");
+                var endpoint = new Uri("https://communicationserviceehouse.unitedstates.communication.azure.com");
+                var emailClient = new EmailClient(endpoint, key);
+                var sender = "donotreply@c845cb18-50c4-4a76-90b9-459b2314e925.azurecomm.net";
+                EmailSendOperation emailSendOperation = await emailClient.SendAsync(
+                    Azure.WaitUntil.Completed,
+                    sender,
+                    recipient,
+                    subject,
+                    htmlContent);
+                EmailSendResult statusMonitor = emailSendOperation.Value;
+                return Ok($"Email Sent. Status = {emailSendOperation.Value.Status}");
+
+                /// Get the OperationId so that it can be used for tracking the message for troubleshooting
+/*                string operationId = emailSendOperation.Id;
+                Console.WriteLine($"Email operation id = {operationId}");*/
             }
             catch (Exception e)
             {
