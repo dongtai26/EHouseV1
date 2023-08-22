@@ -319,7 +319,7 @@ namespace EHouseAPI.Controllers
                 return BadRequest(e.Message);
             }
         }
-        [AuthorizationFilter]
+/*        [AuthorizationFilter]*/
         /*[Authorize(Roles = "Lessor, Admin, Lessee")]*/
         [HttpDelete("Delete/{id}")]
         public async Task<IActionResult> DeleteUser(int id)
