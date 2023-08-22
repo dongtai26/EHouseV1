@@ -154,19 +154,19 @@ namespace EHouseAPI.Controllers
                 string msg = "";
                 if(userRepository.CheckExistUsername(user))
                 {
-                    msg = "Username already exists\n";
+                    msg = "Tên đăng nhập đã tồn tại\n";
                 }
                 if(userRepository.CheckExistGmail(user))
                 {
-                    msg += "Gmail already exists\n";
+                    msg += "Gmail đã tồn tại\n";
                 }
                 if(userRepository.CheckExistPhoneNumber(user))
                 {
-                    msg += "PhoneNumber already exists\n";
+                    msg += "Số điện thoại đã tồn tại\n";
                 }
                 if(userRepository.CheckExistCitizenIdentification(user))
                 {
-                    msg += "CitizenIdentification already exists";
+                    msg += "Căn cước công dân đã tồn tại";
                 }
                 if(userRepository.CheckExistUsername(user) == false && userRepository.CheckExistGmail(user) == false && userRepository.CheckExistPhoneNumber(user) == false && userRepository.CheckExistCitizenIdentification(user) == false)
                 {
