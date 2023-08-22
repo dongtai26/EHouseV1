@@ -179,7 +179,7 @@ namespace EHouseAPI.Controllers
                     var sender = "donotreply@c845cb18-50c4-4a76-90b9-459b2314e925.azurecomm.net";
                     var recipient = user.Gmail;
                     var subject = "Verify Email For Ehouse System";
-                    var htmlContent = "Verify Link";
+                    var htmlContent = $"https://ehomesystem.vercel.app/successfully?Uid={user.UId}";
                     EmailSendOperation emailSendOperation = await emailClient.SendAsync(
                         Azure.WaitUntil.Completed,
                         sender,
