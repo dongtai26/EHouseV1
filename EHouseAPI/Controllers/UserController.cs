@@ -173,20 +173,6 @@ namespace EHouseAPI.Controllers
                 if(userRepository.CheckExistUsername(user) == false && userRepository.CheckExistGmail(user) == false && userRepository.CheckExistPhoneNumber(user) == false && userRepository.CheckExistCitizenIdentification(user) == false)
                 {
                     msg = "SUCCESS, plese verify your email";
-                    var key = new AzureKeyCredential("VDBDO5zwKZwoi2fMatge9ErkKZliDS2jd8ofI+C6aIJ+XsXtoriRZ/0Cb3NzxKlD5ARI1ue21qKyCSFQkbHlvw==");
-                    var endpoint = new Uri("https://communicationserviceehouse.unitedstates.communication.azure.com");
-                    var emailClient = new EmailClient(endpoint, key);
-                    var sender = "donotreply@c845cb18-50c4-4a76-90b9-459b2314e925.azurecomm.net";
-                    var recipient = user.Gmail;
-                    var subject = "Verify Email For Ehouse System";
-                    var htmlContent = $"https://ehomesystem.vercel.app/successfully?Uid={user.UId}";
-                    EmailSendOperation emailSendOperation = await emailClient.SendAsync(
-                        Azure.WaitUntil.Completed,
-                        sender,
-                        recipient,
-                        subject,
-                        htmlContent);
-                    EmailSendResult statusMonitor = emailSendOperation.Value;
                     user.Gmail = user.Gmail.Replace(user.Gmail, $"{user.Gmail},Unverified");
                     switch (user.RId)
                     {
@@ -221,6 +207,20 @@ namespace EHouseAPI.Controllers
                             lesseeRepository.AddLessee(lesseeDTO);
                             break;
                     }
+                    var key = new AzureKeyCredential("VDBDO5zwKZwoi2fMatge9ErkKZliDS2jd8ofI+C6aIJ+XsXtoriRZ/0Cb3NzxKlD5ARI1ue21qKyCSFQkbHlvw==");
+                    var endpoint = new Uri("https://communicationserviceehouse.unitedstates.communication.azure.com");
+                    var emailClient = new EmailClient(endpoint, key);
+                    var sender = "donotreply@c845cb18-50c4-4a76-90b9-459b2314e925.azurecomm.net";
+                    var recipient = user.Gmail.Replace(",Unverified", "");
+                    var subject = "Verify Email For Ehouse System";
+                    var htmlContent = $"https://ehomesystem.vercel.app/successfully?Uid={userRepository.GetLastUser().UId}";
+                    EmailSendOperation emailSendOperation = await emailClient.SendAsync(
+                        Azure.WaitUntil.Completed,
+                        sender,
+                        recipient,
+                        subject,
+                        htmlContent);
+                    EmailSendResult statusMonitor = emailSendOperation.Value;
                 }
                 else
                 {
