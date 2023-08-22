@@ -472,7 +472,7 @@ namespace EHouseAPI.Controllers
                 var sender = "donotreply@c845cb18-50c4-4a76-90b9-459b2314e925.azurecomm.net";
                 var recipient = user.Gmail;
                 var subject = "Forgot password request From Ehouse System";
-                var htmlContent = "Forgot Password Link";
+                var htmlContent = $"https://ehomesystem.vercel.app/pages/other-pages/forgot-pass-verify?Uid={user.UId}";
                 EmailSendOperation emailSendOperation = await emailClient.SendAsync(
                     Azure.WaitUntil.Completed,
                     sender,
