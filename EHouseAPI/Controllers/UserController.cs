@@ -461,11 +461,11 @@ namespace EHouseAPI.Controllers
             }
         }
         [HttpPost("ForgotPasswordRequest")]
-        public async Task<IActionResult> ForgotPasswordRequest(int id)
+        public async Task<IActionResult> ForgotPasswordRequest(string username, string gmail)
         {
             try
             {
-                UserDTO user = userRepository.GetUserById(id);
+                UserDTO user = userRepository.ForgotPassword(gmail, username);
                 var key = new AzureKeyCredential("VDBDO5zwKZwoi2fMatge9ErkKZliDS2jd8ofI+C6aIJ+XsXtoriRZ/0Cb3NzxKlD5ARI1ue21qKyCSFQkbHlvw==");
                 var endpoint = new Uri("https://communicationserviceehouse.unitedstates.communication.azure.com");
                 var emailClient = new EmailClient(endpoint, key);
